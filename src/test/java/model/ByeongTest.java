@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+
+import model.position.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

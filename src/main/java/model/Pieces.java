@@ -1,5 +1,7 @@
 package model;
 
+import model.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

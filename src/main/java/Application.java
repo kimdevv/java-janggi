@@ -1,7 +1,7 @@
 import java.util.Optional;
 import model.Piece;
 import model.Pieces;
-import model.Position;
+import model.position.Position;
 import view.InputView;
 import view.OutputView;
 

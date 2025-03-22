@@ -1,5 +1,7 @@
 package model;
 
+import model.position.Position;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -24,73 +26,73 @@ public class Horse extends Piece {
     }
 
     private List<Position> findUpLeft() {
-        if (position.canChangeOfColumn(-1) && position.canChangeOfColumnAndRow(-2, -1)) {
+        if (position.canChangeOfColumn(-1) && position.canChangeOfRowAndColumn(-2, -1)) {
             return List.of(
                 position.changeColumn(-1),
-                position.changeColumnAndRow(-2, -1));
+                position.changeRowAndColumn(-2, -1));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findUpRight() {
-        if (position.canChangeOfColumn(-1) && position.canChangeOfColumnAndRow(-2, 1)) {
+        if (position.canChangeOfColumn(-1) && position.canChangeOfRowAndColumn(-2, 1)) {
             return List.of(
                 position.changeColumn(-1),
-                position.changeColumnAndRow(-2, 1));
+                position.changeRowAndColumn(-2, 1));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findLeftUp() {
-        if (position.canChangeOfRow(-1) && position.canChangeOfColumnAndRow(-1, -2)) {
+        if (position.canChangeOfRow(-1) && position.canChangeOfRowAndColumn(-1, -2)) {
             return List.of(
                 position.changeRow(-1),
-                position.changeColumnAndRow(-1, -2));
+                position.changeRowAndColumn(-1, -2));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findLeftDown() {
-        if (position.canChangeOfRow(-1) && position.canChangeOfColumnAndRow(1, -2)) {
+        if (position.canChangeOfRow(-1) && position.canChangeOfRowAndColumn(1, -2)) {
             return List.of(
                 position.changeRow(-1),
-                position.changeColumnAndRow(1, -2));
+                position.changeRowAndColumn(1, -2));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findRightUp() {
-        if (position.canChangeOfRow(1) && position.canChangeOfColumnAndRow(-1, 2)) {
+        if (position.canChangeOfRow(1) && position.canChangeOfRowAndColumn(-1, 2)) {
             return List.of(
                 position.changeRow(1),
-                position.changeColumnAndRow(-1, 2));
+                position.changeRowAndColumn(-1, 2));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findRightDown() {
-        if (position.canChangeOfRow(1) && position.canChangeOfColumnAndRow(1, 2)) {
+        if (position.canChangeOfRow(1) && position.canChangeOfRowAndColumn(1, 2)) {
             return List.of(
                 position.changeRow(1),
-                position.changeColumnAndRow(1, 2));
+                position.changeRowAndColumn(1, 2));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findDownLeft() {
-        if (position.canChangeOfColumn(1) && position.canChangeOfColumnAndRow(2, -1)) {
+        if (position.canChangeOfColumn(1) && position.canChangeOfRowAndColumn(2, -1)) {
             return List.of(
                 position.changeColumn(1),
-                position.changeColumnAndRow(2, -1));
+                position.changeRowAndColumn(2, -1));
         }
         return Collections.emptyList();
     }
 
     private List<Position> findDownRight() {
-        if (position.canChangeOfColumn(1) && position.canChangeOfColumnAndRow(2, 1)) {
+        if (position.canChangeOfColumn(1) && position.canChangeOfRowAndColumn(2, 1)) {
             return List.of(
                 position.changeColumn(1),
-                position.changeColumnAndRow(2, 1));
+                position.changeRowAndColumn(2, 1));
         }
         return Collections.emptyList();
     }

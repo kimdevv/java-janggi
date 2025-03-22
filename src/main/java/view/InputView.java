@@ -1,7 +1,6 @@
 package view;
 
 import model.Piece;
-import model.Position;
 
 import java.util.Scanner;
 
