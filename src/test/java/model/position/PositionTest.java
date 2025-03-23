@@ -82,4 +82,24 @@ class PositionTest {
         // When & Then
         assertThat(position.changeRowAndColumn(2, 1)).isEqualTo(new Position(7, 6));
     }
+
+    @Test
+    void 두_Position의_행_차이를_계산한다() {
+        // Given
+        Position position1 = new Position(5, 3);
+        Position position2 = new Position(2, 1);
+
+        // When & Then
+        assertThat(position1.calculateRowDifference(position2)).isEqualTo(3);
+    }
+
+    @Test
+    void 두_Position의_열_차이를_계산한다() {
+        // Given
+        Position position1 = new Position(5, 3);
+        Position position2 = new Position(2, 1);
+
+        // When & Then
+        assertThat(position1.calculateColumnDifference(position2)).isEqualTo(2);
+    }
 }

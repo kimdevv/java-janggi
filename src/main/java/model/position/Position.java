@@ -2,7 +2,7 @@ package model.position;
 
 import java.util.Objects;
 
-public class Position {
+public final class Position {
 
     public static final int MAXIMUM_ROW_VALUE = 9;
     public static final int MAXIMUM_COLUMN_VALUE = 8;
@@ -55,6 +55,22 @@ public class Position {
         return canChangeOfRow(rowStep) && canChangeOfColumn(columnStep);
     }
 
+    public int calculateRowDifference(final Position otherPosition) {
+        return row - otherPosition.getRow();
+    }
+
+    public int calculateColumnDifference(final Position otherPosition) {
+        return column - otherPosition.getColumn();
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
@@ -68,5 +84,4 @@ public class Position {
     public int hashCode() {
         return Objects.hash(column, row);
     }
-
 }
