@@ -1,48 +1,70 @@
 package model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.List;
-
+import model.piece.Horse;
+import model.piece.Piece;
+import model.piece.PieceType;
 import model.position.Position;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HorseTest {
 
-    @DisplayName("이동하는 모든 경로를 가져온다")
-    @Test
-    void calculate_all_direction() {
-        Horse horse = new Horse(new Position(5, 5), Team.RED);
-        List<List<Position>> moveResults = horse.calculateAllDirection();
-        List<List<Position>> expected = List.of(
-            List.of(new Position(4, 5), new Position(3, 4)),
-            List.of(new Position(4, 5), new Position(3, 6)),
-            List.of(new Position(5, 4), new Position(4, 3)),
-            List.of(new Position(5, 4), new Position(6, 3)),
-            List.of(new Position(5, 6), new Position(4, 7)),
-            List.of(new Position(5, 6), new Position(6, 7)),
-            List.of(new Position(6, 5), new Position(7, 4)),
-            List.of(new Position(6, 5), new Position(7, 6))
-        );
-        assertThat(moveResults).containsExactlyInAnyOrderElementsOf(expected);
+    private Piece horse;
+
+    @BeforeEach
+    void init() {
+        horse = new Horse(new Position(5, 5));
     }
 
-    @DisplayName("0~9행, 0~8열을 벗어나면 빈 리스트를 반환해야 한다")
     @Test
-    void invalid_direction_calculation_then_empty_list() {
-        Horse horse = new Horse(new Position(0, 2), Team.RED);
-        List<List<Position>> moveResults = horse.calculateAllDirection();
-        List<List<Position>> expected = List.of(
-            List.of(),
-            List.of(),
-            List.of(),
-            List.of(new Position(0, 1), new Position(1, 0)),
-            List.of(),
-            List.of(new Position(0, 3), new Position(1, 4)),
-            List.of(new Position(1, 2), new Position(2, 1)),
-            List.of(new Position(1, 2), new Position(2, 3))
-        );
-        assertThat(moveResults).containsExactlyInAnyOrderElementsOf(expected);
+    void 마_기물의_PieceType을_반환한다() {
+        // Given
+        // When & Then
+        assertThat(horse.getPieceType()).isEqualTo(PieceType.HORSE);
+    }
+
+    @Test
+    void 마_기물이_움직일_수_있는_위치로_가는_경로를_계산한다() {
+        // Given
+        Position destination = new Position(3, 4);
+        Position destination2 = new Position(3, 6);
+        Position destination3 = new Position(4, 3);
+        Position destination4 = new Position(6, 3);
+        Position destination5 = new Position(4, 7);
+        Position destination6 = new Position(6, 7);
+        Position destination7 = new Position(7, 4);
+        Position destination8 = new Position(7, 6);
+
+        // When & Then
+        assertThat(horse.calculateRouteToDestination(destination))
+                .containsExactlyInAnyOrder(new Position(3, 4), new Position(4, 5));
+        assertThat(horse.calculateRouteToDestination(destination2))
+                .containsExactlyInAnyOrder(new Position(3, 6), new Position(4, 5));
+        assertThat(horse.calculateRouteToDestination(destination3))
+                .containsExactlyInAnyOrder(new Position(4, 3), new Position(5, 4));
+        assertThat(horse.calculateRouteToDestination(destination4))
+                .containsExactlyInAnyOrder(new Position(6, 3), new Position(5, 4));
+        assertThat(horse.calculateRouteToDestination(destination5))
+                .containsExactlyInAnyOrder(new Position(4, 7), new Position(5, 6));
+        assertThat(horse.calculateRouteToDestination(destination6))
+                .containsExactlyInAnyOrder(new Position(6, 7), new Position(5, 6));
+        assertThat(horse.calculateRouteToDestination(destination7))
+                .containsExactlyInAnyOrder(new Position(7, 4), new Position(6, 5));
+        assertThat(horse.calculateRouteToDestination(destination8))
+                .containsExactlyInAnyOrder(new Position(7, 6), new Position(6, 5));
+    }
+
+    @Test
+    void 마_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
+        // Given
+        Position invalidDestination = new Position(6, 6);
+
+        // When & Then
+        assertThatThrownBy(() -> horse.calculateRouteToDestination(invalidDestination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("현재 기물이 이동할 수 없는 위치입니다.");
     }
 }
