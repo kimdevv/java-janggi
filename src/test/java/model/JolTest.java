@@ -2,37 +2,63 @@ package model;
 
 import java.util.List;
 
+import model.piece.Jol;
+import model.piece.Piece;
+import model.piece.PieceType;
 import model.position.Position;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class JolTest {
 
-    @DisplayName("이동 가능한 모든 위치를 가져온다")
-    @Test
-    void calculate_all_direction() {
-        Jol jol = new Jol(new Position(5, 5));
-        List<List<Position>> moveResults = jol.calculateAllDirection();
-        List<List<Position>> expected = List.of(
-            List.of(new Position(4, 5)),
-            List.of(new Position(5, 4)),
-            List.of(new Position(5, 6))
-        );
-        assertThat(moveResults).isEqualTo(expected);
+    private Piece jol;
+
+    @BeforeEach
+    void init() {
+        jol = new Jol(new Position(5, 5));
     }
 
-    @DisplayName("0~9행, 0~8열을 벗어나면 빈 리스트를 반환해야 한다")
     @Test
-    void invalid_direction_calculation_then_empty_list() {
-        Jol jol = new Jol(new Position(0, 2));
-        List<List<Position>> moveResults = jol.calculateAllDirection();
-        List<List<Position>> expected = List.of(
-            List.of(),
-            List.of(new Position(0, 1)),
-            List.of(new Position(0, 3))
-        );
-        assertThat(moveResults).isEqualTo(expected);
+    void 졸_기물의_PieceType을_반환한다() {
+        // Given
+        // When & Then
+        assertThat(jol.getPieceType()).isEqualTo(PieceType.JOL);
+    }
+
+    @Test
+    void 졸_기물이_수평_방향으로_움직일_수_있는_위치로_가는_경로를_계산한다() {
+        // Given
+        Position destination = new Position(5, 4);
+        Position destination2 = new Position(5, 6);
+
+        // When & Then
+        assertThat(jol.calculateRouteToDestination(destination))
+                .isEqualTo(List.of(new Position(5, 4)));
+        assertThat(jol.calculateRouteToDestination(destination2))
+                .isEqualTo(List.of(new Position(5, 6)));
+    }
+
+    @Test
+    void 졸_기물이_수직_방향으로_움직일_수_있는_위치로_가는_경로를_계산한다() {
+        // Given
+        Position destination2 = new Position(4, 5);
+
+        // When & Then
+        assertThat(jol.calculateRouteToDestination(destination2))
+                .isEqualTo(List.of(new Position(4, 5)));
+    }
+
+    @Test
+    void 졸_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
+        // Given
+        Position invalidDestination = new Position(7, 7);
+
+        // When & Then
+        assertThatThrownBy(() -> jol.calculateRouteToDestination(invalidDestination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("현재 기물이 이동할 수 없는 위치입니다.");
     }
 }
