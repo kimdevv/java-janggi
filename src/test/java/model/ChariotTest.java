@@ -1,88 +1,104 @@
-/*
 package model;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
+import model.piece.Chariot;
+import model.piece.Piece;
+import model.piece.PieceType;
+import model.position.Position;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ChariotTest {
-    
-    private Piece chariot = new Chariot(new Position(5, 5), Team.RED);
 
-    @DisplayName("chariot이 위로 세 칸 움직일 경우, 행이 -3 되어야 한다.")
-    @Test
-    void when_chariot_move_then_column_minus_one() {
-        chariot.up(3);
+    private Piece chariot;
 
-        Position expectedPosition = new Position(2, 5);
-        Position currentPosition = chariot.getPosition();
-        assertThat(expectedPosition).isEqualTo(currentPosition);
+    @BeforeEach
+    void init() {
+        chariot = new Chariot(new Position(5, 5));
     }
 
-    @DisplayName("chariot이 아래로 세 칸 움직일 경우, 행이 +3 되어야 한다.")
     @Test
-    void when_chariot_move_then_column_plus_one() {
-        chariot.down(3);
-
-        Position expectedPosition = new Position(8, 5);
-        Position currentPosition = chariot.getPosition();
-        assertThat(expectedPosition).isEqualTo(currentPosition);
+    void 차_기물의_PieceType을_반환한다() {
+        // Given
+        // When & Then
+        assertThat(chariot.getPieceType()).isEqualTo(PieceType.CHARIOT);
     }
 
-    @DisplayName("chariot이 좌측으로 세 칸 움직일 경우, 열이 -3 되어야 한다.")
     @Test
-    void when_chariot_move_then_row_minus_one() {
-        chariot.left(3);
+    void 차_기물이_수평_방향으로_움직일_수_있는_위치로_가는_경로를_계산한다() {
+        // Given
+        Position destination = new Position(5, 0);
+        Position destination2 = new Position(5, 1);
+        Position destination3 = new Position(5, 2);
+        Position destination4 = new Position(5, 3);
+        Position destination5 = new Position(5, 4);
+        Position destination6 = new Position(5, 6);
+        Position destination7 = new Position(5, 7);
+        Position destination8 = new Position(5, 8);
 
-        Position expectedPosition = new Position(5, 2);
-        Position currentPosition = chariot.getPosition();
-        assertThat(expectedPosition).isEqualTo(currentPosition);
+        // When & Then
+        assertThat(chariot.calculateRouteToDestination(destination))
+                .containsExactlyInAnyOrder(new Position(5, 0), new Position(5, 1), new Position(5, 2), new Position(5, 3), new Position(5, 4));
+        assertThat(chariot.calculateRouteToDestination(destination2))
+                .containsExactlyInAnyOrder(new Position(5, 1), new Position(5, 2), new Position(5, 3), new Position(5, 4));
+        assertThat(chariot.calculateRouteToDestination(destination3))
+                .containsExactlyInAnyOrder(new Position(5, 2), new Position(5, 3), new Position(5, 4));
+        assertThat(chariot.calculateRouteToDestination(destination4))
+                .containsExactlyInAnyOrder(new Position(5, 3), new Position(5, 4));
+        assertThat(chariot.calculateRouteToDestination(destination5))
+                .containsExactlyInAnyOrder(new Position(5, 4));
+        assertThat(chariot.calculateRouteToDestination(destination6))
+                .containsExactlyInAnyOrder(new Position(5, 6));
+        assertThat(chariot.calculateRouteToDestination(destination7))
+                .containsExactlyInAnyOrder(new Position(5, 6), new Position(5, 7));
+        assertThat(chariot.calculateRouteToDestination(destination8))
+                .containsExactlyInAnyOrder(new Position(5, 6), new Position(5, 7), new Position(5, 8));
     }
 
-    @DisplayName("chariot이 우측으로 세 칸 움직일 경우, 열이 +3 되어야 한다.")
     @Test
-    void when_chariot_move_then_row_plus_one() {
-        chariot.right(3);
+    void 차_기물이_수직_방향으로_움직일_수_있는_위치로_가는_경로를_계산한다() {
+        // Given
+        Position destination = new Position(0, 5);
+        Position destination2 = new Position(1, 5);
+        Position destination3 = new Position(2, 5);
+        Position destination4 = new Position(3, 5);
+        Position destination5 = new Position(4, 5);
+        Position destination6 = new Position(6, 5);
+        Position destination7 = new Position(7, 5);
+        Position destination8 = new Position(8, 5);
+        Position destination9 = new Position(9, 5);
 
-        Position expectedPosition = new Position(5, 8);
-        Position currentPosition = chariot.getPosition();
-        assertThat(expectedPosition).isEqualTo(currentPosition);
+        // When & Then
+        assertThat(chariot.calculateRouteToDestination(destination))
+                .containsExactlyInAnyOrder(new Position(0, 5), new Position(1, 5), new Position(2, 5), new Position(3, 5), new Position(4, 5));
+        assertThat(chariot.calculateRouteToDestination(destination2))
+                .containsExactlyInAnyOrder(new Position(1, 5), new Position(2, 5), new Position(3, 5), new Position(4, 5));
+        assertThat(chariot.calculateRouteToDestination(destination3))
+                .containsExactlyInAnyOrder(new Position(2, 5), new Position(3, 5), new Position(4, 5));
+        assertThat(chariot.calculateRouteToDestination(destination4))
+                .containsExactlyInAnyOrder(new Position(3, 5), new Position(4, 5));
+        assertThat(chariot.calculateRouteToDestination(destination5))
+                .containsExactlyInAnyOrder(new Position(4, 5));
+        assertThat(chariot.calculateRouteToDestination(destination6))
+                .containsExactlyInAnyOrder(new Position(6, 5));
+        assertThat(chariot.calculateRouteToDestination(destination7))
+                .containsExactlyInAnyOrder(new Position(6, 5), new Position(7, 5));
+        assertThat(chariot.calculateRouteToDestination(destination8))
+                .containsExactlyInAnyOrder(new Position(6, 5), new Position(7, 5), new Position(8, 5));
+        assertThat(chariot.calculateRouteToDestination(destination9))
+                .containsExactlyInAnyOrder(new Position(6, 5), new Position(7, 5), new Position(8, 5), new Position(9, 5));
     }
 
-    @DisplayName("chariot이 10행 9열을 벗어나면 예외가 발생한다")
-    @Nested
-    class chariotMoveException {
+    @Test
+    void 차_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
+        // Given
+        Position invalidDestination = new Position(6, 6);
 
-        @DisplayName("up인 경우")
-        @Test
-        void when_up() {
-            assertThatThrownBy(() -> chariot.up(6))
-                    .isInstanceOf(IllegalArgumentException.class);
-        }
-
-        @DisplayName("down인 경우")
-        @Test
-        void when_down() {
-            assertThatThrownBy(() -> chariot.down(6))
-                    .isInstanceOf(IllegalArgumentException.class);
-        }
-
-        @DisplayName("left인 경우")
-        @Test
-        void when_left() {
-            assertThatThrownBy(() -> chariot.left(6))
-                    .isInstanceOf(IllegalArgumentException.class);
-        }
-
-        @DisplayName("right인 경우")
-        @Test
-        void when_right() {
-            assertThatThrownBy(() -> chariot.right(6))
-                    .isInstanceOf(IllegalArgumentException.class);
-        }
+        // When & Then
+        assertThatThrownBy(() -> chariot.calculateRouteToDestination(invalidDestination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("현재 기물이 이동할 수 없는 위치입니다.");
     }
 }
-*/
