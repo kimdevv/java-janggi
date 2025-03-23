@@ -1,4 +1,4 @@
-package model;
+package model.piece;
 
 import model.piece.Cannon;
 import model.piece.Piece;

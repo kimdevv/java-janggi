@@ -1,4 +1,4 @@
-package model;
+package model.piece;
 
 import model.piece.Chariot;
 import model.piece.Piece;

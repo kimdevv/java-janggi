@@ -1,6 +1,4 @@
-package model;
-
-import java.util.List;
+package model.piece;
 
 import model.piece.Jol;
 import model.piece.Piece;
@@ -36,9 +34,9 @@ public class JolTest {
 
         // When & Then
         assertThat(jol.calculateRouteToDestination(destination))
-                .isEqualTo(List.of(new Position(5, 4)));
+                .containsExactlyInAnyOrder(new Position(5, 4));
         assertThat(jol.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(5, 6)));
+                .containsExactlyInAnyOrder(new Position(5, 6));
     }
 
     @Test
@@ -48,7 +46,7 @@ public class JolTest {
 
         // When & Then
         assertThat(jol.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(4, 5)));
+                .containsExactlyInAnyOrder(new Position(4, 5));
     }
 
     @Test

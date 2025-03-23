@@ -1,9 +1,7 @@
-package model;
+package model.piece;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.List;
 
 import model.piece.General;
 import model.piece.Piece;
@@ -36,9 +34,9 @@ public class GeneralTest {
 
         // When & Then
         assertThat(general.calculateRouteToDestination(destination))
-                .isEqualTo(List.of(new Position(5, 4)));
+                .containsExactlyInAnyOrder(new Position(5, 4));
         assertThat(general.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(5, 6)));
+                .containsExactlyInAnyOrder(new Position(5, 6));
     }
 
     @Test
@@ -51,13 +49,13 @@ public class GeneralTest {
 
         // When & Then
         assertThat(general.calculateRouteToDestination(destination))
-                .isEqualTo(List.of(new Position(4, 4)));
+                .containsExactlyInAnyOrder(new Position(4, 4));
         assertThat(general.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(4, 6)));
+                .containsExactlyInAnyOrder(new Position(4, 6));
         assertThat(general.calculateRouteToDestination(destination3))
-                .isEqualTo(List.of(new Position(6, 4)));
+                .containsExactlyInAnyOrder(new Position(6, 4));
         assertThat(general.calculateRouteToDestination(destination4))
-                .isEqualTo(List.of(new Position(6, 6)));
+                .containsExactlyInAnyOrder(new Position(6, 6));
     }
 
     @Test
@@ -68,9 +66,9 @@ public class GeneralTest {
 
         // When & Then
         assertThat(general.calculateRouteToDestination(destination))
-                .isEqualTo(List.of(new Position(4, 5)));
+                .containsExactlyInAnyOrder(new Position(4, 5));
         assertThat(general.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(6, 5)));
+                .containsExactlyInAnyOrder(new Position(6, 5));
     }
 
     @Test

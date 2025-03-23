@@ -1,6 +1,4 @@
-package model;
-
-import java.util.List;
+package model.piece;
 
 import model.piece.Byeong;
 import model.piece.Piece;
@@ -36,9 +34,9 @@ public class ByeongTest {
 
         // When & Then
         assertThat(byeong.calculateRouteToDestination(destination))
-                .isEqualTo(List.of(new Position(5, 4)));
+                .containsExactlyInAnyOrder(new Position(5, 4));
         assertThat(byeong.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(5, 6)));
+                .containsExactlyInAnyOrder(new Position(5, 6));
     }
 
     @Test
@@ -48,7 +46,7 @@ public class ByeongTest {
 
         // When & Then
         assertThat(byeong.calculateRouteToDestination(destination2))
-                .isEqualTo(List.of(new Position(6, 5)));
+                .containsExactlyInAnyOrder(new Position(6, 5));
     }
 
     @Test
