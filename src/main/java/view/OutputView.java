@@ -7,31 +7,47 @@ import model.position.Position;
 
 import java.util.Arrays;
 
+import static model.position.Position.COLUMN_COUNT_OF_JANGGI;
+import static model.position.Position.ROW_COUNT_OF_JANGGI;
+
 public class OutputView {
 
     private static final String RED_COLOR_ANSI_CODE = "\u001B[31m";
     private static final String GREEN_COLOR_ANSI_CODE = "\u001B[32m";
     private static final String COLOR_CANCEL_ANSI_CODE = "\u001B[0m";
+    public static final String EMPTY_POSITION_TEXT = "－";
 
     public void outputCurrentJanggiBoard(final Pieces redPieces, final Pieces greenPieces) {
-        String[][] piecesPoisition = new String[10][9];
-        for(int i=0; i<piecesPoisition.length; i++) {
-            Arrays.fill(piecesPoisition[i], "－");
+        String[][] piecePositionTexts = initializePiecePositionTexts();
+        placePieceTexts(piecePositionTexts, redPieces, greenPieces);
+        printCurrentPiecePositions(piecePositionTexts);
+    }
+
+    private String[][] initializePiecePositionTexts() {
+        String[][] piecePositionTexts = new String[ROW_COUNT_OF_JANGGI][COLUMN_COUNT_OF_JANGGI];
+        for (String[] piecePositionText : piecePositionTexts) {
+            Arrays.fill(piecePositionText, EMPTY_POSITION_TEXT);
         }
+        return piecePositionTexts;
+    }
+
+    private void placePieceTexts(final String[][] piecePositionTexts, final Pieces redPieces, final Pieces greenPieces) {
         for (Piece piece : redPieces.getPieces()) {
             Position piecePosition = piece.getPosition();
-            piecesPoisition[piecePosition.getRow()][piecePosition.getColumn()] = RED_COLOR_ANSI_CODE + PieceText.textOf(piece.getPieceType()) + COLOR_CANCEL_ANSI_CODE;
+            piecePositionTexts[piecePosition.getRow()][piecePosition.getColumn()] = RED_COLOR_ANSI_CODE + PieceText.textOf(piece.getPieceType()) + COLOR_CANCEL_ANSI_CODE;
         }
         for (Piece piece : greenPieces.getPieces()) {
             Position piecePosition = piece.getPosition();
-            piecesPoisition[piecePosition.getRow()][piecePosition.getColumn()] = GREEN_COLOR_ANSI_CODE + PieceText.textOf(piece.getPieceType()) + COLOR_CANCEL_ANSI_CODE;
+            piecePositionTexts[piecePosition.getRow()][piecePosition.getColumn()] = GREEN_COLOR_ANSI_CODE + PieceText.textOf(piece.getPieceType()) + COLOR_CANCEL_ANSI_CODE;
         }
+    }
 
+    private void printCurrentPiecePositions(final String[][] piecePositionTexts) {
         System.out.println("\tＡＢＣＤＥＦＧＨＩ");
-        for (int i=0; i<piecesPoisition.length; i++) {
+        for (int i=0; i<piecePositionTexts.length; i++) {
             System.out.print(10 - i + "\t");
-            for (int j=0; j<piecesPoisition[i].length; j++) {
-                System.out.print(piecesPoisition[i][j]);
+            for (int j=0; j<piecePositionTexts[i].length; j++) {
+                System.out.print(piecePositionTexts[i][j]);
             }
             System.out.println();
         }

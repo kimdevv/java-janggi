@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public final class Position {
 
-    public static final int MAXIMUM_ROW_VALUE = 9;
-    public static final int MAXIMUM_COLUMN_VALUE = 8;
+    public static final int ROW_COUNT_OF_JANGGI = 10;
+    public static final int COLUMN_COUNT_OF_JANGGI = 9;
     private final int row;
     private final int column;
 
@@ -16,7 +16,7 @@ public final class Position {
     }
 
     private void validate(final int row, final int column) {
-        if ((0 > row || row > MAXIMUM_ROW_VALUE) || (0 > column || column > MAXIMUM_COLUMN_VALUE)) {
+        if ((0 > row || row >= ROW_COUNT_OF_JANGGI) || (0 > column || column >= COLUMN_COUNT_OF_JANGGI)) {
             throw new IllegalArgumentException("10x9 범위를 벗어났습니다.");
         }
     }
@@ -34,11 +34,11 @@ public final class Position {
     }
 
     public boolean canChangeOfRow(final int step) {
-        return 0 <= row + step && row + step <= MAXIMUM_ROW_VALUE;
+        return 0 <= row + step && row + step <= ROW_COUNT_OF_JANGGI;
     }
 
     public boolean canChangeOfColumn(final int step) {
-        return 0 <= column + step && column + step <= MAXIMUM_COLUMN_VALUE;
+        return 0 <= column + step && column + step <= COLUMN_COUNT_OF_JANGGI;
     }
 
     public boolean canChangeOfRowAndColumn(final int rowStep, final int columnStep) {
