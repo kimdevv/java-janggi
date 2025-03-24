@@ -1,8 +1,5 @@
 package model.piece;
 
-import model.AbsoluteValueDecreaser;
-import model.piece.Piece;
-import model.piece.PieceType;
 import model.position.Position;
 
 import java.util.ArrayList;
