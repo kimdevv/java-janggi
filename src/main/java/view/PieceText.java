@@ -23,9 +23,9 @@ public enum PieceText {
         this.text = text;
     }
 
-    public static String findStringOf(final PieceType pieceType) {
+    public static String textOf(final PieceType pieceType) {
         PieceText pieceText =  Arrays.stream(values())
-                .filter(piece -> piece.pieceType == pieceType)
+                .filter(value -> value.pieceType == pieceType)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 기물 타입입니다."));
         return pieceText.text;

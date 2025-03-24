@@ -15,16 +15,6 @@ public final class Position {
         this.column = column;
     }
 
-    private Position(final String rowAndColumn) {
-        String[] splittedRowAndColumn = rowAndColumn.split(",");
-        this.row = Integer.parseInt(splittedRowAndColumn[0]);
-        this.column = Integer.parseInt(splittedRowAndColumn[1]);
-    }
-
-    public static Position initFrom(final String columnAndRow) {
-        return new Position(columnAndRow);
-    }
-
     private void validate(final int row, final int column) {
         if ((0 > row || row > MAXIMUM_ROW_VALUE) || (0 > column || column > MAXIMUM_COLUMN_VALUE)) {
             throw new IllegalArgumentException("10x9 범위를 벗어났습니다.");
