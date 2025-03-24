@@ -1,21 +1,63 @@
-package model;
-
-import model.position.Position;
+package model.piece;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Pieces {
 
     public final List<Piece> pieces;
 
-    private Pieces() {
-        List<Piece> generate = PieceInitializer.generate();
-        this.pieces = new ArrayList<>(generate);
+    private Pieces(final List<Piece> pieces) {
+        this.pieces = new ArrayList<>(pieces);
     }
 
-    public static Pieces createAndInit() {
+    public static Pieces initializerRedTeamPieces() {
+        return new Pieces(List.of(
+                new General(DefaultPiecePositions.GENERAL_RED.getPosition()),
+                new Guard(DefaultPiecePositions.GUARD_LEFT_RED.getPosition()),
+                new Guard(DefaultPiecePositions.GUARD_RIGHT_RED.getPosition()),
+                new Elephant(DefaultPiecePositions.ELEPHANT_LEFT_RED.getPosition()),
+                new Elephant(DefaultPiecePositions.ELEPHANT_RIGHT_RED.getPosition()),
+                new Horse(DefaultPiecePositions.HORSE_LEFT_RED.getPosition()),
+                new Horse(DefaultPiecePositions.HORSE_RIGHT_RED.getPosition()),
+                new Chariot(DefaultPiecePositions.CHARIOT_LEFT_RED.getPosition()),
+                new Chariot(DefaultPiecePositions.CHARIOT_RIGHT_RED.getPosition()),
+                new Cannon(DefaultPiecePositions.CANNON_LEFT_RED.getPosition()),
+                new Cannon(DefaultPiecePositions.CANNON_RIGHT_RED.getPosition()),
+                new Byeong(DefaultPiecePositions.BYEONG_FIRST_RED.getPosition()),
+                new Byeong(DefaultPiecePositions.BYEONG_SECOND_RED.getPosition()),
+                new Byeong(DefaultPiecePositions.BYEONG_THIRD_RED.getPosition()),
+                new Byeong(DefaultPiecePositions.BYEONG_FOURTH_RED.getPosition()),
+                new Byeong(DefaultPiecePositions.BYEONG_FIFTH_RED.getPosition())
+        ));
+    }
+
+    public static Pieces initializerGreenTeamPieces() {
+        return new Pieces(List.of(
+                new General(DefaultPiecePositions.GENERAL_GREEN.getPosition()),
+                new Guard(DefaultPiecePositions.GUARD_LEFT_GREEN.getPosition()),
+                new Guard(DefaultPiecePositions.GUARD_RIGHT_GREEN.getPosition()),
+                new Elephant(DefaultPiecePositions.ELEPHANT_LEFT_GREEN.getPosition()),
+                new Elephant(DefaultPiecePositions.ELEPHANT_RIGHT_GREEN.getPosition()),
+                new Horse(DefaultPiecePositions.HORSE_LEFT_GREEN.getPosition()),
+                new Horse(DefaultPiecePositions.HORSE_RIGHT_GREEN.getPosition()),
+                new Chariot(DefaultPiecePositions.CHARIOT_LEFT_GREEN.getPosition()),
+                new Chariot(DefaultPiecePositions.CHARIOT_RIGHT_GREEN.getPosition()),
+                new Cannon(DefaultPiecePositions.CANNON_LEFT_GREEN.getPosition()),
+                new Cannon(DefaultPiecePositions.CANNON_RIGHT_GREEN.getPosition()),
+                new Jol(DefaultPiecePositions.JOL_FIRST_GREEN.getPosition()),
+                new Jol(DefaultPiecePositions.JOL_SECOND_GREEN.getPosition()),
+                new Jol(DefaultPiecePositions.JOL_THIRD_GREEN.getPosition()),
+                new Jol(DefaultPiecePositions.JOL_FOURTH_GREEN.getPosition()),
+                new Jol(DefaultPiecePositions.JOL_FIFTH_GREEN.getPosition())
+        ));
+    }
+
+    public List<Piece> getPieces() {
+        return pieces;
+    }
+
+    /*public static Pieces createAndInit() {
         return new Pieces();
     }
 
@@ -123,5 +165,5 @@ public class Pieces {
 
     private void movePosition(Piece myPiece, Position destination) {
         myPiece.changePosition(destination);
-    }
+    }*/
 }
