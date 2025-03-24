@@ -34,11 +34,11 @@ public final class Position {
     }
 
     public boolean canChangeOfRow(final int step) {
-        return 0 <= row + step && row + step <= ROW_COUNT_OF_JANGGI;
+        return 0 <= row + step && row + step < ROW_COUNT_OF_JANGGI;
     }
 
     public boolean canChangeOfColumn(final int step) {
-        return 0 <= column + step && column + step <= COLUMN_COUNT_OF_JANGGI;
+        return 0 <= column + step && column + step < COLUMN_COUNT_OF_JANGGI;
     }
 
     public boolean canChangeOfRowAndColumn(final int rowStep, final int columnStep) {

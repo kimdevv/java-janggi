@@ -15,7 +15,12 @@ public class OutputView {
     private static final String RED_COLOR_ANSI_CODE = "\u001B[31m";
     private static final String GREEN_COLOR_ANSI_CODE = "\u001B[32m";
     private static final String COLOR_CANCEL_ANSI_CODE = "\u001B[0m";
-    public static final String EMPTY_POSITION_TEXT = "－";
+    private static final String EMPTY_POSITION_TEXT = "－";
+    private static final String LINE = System.lineSeparator();
+
+    public void outputExceptionMessage(final String exceptionMessage) {
+        System.out.println("[ERROR] " + exceptionMessage + LINE);
+    }
 
     public void outputCurrentJanggiBoard(final Pieces redPieces, final Pieces greenPieces) {
         String[][] piecePositionTexts = initializePiecePositionTexts();
@@ -49,12 +54,13 @@ public class OutputView {
             for (int j=0; j<piecePositionTexts[i].length; j++) {
                 System.out.print(piecePositionTexts[i][j]);
             }
-            System.out.println();
+            System.out.print(LINE);
         }
-        System.out.println();
+        System.out.print(LINE);
     }
 
     public void outputWinner(final Player player) {
+        System.out.println("상대 팀의 궁을 죽였습니다.");
         System.out.println(String.format("%s 팀이 승리하였습니다.", TeamText.textOf(player.getTeam())));
     }
 }

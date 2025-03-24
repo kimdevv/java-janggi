@@ -1,7 +1,7 @@
 package view;
 
+import model.piece.PieceType;
 import model.player.Team;
-import model.piece.Piece;
 import model.position.Position;
 
 import java.util.Scanner;
@@ -15,8 +15,8 @@ public class InputView {
         return PositionText.positionOf(scanner.nextLine());
     }
 
-    public Position inputDestinationToMove(final Piece piece) {
-        System.out.println(String.format("%s를 선택했습니다. 이동할 위치를 선택해주세요.", PieceText.textOf(piece.getPieceType())));
+    public Position inputDestinationToMove(final PieceType movePieceType) {
+        System.out.println(String.format("%s를 선택했습니다. 이동할 위치를 선택해주세요.", PieceText.textOf(movePieceType)));
         return PositionText.positionOf(scanner.nextLine());
     }
 }
