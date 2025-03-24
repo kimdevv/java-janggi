@@ -21,8 +21,16 @@ public class Player {
         return pieces.findPieceAt(position);
     }
 
-    public boolean isPieceExistAtRoute(final List<Position> routeToDestination) {
-        return pieces.isPieceExistAtRoute(routeToDestination);
+    public boolean isPieceExistAtRoute(final List<Position> route) {
+        return pieces.isPieceExistAtRoute(route);
+    }
+
+    public int countPiecesAtRoute(final List<Position> route) {
+        return pieces.countPiecesAtRoute(route);
+    }
+
+    public boolean isCannonExistAtRoute(final List<Position> route) {
+        return pieces.isCannonExistAtRoute(route);
     }
 
     public boolean isGeneralExistAt(final Position destination) {
@@ -34,6 +42,13 @@ public class Player {
 
     public boolean isPieceExistAt(final Position position) {
         return pieces.isPieceExistAt(position);
+    }
+
+    public boolean isCannonExistAt(final Position destination) {
+        if (isPieceExistAt(destination)) {
+            return findPieceAt(destination).getPieceType() == PieceType.CANNON;
+        }
+        return false;
     }
 
     public void removePieceAt(final Position position) {

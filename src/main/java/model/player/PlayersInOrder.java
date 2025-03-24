@@ -1,6 +1,7 @@
 package model.player;
 
 import model.piece.Piece;
+import model.piece.PieceType;
 import model.position.Position;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class PlayersInOrder {
     }
 
     public void processCurrentTurnPieceMove(final Piece currentPlayerPiece, final Position destination) {
-        validateDestination(destination);
+        validateDestination(currentPlayerPiece, destination);
         validateMiddleRoute(currentPlayerPiece, destination);
         makeOtherPlayerGameOverIfGeneralBeKilled(destination);
         removeOtherPlayerPieceAt(destination);
@@ -56,7 +57,23 @@ public class PlayersInOrder {
                 .orElseThrow(() -> new IllegalArgumentException("사용자 목록이 잘못되었습니다."));
     }
 
-    private void validateDestination(final Position destination) {
+    private void validateDestination(final Piece piece, final Position destination) {
+        if (piece.getPieceType() == PieceType.CANNON) {
+            validateDestinationOfCannon(destination);
+            return;
+        }
+        validateDestinationExcludeCannon(destination);
+    }
+
+    private void validateDestinationOfCannon(final Position destination) {
+        Player currentPlayer = getCurrentTurnPlayer();
+        Player otherPlayer = getNotCurrentTurnPlayer();
+        if (currentPlayer.isPieceExistAt(destination) || otherPlayer.isCannonExistAt(destination)) {
+            throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
+        }
+    }
+
+    private void validateDestinationExcludeCannon(final Position destination) {
         Player currentPlayer = getCurrentTurnPlayer();
         if (currentPlayer.isPieceExistAt(destination)) {
             throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
@@ -64,9 +81,28 @@ public class PlayersInOrder {
     }
 
     private void validateMiddleRoute(final Piece piece, final Position destination) {
+        List<Position> routeToDestinationExcludeDestination = calculateRouteExcludeDestination(piece, destination);
+        if (piece.getPieceType() == PieceType.CANNON) {
+            validateMiddleRouteOfCannon(routeToDestinationExcludeDestination);
+            return;
+        }
+        validateMiddleRouteExcludeCannon(routeToDestinationExcludeDestination);
+    }
+
+    private void validateMiddleRouteOfCannon(final List<Position> routeToDestinationExcludeDestination) {
         Player currentPlayer = getCurrentTurnPlayer();
         Player otherPlayer = getNotCurrentTurnPlayer();
-        List<Position> routeToDestinationExcludeDestination = calculateRouteExcludeDestination(piece, destination);
+        int countOfPiecesAtRouteExcludeDestination = currentPlayer.countPiecesAtRoute(routeToDestinationExcludeDestination)
+                + otherPlayer.countPiecesAtRoute(routeToDestinationExcludeDestination);
+        if (countOfPiecesAtRouteExcludeDestination != 1
+                || currentPlayer.isCannonExistAtRoute(routeToDestinationExcludeDestination) || otherPlayer.isCannonExistAtRoute(routeToDestinationExcludeDestination)) {
+            throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
+        }
+    }
+
+    private void validateMiddleRouteExcludeCannon(final List<Position> routeToDestinationExcludeDestination) {
+        Player currentPlayer = getCurrentTurnPlayer();
+        Player otherPlayer = getNotCurrentTurnPlayer();
         if (currentPlayer.isPieceExistAtRoute(routeToDestinationExcludeDestination) || otherPlayer.isPieceExistAtRoute(routeToDestinationExcludeDestination)) {
             throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
         }

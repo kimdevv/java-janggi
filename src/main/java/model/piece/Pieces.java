@@ -67,9 +67,20 @@ public class Pieces {
                 .anyMatch(piece -> piece.getPosition().equals(position));
     }
 
-    public boolean isPieceExistAtRoute(final List<Position> routeToDestination) {
+    public boolean isPieceExistAtRoute(final List<Position> route) {
         return pieces.stream()
-                .anyMatch(piece -> routeToDestination.contains(piece.getPosition()));
+                .anyMatch(piece -> route.contains(piece.getPosition()));
+    }
+
+    public int countPiecesAtRoute(final List<Position> route) {
+        return Math.toIntExact(pieces.stream()
+                .filter(piece -> route.contains(piece.getPosition()))
+                .count());
+    }
+
+    public boolean isCannonExistAtRoute(final List<Position> route) {
+        return pieces.stream()
+                .anyMatch(piece -> piece.getPieceType() == PieceType.CANNON && route.contains(piece.getPosition()));
     }
 
     public void removePieceAt(final Position position) {

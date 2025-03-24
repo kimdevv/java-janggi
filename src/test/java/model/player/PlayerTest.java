@@ -133,4 +133,62 @@ public class PlayerTest {
                 new Byeong(new Position(3, 8))
         );
     }
+
+    @Test
+    void 플레이어가_가진_기물에서_해당_경로_내에_있는_기물의_수를_계산한다() {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+
+        // When
+        int countOfPiecesAtRoute = player.countPiecesAtRoute(List.of(
+                new Position(0, 0),
+                new Position(0, 1),
+                new Position(0, 2),
+                new Position(0, 3),
+                new Position(0, 4),
+                new Position(0, 5)
+        ));
+
+        // Then
+        assertThat(countOfPiecesAtRoute).isEqualTo(5);
+    }
+
+    @Test
+    void 플레이어가_가진_기물에서_해당_경로에_포가_있는지_검사한다() {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+        List<Position> routeIncludeCannon = List.of(
+                new Position(1, 1),
+                new Position(2, 1),
+                new Position(3, 1),
+                new Position(4, 1)
+        );
+        List<Position> routeExcludeCannon = List.of(
+                new Position(3, 1),
+                new Position(4, 1),
+                new Position(5, 1),
+                new Position(6, 1)
+        );
+
+        // When & Then
+        assertThat(player.isCannonExistAtRoute(routeIncludeCannon)).isTrue();
+        assertThat(player.isCannonExistAtRoute(routeExcludeCannon)).isFalse();
+    }
+
+    @CsvSource({
+            "2, 1, true",
+            "3, 1, false"
+    })
+    @ParameterizedTest
+    void 플레이어가_가진_기물에서_해당_위치에_포가_있는지_검사한다(int row, int column, boolean expected) {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+        Position position = new Position(row, column);
+
+        // When & Then
+        assertThat(player.isCannonExistAt(position)).isEqualTo(expected);
+    }
 }

@@ -156,4 +156,45 @@ public class PiecesTest {
                 new Byeong(new Position(3, 8))
         );
     }
+
+    @Test
+    void 해당_경로_내에_있는_기물의_수를_계산한다() {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+
+        // When
+        int countOfPiecesAtRoute = pieces.countPiecesAtRoute(List.of(
+                new Position(0, 0),
+                new Position(0, 1),
+                new Position(0, 2),
+                new Position(0, 3),
+                new Position(0, 4),
+                new Position(0, 5)
+        ));
+
+        // Then
+        assertThat(countOfPiecesAtRoute).isEqualTo(5);
+    }
+
+    @Test
+    void 해당_경로에_포가_있는지_검사한다() {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+        List<Position> routeIncludeCannon = List.of(
+                new Position(1, 1),
+                new Position(2, 1),
+                new Position(3, 1),
+                new Position(4, 1)
+        );
+        List<Position> routeExcludeCannon = List.of(
+                new Position(3, 1),
+                new Position(4, 1),
+                new Position(5, 1),
+                new Position(6, 1)
+        );
+
+        // When & Then
+        assertThat(pieces.isCannonExistAtRoute(routeIncludeCannon)).isTrue();
+        assertThat(pieces.isCannonExistAtRoute(routeExcludeCannon)).isFalse();
+    }
 }
