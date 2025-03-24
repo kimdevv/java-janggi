@@ -26,7 +26,8 @@ public final class General extends Piece {
     private boolean isPieceCanGo(final Position destination) {
         int rowDifference = destination.calculateRowDifference(position);
         int columnDifference = destination.calculateColumnDifference(position);
-        return Math.abs(rowDifference) <= 1 && Math.abs(columnDifference) <= 1;
+        return Math.abs(rowDifference) <= 1 && Math.abs(columnDifference) <= 1
+                && !(rowDifference == 0 && columnDifference == 0);
     }
 
     private List<Position> findRouteToDestination(final Position destination) {

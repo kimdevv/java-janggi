@@ -26,7 +26,8 @@ public class Byeong extends Piece {
     private boolean isPieceCanGo(final Position destination) {
         int rowDifference = destination.calculateRowDifference(position);
         int columnDifference = destination.calculateColumnDifference(position);
-        return (rowDifference == 0 || rowDifference == 1) && Math.abs(columnDifference) <= 1;
+        return (rowDifference == 0 || rowDifference == 1) && Math.abs(columnDifference) <= 1
+                && !(rowDifference == 0 && columnDifference == 0);
     }
 
     private List<Position> findRouteToDestination(final Position destination) {
