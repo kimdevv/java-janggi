@@ -32,7 +32,7 @@ public class Player {
         return false;
     }
 
-    private boolean isPieceExistAt(final Position position) {
+    public boolean isPieceExistAt(final Position position) {
         return pieces.isPieceExistAt(position);
     }
 

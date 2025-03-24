@@ -41,11 +41,10 @@ public class PlayersInOrder {
     }
 
     public void processCurrentTurnPieceMove(final Piece currentPlayerPiece, final Position destination) {
-        Player currentPlayer = getCurrentTurnPlayer();
-        Player otherPlayer = getNotCurrentTurnPlayer();
-        validateMiddleRoute(currentPlayerPiece, destination, currentPlayer, otherPlayer);
-        makeOtherPlayerGameOverIfGeneralBeKilled(otherPlayer, destination);
-        otherPlayer.removePieceAt(destination);
+        validateDestination(destination);
+        validateMiddleRoute(currentPlayerPiece, destination);
+        makeOtherPlayerGameOverIfGeneralBeKilled(destination);
+        removeOtherPlayerPieceAt(destination);
         currentPlayerPiece.changePosition(destination);
         currentTurn = currentTurn.getOtherTeam();
     }
@@ -57,7 +56,16 @@ public class PlayersInOrder {
                 .orElseThrow(() -> new IllegalArgumentException("사용자 목록이 잘못되었습니다."));
     }
 
-    private void validateMiddleRoute(final Piece piece, final Position destination, final Player currentPlayer, final Player otherPlayer) {
+    private void validateDestination(final Position destination) {
+        Player currentPlayer = getCurrentTurnPlayer();
+        if (currentPlayer.isPieceExistAt(destination)) {
+            throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
+        }
+    }
+
+    private void validateMiddleRoute(final Piece piece, final Position destination) {
+        Player currentPlayer = getCurrentTurnPlayer();
+        Player otherPlayer = getNotCurrentTurnPlayer();
         List<Position> routeToDestinationExcludeDestination = calculateRouteExcludeDestination(piece, destination);
         if (currentPlayer.isPieceExistAtRoute(routeToDestinationExcludeDestination) || otherPlayer.isPieceExistAtRoute(routeToDestinationExcludeDestination)) {
             throw new IllegalArgumentException("해당 위치로 움직일 수 없는 상태입니다.");
@@ -70,10 +78,16 @@ public class PlayersInOrder {
         return routeToDestination;
     }
 
-    private void makeOtherPlayerGameOverIfGeneralBeKilled(final Player otherPlayer, final Position destination) {
+    private void makeOtherPlayerGameOverIfGeneralBeKilled(final Position destination) {
+        Player otherPlayer = getNotCurrentTurnPlayer();
         if (otherPlayer.isGeneralExistAt(destination)) {
             players.remove(otherPlayer);
         }
+    }
+
+    private void removeOtherPlayerPieceAt(final Position position) {
+        Player otherPlayer = getNotCurrentTurnPlayer();
+        otherPlayer.removePieceAt(position);
     }
 
     public Player getWinner() {

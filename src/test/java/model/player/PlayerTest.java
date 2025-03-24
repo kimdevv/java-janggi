@@ -90,6 +90,21 @@ public class PlayerTest {
         assertThat(player.isGeneralExistAt(position)).isEqualTo(expected);
     }
 
+    @CsvSource({
+            "1, 4, true",
+            "2, 4, false"
+    })
+    @ParameterizedTest
+    void 플레이어가_가진_기물에서_해당_위치에_기물이_존재하는지_확인한다(int row, int column, boolean expected) {
+        // Given
+        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+        Position position = new Position(row, column);
+
+        // When & Then
+        assertThat(player.isPieceExistAt(position)).isEqualTo(expected);
+    }
+
     @Test
     void 플레이어가_가진_기물에서_주어진_위치의_기물을_삭제한다() {
         // Given
