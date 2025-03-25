@@ -45,7 +45,6 @@ public class JanggiProcess {
     public void processCurrentTurnPieceMove(final Piece currentPlayerPiece, final Position destination) {
         validateDestination(currentPlayerPiece, destination);
         validateMiddleRoute(currentPlayerPiece, destination);
-        makeOtherPlayerGameOverIfGeneralBeKilled(destination);
         removeOtherPlayerPieceAt(destination);
         currentPlayerPiece.changePosition(destination);
         currentTurn = currentTurn.getOtherTeam();
@@ -113,16 +112,16 @@ public class JanggiProcess {
         return routeToDestination;
     }
 
-    private void makeOtherPlayerGameOverIfGeneralBeKilled(final Position destination) {
+    private void removeOtherPlayerPieceAt(final Position position) {
         Player otherPlayer = getNotCurrentTurnPlayer();
+        makeOtherPlayerGameOverIfGeneralBeKilled(otherPlayer, position);
+        otherPlayer.removePieceAt(position);
+    }
+
+    private void makeOtherPlayerGameOverIfGeneralBeKilled(final Player otherPlayer, final Position destination) {
         if (otherPlayer.isGeneralExistAt(destination)) {
             players.remove(otherPlayer);
         }
-    }
-
-    private void removeOtherPlayerPieceAt(final Position position) {
-        Player otherPlayer = getNotCurrentTurnPlayer();
-        otherPlayer.removePieceAt(position);
     }
 
     public Player getWinner() {

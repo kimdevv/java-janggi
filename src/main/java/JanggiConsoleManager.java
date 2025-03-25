@@ -30,6 +30,7 @@ public class JanggiConsoleManager {
             outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
             progressTurn(janggiProcess);
         }
+        outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
     }
 
     private void progressTurn(JanggiProcess janggiProcess) {
