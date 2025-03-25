@@ -1,4 +1,4 @@
-import model.player.PlayersInOrder;
+import model.player.JanggiProcess;
 import model.piece.Piece;
 import model.piece.Pieces;
 import model.player.Player;
@@ -20,31 +20,31 @@ public class JanggiConsoleManager {
     public void startJanggi() {
         Player greenPlayer = new Player(Pieces.initializerGreenTeamPieces(), Team.GREEN);
         Player redPlayer = new Player(Pieces.initializerRedTeamPieces(), Team.RED);
-        PlayersInOrder playersInOrder = PlayersInOrder.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
-        progressTurnUntilEnd(playersInOrder, greenPlayer, redPlayer);
-        outputView.outputWinner(playersInOrder.getWinner());
+        JanggiProcess janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
+        progressTurnUntilEnd(janggiProcess, greenPlayer, redPlayer);
+        outputView.outputWinner(janggiProcess.getWinner());
     }
 
-    private void progressTurnUntilEnd(final PlayersInOrder playersInOrder, final Player greenPlayer, final Player redPlayer) {
-        while (playersInOrder.isTwoPlayersAlive()) {
+    private void progressTurnUntilEnd(final JanggiProcess janggiProcess, final Player greenPlayer, final Player redPlayer) {
+        while (janggiProcess.isTwoPlayersAlive()) {
             outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
-            progressTurn(playersInOrder);
+            progressTurn(janggiProcess);
         }
     }
 
-    private void progressTurn(PlayersInOrder playersInOrder) {
+    private void progressTurn(JanggiProcess janggiProcess) {
         try {
-            Piece movePiece = findPieceToMove(playersInOrder);
+            Piece movePiece = findPieceToMove(janggiProcess);
             Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
-            playersInOrder.processCurrentTurnPieceMove(movePiece, destination);
+            janggiProcess.processCurrentTurnPieceMove(movePiece, destination);
         } catch (IllegalArgumentException exception) {
             outputView.outputExceptionMessage(exception.getMessage());
         }
     }
 
-    private Piece findPieceToMove(final PlayersInOrder playersInOrder) {
-        Team currentTurnTeam = playersInOrder.getCurrentTurnPlayerTeam();
+    private Piece findPieceToMove(final JanggiProcess janggiProcess) {
+        Team currentTurnTeam = janggiProcess.getCurrentTurnPlayerTeam();
         Position startPosition = inputView.inputCurrentTeamMovePiecePosition(currentTurnTeam);
-        return playersInOrder.findCurrentTurnPlayerPieceAt(startPosition);
+        return janggiProcess.findCurrentTurnPlayerPieceAt(startPosition);
     }
 }

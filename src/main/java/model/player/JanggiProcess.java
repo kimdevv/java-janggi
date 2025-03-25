@@ -7,23 +7,24 @@ import model.position.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayersInOrder {
+public class JanggiProcess {
 
     public static final int COUNT_OF_JANGGI_PLAYER = 2;
-    private final List<Player> players;
+    private final Players players;
     private Team currentTurn;
 
-    private PlayersInOrder(final List<Player> players) {
+    private JanggiProcess(final Players players) {
         this.players = players;
         currentTurn = Team.GREEN;
     }
 
-    public static PlayersInOrder initializeWithGreenAndRedPlayers(final Player greenPlayer, final Player redPlayer) {
-        return new PlayersInOrder(List.of(greenPlayer, redPlayer));
+    public static JanggiProcess initializeWithGreenAndRedPlayers(final Player greenPlayer, final Player redPlayer) {
+        Players players = new Players(List.of(greenPlayer, redPlayer));
+        return new JanggiProcess(players);
     }
 
     public boolean isTwoPlayersAlive() {
-        return players.size() == COUNT_OF_JANGGI_PLAYER;
+        return players.getPlayerCount() == COUNT_OF_JANGGI_PLAYER;
     }
 
     public Team getCurrentTurnPlayerTeam() {
@@ -35,10 +36,7 @@ public class PlayersInOrder {
     }
 
     private Player getCurrentTurnPlayer() {
-        return players.stream()
-                .filter(player -> player.getTeam() == currentTurn)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("사용자 목록이 잘못되었습니다."));
+        return players.findPlayerInTeam(currentTurn);
     }
 
     public void processCurrentTurnPieceMove(final Piece currentPlayerPiece, final Position destination) {
@@ -51,10 +49,8 @@ public class PlayersInOrder {
     }
 
     private Player getNotCurrentTurnPlayer() {
-        return players.stream()
-                .filter(player -> player.getTeam() != currentTurn)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("사용자 목록이 잘못되었습니다."));
+        Team otherTeam = currentTurn.getOtherTeam();
+        return players.findPlayerInTeam(otherTeam);
     }
 
     private void validateDestination(final Piece piece, final Position destination) {
@@ -127,7 +123,7 @@ public class PlayersInOrder {
     }
 
     public Player getWinner() {
-        if (players.size() == COUNT_OF_JANGGI_PLAYER) {
+        if (players.getPlayerCount() == COUNT_OF_JANGGI_PLAYER) {
             throw new IllegalArgumentException("아직 승자가 결정되지 않았습니다.");
         }
         return players.removeFirst();
