@@ -32,6 +32,3 @@ public class Cannon extends Piece {
                 || (isDownStraight(rowStep, columnStep) && !isDown(rowStep, columnStep));
     }
 }
-
-
-

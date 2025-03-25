@@ -26,4 +26,3 @@ public class Jol extends Piece {
                 || isRight(rowStep, columnStep);
     }
 }
-

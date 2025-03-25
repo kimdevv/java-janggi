@@ -7,7 +7,6 @@ import static model.piece.position.MovementChecker.isLeftStraight;
 import static model.piece.position.MovementChecker.isRightStraight;
 import static model.piece.position.MovementChecker.isDownStraight;
 
-
 public class Chariot extends Piece {
 
     public Chariot(final Position position) {

@@ -36,4 +36,3 @@ public class Guard extends Piece {
                 || isDownRight(rowStep, columnStep);
     }
 }
-

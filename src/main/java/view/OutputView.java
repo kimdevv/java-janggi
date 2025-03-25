@@ -49,9 +49,9 @@ public class OutputView {
 
     private void printCurrentPiecePositions(final String[][] piecePositionTexts) {
         System.out.println("\tＡＢＣＤＥＦＧＨＩ");
-        for (int i=0; i<piecePositionTexts.length; i++) {
+        for (int i = 0; i < piecePositionTexts.length; i++) {
             System.out.print(10 - i + "\t");
-            for (int j=0; j<piecePositionTexts[i].length; j++) {
+            for (int j = 0; j < piecePositionTexts[i].length; j++) {
                 System.out.print(piecePositionTexts[i][j]);
             }
             System.out.print(LINE);
