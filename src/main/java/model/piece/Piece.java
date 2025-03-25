@@ -11,13 +11,22 @@ public abstract class Piece {
         this.position = position;
     }
 
-    public void changePosition(final Position position) {
+    public final void changePosition(final Position position) {
         this.position = position;
     }
 
-    public abstract List<Position> calculateRouteToDestination(final Position destination);
+    public final List<Position> calculateRouteToDestination(final Position destination) {
+        if (isPieceCanGo(destination)) {
+            return findRouteToDestination(destination);
+        }
+        throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
+    }
 
-    public Position getPosition() {
+    protected abstract boolean isPieceCanGo(final Position destination);
+
+    protected abstract List<Position> findRouteToDestination(final Position destination);
+
+    public final Position getPosition() {
         return position;
     }
 

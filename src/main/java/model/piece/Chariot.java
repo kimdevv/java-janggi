@@ -3,6 +3,11 @@ package model.piece;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.piece.MovementChecker.isUpStraight;
+import static model.piece.MovementChecker.isLeftStraight;
+import static model.piece.MovementChecker.isRightStraight;
+import static model.piece.MovementChecker.isDownStraight;
+
 
 public class Chariot extends Piece {
 
@@ -16,21 +21,17 @@ public class Chariot extends Piece {
     }
 
     @Override
-    public List<Position> calculateRouteToDestination(final Position destination) {
-        if (isPieceCanGo(destination)) {
-            return findRouteToDestination(destination);
-        }
-        throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
+    protected boolean isPieceCanGo(final Position destination) {
+        int rowStep = destination.calculateRowDifference(position);
+        int columnStep = destination.calculateColumnDifference(position);
+        return isUpStraight(rowStep, columnStep)
+                || isLeftStraight(rowStep, columnStep)
+                || isRightStraight(rowStep, columnStep)
+                || isDownStraight(rowStep, columnStep);
     }
 
-    private boolean isPieceCanGo(final Position destination) {
-        int rowDifference = destination.calculateRowDifference(position);
-        int columnDifference = destination.calculateColumnDifference(position);
-        return (Math.abs(rowDifference) != 0 && Math.abs(columnDifference) == 0)
-                || (Math.abs(rowDifference) == 0 && Math.abs(columnDifference) != 0);
-    }
-
-    private List<Position> findRouteToDestination(final Position destination) {
+    @Override
+    protected List<Position> findRouteToDestination(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         if (Math.abs(rowStep) != 0) {

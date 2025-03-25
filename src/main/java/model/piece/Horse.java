@@ -3,6 +3,15 @@ package model.piece;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.piece.MovementChecker.isUpUpLeft;
+import static model.piece.MovementChecker.isUpUpRight;
+import static model.piece.MovementChecker.isLeftLeftUp;
+import static model.piece.MovementChecker.isLeftLeftDown;
+import static model.piece.MovementChecker.isRightRightUp;
+import static model.piece.MovementChecker.isRightRightDown;
+import static model.piece.MovementChecker.isDownDownLeft;
+import static model.piece.MovementChecker.isDownDownRight;
+
 public class Horse extends Piece {
 
     public Horse(final Position position) {
@@ -15,21 +24,17 @@ public class Horse extends Piece {
     }
 
     @Override
-    public List<Position> calculateRouteToDestination(final Position destination) {
-        if (isPieceCanGo(destination)) {
-            return findRouteToDestination(destination);
-        }
-        throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
+    protected boolean isPieceCanGo(final Position destination) {
+        int rowStep = destination.calculateRowDifference(position);
+        int columnStep = destination.calculateColumnDifference(position);
+        return isUpUpLeft(rowStep, columnStep) || isUpUpRight(rowStep, columnStep)
+                || isLeftLeftUp(rowStep, columnStep) || isLeftLeftDown(rowStep, columnStep)
+                || isRightRightUp(rowStep, columnStep) || isRightRightDown(rowStep, columnStep)
+                || isDownDownLeft(rowStep, columnStep) || isDownDownRight(rowStep, columnStep);
     }
 
-    private boolean isPieceCanGo(final Position destination) {
-        int rowDifference = destination.calculateRowDifference(position);
-        int columnDifference = destination.calculateColumnDifference(position);
-        return (Math.abs(rowDifference) == 2 && Math.abs(columnDifference) == 1)
-                || (Math.abs(rowDifference) == 1 && Math.abs(columnDifference) == 2);
-    }
-
-    private List<Position> findRouteToDestination(final Position destination) {
+    @Override
+    protected List<Position> findRouteToDestination(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         List<Position> route = new ArrayList<>();

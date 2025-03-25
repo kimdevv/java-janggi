@@ -3,6 +3,15 @@ package model.piece;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.piece.MovementChecker.isUpUpUpLeftLeft;
+import static model.piece.MovementChecker.isUpUpUpRightRight;
+import static model.piece.MovementChecker.isLeftLeftLeftUpUp;
+import static model.piece.MovementChecker.isLeftLeftLeftDownDown;
+import static model.piece.MovementChecker.isRightRightRightUpUp;
+import static model.piece.MovementChecker.isRightRightRightDownDown;
+import static model.piece.MovementChecker.isDownDownDownLeftLeft;
+import static model.piece.MovementChecker.isDownDownDownRightRight;
+
 public class Elephant extends Piece {
 
     public Elephant(final Position position) {
@@ -15,21 +24,17 @@ public class Elephant extends Piece {
     }
 
     @Override
-    public List<Position> calculateRouteToDestination(final Position destination) {
-        if (isPieceCanGo(destination)) {
-            return findRouteToDestination(destination);
-        }
-        throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
+    protected boolean isPieceCanGo(final Position destination) {
+        int rowStep = destination.calculateRowDifference(position);
+        int columnStep = destination.calculateColumnDifference(position);
+        return isUpUpUpLeftLeft(rowStep, columnStep) || isUpUpUpRightRight(rowStep, columnStep)
+                || isLeftLeftLeftUpUp(rowStep, columnStep) || isLeftLeftLeftDownDown(rowStep, columnStep)
+                || isRightRightRightUpUp(rowStep, columnStep) || isRightRightRightDownDown(rowStep, columnStep)
+                || isDownDownDownLeftLeft(rowStep, columnStep) || isDownDownDownRightRight(rowStep, columnStep);
     }
 
-    private boolean isPieceCanGo(final Position destination) {
-        int rowDifference = destination.calculateRowDifference(position);
-        int columnDifference = destination.calculateColumnDifference(position);
-        return (Math.abs(rowDifference) == 3 && Math.abs(columnDifference) == 2)
-                || (Math.abs(rowDifference) == 2 && Math.abs(columnDifference) == 3);
-    }
-
-    private List<Position> findRouteToDestination(final Position destination) {
+    @Override
+    protected List<Position> findRouteToDestination(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         List<Position> route = new ArrayList<>();

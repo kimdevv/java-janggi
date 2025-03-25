@@ -2,6 +2,15 @@ package model.piece;
 
 import java.util.List;
 
+import static model.piece.MovementChecker.isUp;
+import static model.piece.MovementChecker.isLeft;
+import static model.piece.MovementChecker.isRight;
+import static model.piece.MovementChecker.isDown;
+import static model.piece.MovementChecker.isUpLeft;
+import static model.piece.MovementChecker.isUpRight;
+import static model.piece.MovementChecker.isDownLeft;
+import static model.piece.MovementChecker.isDownRight;
+
 public final class General extends Piece {
 
     public General(final Position position) {
@@ -14,21 +23,21 @@ public final class General extends Piece {
     }
 
     @Override
-    public List<Position> calculateRouteToDestination(final Position destination) {
-        if (isPieceCanGo(destination)) {
-            return findRouteToDestination(destination);
-        }
-        throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
+    protected boolean isPieceCanGo(final Position destination) {
+        int rowStep = destination.calculateRowDifference(position);
+        int columnStep = destination.calculateColumnDifference(position);
+        return isUp(rowStep, columnStep)
+                || isLeft(rowStep, columnStep)
+                || isRight(rowStep, columnStep)
+                || isDown(rowStep, columnStep)
+                || isUpLeft(rowStep, columnStep)
+                || isUpRight(rowStep, columnStep)
+                || isDownLeft(rowStep, columnStep)
+                || isDownRight(rowStep, columnStep);
     }
 
-    private boolean isPieceCanGo(final Position destination) {
-        int rowDifference = destination.calculateRowDifference(position);
-        int columnDifference = destination.calculateColumnDifference(position);
-        return Math.abs(rowDifference) <= 1 && Math.abs(columnDifference) <= 1
-                && !(rowDifference == 0 && columnDifference == 0);
-    }
-
-    private List<Position> findRouteToDestination(final Position destination) {
+    @Override
+    protected List<Position> findRouteToDestination(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         if (position.canChangeOfRowAndColumn(rowStep, columnStep)) {
