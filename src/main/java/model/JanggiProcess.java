@@ -2,7 +2,7 @@ package model;
 
 import model.piece.Piece;
 import model.piece.PieceType;
-import model.piece.Position;
+import model.piece.position.Position;
 import model.player.Player;
 import model.player.Players;
 import model.player.Team;

@@ -3,7 +3,7 @@ import model.piece.Piece;
 import model.piece.Pieces;
 import model.player.Player;
 import model.player.Team;
-import model.piece.Position;
+import model.piece.position.Position;
 import view.InputView;
 import view.OutputView;
 

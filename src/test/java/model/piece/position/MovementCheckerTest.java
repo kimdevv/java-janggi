@@ -1,5 +1,6 @@
-package model.piece;
+package model.piece.position;
 
+import model.piece.position.MovementChecker;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

@@ -3,12 +3,12 @@ package view;
 import model.piece.Piece;
 import model.piece.Pieces;
 import model.player.Player;
-import model.piece.Position;
+import model.piece.position.Position;
 
 import java.util.Arrays;
 
-import static model.piece.Position.COLUMN_COUNT_OF_JANGGI;
-import static model.piece.Position.ROW_COUNT_OF_JANGGI;
+import static model.piece.position.Position.COLUMN_COUNT_OF_JANGGI;
+import static model.piece.position.Position.ROW_COUNT_OF_JANGGI;
 
 public class OutputView {
 

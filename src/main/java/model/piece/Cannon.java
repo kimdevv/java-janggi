@@ -1,16 +1,18 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.piece.MovementChecker.isUp;
-import static model.piece.MovementChecker.isLeft;
-import static model.piece.MovementChecker.isRight;
-import static model.piece.MovementChecker.isDown;
-import static model.piece.MovementChecker.isUpStraight;
-import static model.piece.MovementChecker.isLeftStraight;
-import static model.piece.MovementChecker.isRightStraight;
-import static model.piece.MovementChecker.isDownStraight;
+import static model.piece.position.MovementChecker.isUp;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isRight;
+import static model.piece.position.MovementChecker.isDown;
+import static model.piece.position.MovementChecker.isUpStraight;
+import static model.piece.position.MovementChecker.isLeftStraight;
+import static model.piece.position.MovementChecker.isRightStraight;
+import static model.piece.position.MovementChecker.isDownStraight;
 
 public class Cannon extends Piece {
 

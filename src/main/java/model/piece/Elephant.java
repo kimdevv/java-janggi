@@ -1,16 +1,18 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.piece.MovementChecker.isUpUpUpLeftLeft;
-import static model.piece.MovementChecker.isUpUpUpRightRight;
-import static model.piece.MovementChecker.isLeftLeftLeftUpUp;
-import static model.piece.MovementChecker.isLeftLeftLeftDownDown;
-import static model.piece.MovementChecker.isRightRightRightUpUp;
-import static model.piece.MovementChecker.isRightRightRightDownDown;
-import static model.piece.MovementChecker.isDownDownDownLeftLeft;
-import static model.piece.MovementChecker.isDownDownDownRightRight;
+import static model.piece.position.MovementChecker.isUpUpUpLeftLeft;
+import static model.piece.position.MovementChecker.isUpUpUpRightRight;
+import static model.piece.position.MovementChecker.isLeftLeftLeftUpUp;
+import static model.piece.position.MovementChecker.isLeftLeftLeftDownDown;
+import static model.piece.position.MovementChecker.isRightRightRightUpUp;
+import static model.piece.position.MovementChecker.isRightRightRightDownDown;
+import static model.piece.position.MovementChecker.isDownDownDownLeftLeft;
+import static model.piece.position.MovementChecker.isDownDownDownRightRight;
 
 public class Elephant extends Piece {
 

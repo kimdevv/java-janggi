@@ -1,16 +1,18 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.piece.MovementChecker.isUpUpLeft;
-import static model.piece.MovementChecker.isUpUpRight;
-import static model.piece.MovementChecker.isLeftLeftUp;
-import static model.piece.MovementChecker.isLeftLeftDown;
-import static model.piece.MovementChecker.isRightRightUp;
-import static model.piece.MovementChecker.isRightRightDown;
-import static model.piece.MovementChecker.isDownDownLeft;
-import static model.piece.MovementChecker.isDownDownRight;
+import static model.piece.position.MovementChecker.isUpUpLeft;
+import static model.piece.position.MovementChecker.isUpUpRight;
+import static model.piece.position.MovementChecker.isLeftLeftUp;
+import static model.piece.position.MovementChecker.isLeftLeftDown;
+import static model.piece.position.MovementChecker.isRightRightUp;
+import static model.piece.position.MovementChecker.isRightRightDown;
+import static model.piece.position.MovementChecker.isDownDownLeft;
+import static model.piece.position.MovementChecker.isDownDownRight;
 
 public class Horse extends Piece {
 

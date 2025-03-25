@@ -8,7 +8,7 @@ import model.piece.General;
 import model.piece.Guard;
 import model.piece.Horse;
 import model.piece.Pieces;
-import model.piece.Position;
+import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

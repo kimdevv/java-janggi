@@ -1,5 +1,8 @@
 package model.piece;
 
+import model.piece.position.DefaultPiecePositions;
+import model.piece.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,12 +1,14 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.piece.MovementChecker.isUpStraight;
-import static model.piece.MovementChecker.isLeftStraight;
-import static model.piece.MovementChecker.isRightStraight;
-import static model.piece.MovementChecker.isDownStraight;
+import static model.piece.position.MovementChecker.isUpStraight;
+import static model.piece.position.MovementChecker.isLeftStraight;
+import static model.piece.position.MovementChecker.isRightStraight;
+import static model.piece.position.MovementChecker.isDownStraight;
 
 
 public class Chariot extends Piece {

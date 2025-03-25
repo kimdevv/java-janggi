@@ -1,4 +1,4 @@
-package model.piece;
+package model.piece.position;
 
 public class MovementChecker {
 

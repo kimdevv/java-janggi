@@ -1,6 +1,6 @@
-package model.piece;
+package model.piece.position;
 
-enum DefaultPiecePositions {
+public enum DefaultPiecePositions {
 
     GENERAL_RED(new Position(1, 4)),
     GUARD_LEFT_RED(new Position(0, 3)),
@@ -42,7 +42,7 @@ enum DefaultPiecePositions {
         this.position = position;
     }
 
-    Position getPosition() {
+    public Position getPosition() {
         return position;
     }
 }

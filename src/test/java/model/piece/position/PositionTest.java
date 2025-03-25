@@ -1,6 +1,6 @@
-package model.piece;
+package model.piece.position;
 
-import model.piece.Position;
+import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

@@ -1,10 +1,12 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.List;
 
-import static model.piece.MovementChecker.isDown;
-import static model.piece.MovementChecker.isLeft;
-import static model.piece.MovementChecker.isRight;
+import static model.piece.position.MovementChecker.isDown;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isRight;
 
 public class Byeong extends Piece {
 

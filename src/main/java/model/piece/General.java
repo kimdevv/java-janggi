@@ -1,15 +1,17 @@
 package model.piece;
 
+import model.piece.position.Position;
+
 import java.util.List;
 
-import static model.piece.MovementChecker.isUp;
-import static model.piece.MovementChecker.isLeft;
-import static model.piece.MovementChecker.isRight;
-import static model.piece.MovementChecker.isDown;
-import static model.piece.MovementChecker.isUpLeft;
-import static model.piece.MovementChecker.isUpRight;
-import static model.piece.MovementChecker.isDownLeft;
-import static model.piece.MovementChecker.isDownRight;
+import static model.piece.position.MovementChecker.isUp;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isRight;
+import static model.piece.position.MovementChecker.isDown;
+import static model.piece.position.MovementChecker.isUpLeft;
+import static model.piece.position.MovementChecker.isUpRight;
+import static model.piece.position.MovementChecker.isDownLeft;
+import static model.piece.position.MovementChecker.isDownRight;
 
 public final class General extends Piece {
 
