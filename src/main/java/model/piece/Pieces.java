@@ -68,6 +68,13 @@ public class Pieces {
                 .anyMatch(piece -> piece.getPosition().equals(position));
     }
 
+    public boolean isPieceTypeExistAt(final Position position, final PieceType pieceType) {
+        if (isPieceExistAt(position)) {
+            return findPieceAt(position).getPieceType() == pieceType;
+        }
+        return false;
+    }
+
     public boolean isPieceExistAtRoute(final List<Position> route) {
         return pieces.stream()
                 .anyMatch(piece -> route.contains(piece.getPosition()));

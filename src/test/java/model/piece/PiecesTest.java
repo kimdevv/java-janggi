@@ -197,4 +197,35 @@ public class PiecesTest {
         assertThat(pieces.isCannonExistAtRoute(routeIncludeCannon)).isTrue();
         assertThat(pieces.isCannonExistAtRoute(routeExcludeCannon)).isFalse();
     }
+
+    @CsvSource({
+            "1, 4, GENERAL, true",
+            "1, 3, GENERAL, false",
+            "0, 3, GUARD, true",
+            "0, 5, GUARD, true",
+            "0, 4, GUARD, false",
+            "0, 2, ELEPHANT, true",
+            "0, 6, ELEPHANT, true",
+            "0, 4, ELEPHANT, false",
+            "0, 1, HORSE, true",
+            "0, 7, HORSE, true",
+            "0, 4, HORSE, false",
+            "0, 0, CHARIOT, true",
+            "0, 8, CHARIOT, true",
+            "1, 3, CHARIOT, false",
+            "2, 1, CANNON, true",
+            "2, 7, CANNON, true",
+            "0, 4, CANNON, false",
+            "3, 0, BYEONG, true",
+            "0, 4, BYEONG, false",
+    })
+    @ParameterizedTest
+    void 해당_기물_타입이_주어진_위치에_존재하는지_확인한다(int row, int column, PieceType pieceType, boolean expected) {
+        // Given
+        Pieces redPieces = Pieces.initializerRedTeamPieces();
+        Position position = new Position(row, column);
+
+        // When & Then
+        assertThat(redPieces.isPieceTypeExistAt(position, pieceType)).isEqualTo(expected);
+    }
 }
