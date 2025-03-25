@@ -67,6 +67,15 @@ class PositionTest {
     }
 
     @Test
+    void 행을_변경한다() {
+        // Given
+        Position position = new Position(5, 5);
+
+        // When & Then
+        assertThat(position.changeRow(2)).isEqualTo(new Position(7, 5));
+    }
+
+    @Test
     void 열을_변경한다() {
         // Given
         Position position = new Position(5, 5);
@@ -76,7 +85,7 @@ class PositionTest {
     }
 
     @Test
-    void 행을_변경한다() {
+    void 행과_열을_변경한다() {
         // Given
         Position position = new Position(5, 5);
 
