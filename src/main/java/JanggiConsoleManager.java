@@ -21,20 +21,24 @@ public class JanggiConsoleManager {
         Player greenPlayer = new Player(Pieces.initializerGreenTeamPieces(), Team.GREEN);
         Player redPlayer = new Player(Pieces.initializerRedTeamPieces(), Team.RED);
         PlayersInOrder playersInOrder = PlayersInOrder.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
-        progressTurn(playersInOrder, greenPlayer, redPlayer);
+        progressTurnUntilEnd(playersInOrder, greenPlayer, redPlayer);
         outputView.outputWinner(playersInOrder.getWinner());
     }
 
-    private void progressTurn(final PlayersInOrder playersInOrder, final Player greenPlayer, final Player redPlayer) {
+    private void progressTurnUntilEnd(final PlayersInOrder playersInOrder, final Player greenPlayer, final Player redPlayer) {
         while (playersInOrder.isTwoPlayersAlive()) {
             outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
-            try {
-                Piece movePiece = findPieceToMove(playersInOrder);
-                Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
-                playersInOrder.processCurrentTurnPieceMove(movePiece, destination);
-            } catch (IllegalArgumentException exception) {
-                outputView.outputExceptionMessage(exception.getMessage());
-            }
+            progressTurn(playersInOrder);
+        }
+    }
+
+    private void progressTurn(PlayersInOrder playersInOrder) {
+        try {
+            Piece movePiece = findPieceToMove(playersInOrder);
+            Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
+            playersInOrder.processCurrentTurnPieceMove(movePiece, destination);
+        } catch (IllegalArgumentException exception) {
+            outputView.outputExceptionMessage(exception.getMessage());
         }
     }
 
