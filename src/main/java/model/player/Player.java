@@ -3,7 +3,7 @@ package model.player;
 import model.piece.Piece;
 import model.piece.PieceType;
 import model.piece.Pieces;
-import model.position.Position;
+import model.piece.Position;
 
 import java.util.List;
 

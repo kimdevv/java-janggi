@@ -1,4 +1,4 @@
-package model.position;
+package model.piece;
 
 import java.util.Objects;
 

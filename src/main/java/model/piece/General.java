@@ -1,7 +1,5 @@
 package model.piece;
 
-import model.position.Position;
-
 import java.util.List;
 
 public final class General extends Piece {

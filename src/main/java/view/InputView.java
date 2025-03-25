@@ -2,7 +2,7 @@ package view;
 
 import model.piece.PieceType;
 import model.player.Team;
-import model.position.Position;
+import model.piece.Position;
 
 import java.util.Scanner;
 

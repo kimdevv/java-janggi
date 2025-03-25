@@ -1,9 +1,9 @@
-import model.player.JanggiProcess;
+import model.JanggiProcess;
 import model.piece.Piece;
 import model.piece.Pieces;
 import model.player.Player;
 import model.player.Team;
-import model.position.Position;
+import model.piece.Position;
 import view.InputView;
 import view.OutputView;
 

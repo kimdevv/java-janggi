@@ -1,9 +1,5 @@
 package model.piece;
 
-import model.piece.Cannon;
-import model.piece.Piece;
-import model.piece.PieceType;
-import model.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

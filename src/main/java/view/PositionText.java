@@ -1,6 +1,6 @@
 package view;
 
-import model.position.Position;
+import model.piece.Position;
 
 import java.util.Arrays;
 

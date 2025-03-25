@@ -1,7 +1,5 @@
 package model.piece;
 
-import model.position.Position;
-
 enum DefaultPiecePositions {
 
     GENERAL_RED(new Position(1, 4)),

@@ -1,9 +1,12 @@
-package model.player;
+package model;
 
+import model.JanggiProcess;
 import model.piece.General;
 import model.piece.Piece;
 import model.piece.Pieces;
-import model.position.Position;
+import model.piece.Position;
+import model.player.Player;
+import model.player.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,11 @@
-package model.player;
+package model;
 
 import model.piece.Piece;
 import model.piece.PieceType;
-import model.position.Position;
+import model.piece.Position;
+import model.player.Player;
+import model.player.Players;
+import model.player.Team;
 
 import java.util.ArrayList;
 import java.util.List;
