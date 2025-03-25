@@ -33,7 +33,7 @@ public class JanggiConsoleManager {
         outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
     }
 
-    private void progressTurn(JanggiProcess janggiProcess) {
+    private void progressTurn(final JanggiProcess janggiProcess) {
         try {
             Piece movePiece = findPieceToMove(janggiProcess);
             Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
