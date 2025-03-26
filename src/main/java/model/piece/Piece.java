@@ -33,10 +33,20 @@ public abstract class Piece {
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
             route.add(moveStepIfDestinationInBoard(rowStep, columnStep));
-            rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
-            columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
+            rowStep = decreaseOneAbsoluteValue(rowStep);
+            columnStep = decreaseOneAbsoluteValue(columnStep);
         }
         return route;
+    }
+
+    private int decreaseOneAbsoluteValue(final int number) {
+        if (number < 0) {
+            return number + 1;
+        }
+        if (number > 0) {
+            return number - 1;
+        }
+        return number;
     }
 
     private boolean isStepRemain(final int rowStep, final int columnStep) {
