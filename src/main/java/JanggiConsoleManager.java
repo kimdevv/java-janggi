@@ -18,8 +18,8 @@ public class JanggiConsoleManager {
     }
 
     public void startJanggi() {
-        Player greenPlayer = new Player(Pieces.initializerGreenTeamPieces(), Team.GREEN);
-        Player redPlayer = new Player(Pieces.initializerRedTeamPieces(), Team.RED);
+        Player greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
+        Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
         JanggiProcess janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
         progressTurnUntilEnd(janggiProcess, greenPlayer, redPlayer);
         outputView.outputWinner(janggiProcess.getWinner());

@@ -1,5 +1,6 @@
 package model.piece;
 
+import model.piece.moveRule.JolMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ public class JolTest {
 
     @BeforeEach
     void init() {
-        jol = new Jol(new Position(5, 5));
+        jol = new Piece(PieceType.JOL, new JolMoveRule(new Position(5, 5)));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package model.piece;
 
+import model.piece.moveRule.ChariotMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ public class ChariotTest {
 
     @BeforeEach
     void init() {
-        chariot = new Chariot(new Position(5, 5));
+        chariot = new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(5, 5)));
     }
 
     @Test

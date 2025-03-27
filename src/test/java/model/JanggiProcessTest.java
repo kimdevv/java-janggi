@@ -1,8 +1,9 @@
 package model;
 
-import model.piece.General;
 import model.piece.Piece;
+import model.piece.PieceType;
 import model.piece.Pieces;
+import model.piece.moveRule.GeneralMoveRule;
 import model.piece.position.Position;
 import model.player.Player;
 import model.player.Team;
@@ -20,8 +21,8 @@ public class JanggiProcessTest {
 
     @BeforeEach
     void initialize() {
-        greenPlayer = new Player(Pieces.initializerGreenTeamPieces(), Team.GREEN);
-        redPlayer = new Player(Pieces.initializerRedTeamPieces(), Team.RED);
+        greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
+        redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
         janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
     }
 
@@ -46,7 +47,7 @@ public class JanggiProcessTest {
 
         // When & Then
         assertThat(janggiProcess.findCurrentTurnPlayerPieceAt(position))
-                .isEqualTo(new General(position));
+                .isEqualTo(new Piece(PieceType.GENERAL, new GeneralMoveRule(position)));
     }
 
     @Test

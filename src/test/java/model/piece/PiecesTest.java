@@ -1,5 +1,13 @@
 package model.piece;
 
+import model.piece.moveRule.ByeongMoveRule;
+import model.piece.moveRule.CannonMoveRule;
+import model.piece.moveRule.ChariotMoveRule;
+import model.piece.moveRule.ElephantMoveRule;
+import model.piece.moveRule.GeneralMoveRule;
+import model.piece.moveRule.GuardMoveRule;
+import model.piece.moveRule.HorseMoveRule;
+import model.piece.moveRule.JolMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,69 +23,69 @@ public class PiecesTest {
     @Test
     void RED_팀의_기물들을_생성한다() {
         // Given
-        Pieces redPieces = Pieces.initializerRedTeamPieces();
+        Pieces redPieces = Pieces.initializeRedTeamPieces();
 
         // When & Then
         assertThat(redPieces.getPieces()).containsExactlyInAnyOrder(
-                new General(new Position(1, 4)),
-                new Guard(new Position(0, 3)),
-                new Guard(new Position(0, 5)),
-                new Elephant(new Position(0, 2)),
-                new Elephant(new Position(0, 6)),
-                new Horse(new Position(0, 1)),
-                new Horse(new Position(0, 7)),
-                new Chariot(new Position(0, 0)),
-                new Chariot(new Position(0, 8)),
-                new Cannon(new Position(2, 1)),
-                new Cannon(new Position(2, 7)),
-                new Byeong(new Position(3, 0)),
-                new Byeong(new Position(3, 2)),
-                new Byeong(new Position(3, 4)),
-                new Byeong(new Position(3, 6)),
-                new Byeong(new Position(3, 8))
+                new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 3))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 5))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 2))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 6))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 1))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 7))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 0))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 8))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 1))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 7))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 0))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 2))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 4))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 6))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 8)))
         );
     }
 
     @Test
     void GREEN_팀의_기물들을_생성한다() {
         // Given
-        Pieces greenPieces = Pieces.initializerGreenTeamPieces();
+        Pieces greenPieces = Pieces.initializeGreenTeamPieces();
 
         // When & Then
         assertThat(greenPieces.getPieces()).containsExactlyInAnyOrder(
-                new General(new Position(8, 4)),
-                new Guard(new Position(9, 3)),
-                new Guard(new Position(9, 5)),
-                new Elephant(new Position(9, 2)),
-                new Elephant(new Position(9, 6)),
-                new Horse(new Position(9, 1)),
-                new Horse(new Position(9, 7)),
-                new Chariot(new Position(9, 0)),
-                new Chariot(new Position(9, 8)),
-                new Cannon(new Position(7, 1)),
-                new Cannon(new Position(7, 7)),
-                new Jol(new Position(6, 0)),
-                new Jol(new Position(6, 2)),
-                new Jol(new Position(6, 4)),
-                new Jol(new Position(6, 6)),
-                new Jol(new Position(6, 8))
+                new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(8, 4))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(9, 3))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(9, 5))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(9, 2))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(9, 6))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(9, 1))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(9, 7))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(9, 0))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(9, 8))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(7, 1))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(7, 7))),
+                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 0))),
+                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 2))),
+                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 4))),
+                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 6))),
+                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 8)))
         );
     }
 
     @Test
     void 해당_위치에_기물이_있다면_찾는다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
 
         // When & Then
         assertThat(pieces.findPieceAt(new Position(1, 4)))
-                .isEqualTo(new General(new Position(1, 4)));
+                .isEqualTo(new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4))));
     }
 
     @Test
     void 기물이_존재하지_않는_위치로_기물을_찾으면_예외가_발생한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
 
         // When & Then
         assertThatThrownBy(() -> pieces.findPieceAt(new Position(2, 4)))
@@ -92,7 +100,7 @@ public class PiecesTest {
     @ParameterizedTest
     void 기물이_존재하는지_확인한다(int row, int column, boolean expected) {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Position position = new Position(row, column);
 
         // When & Then
@@ -102,7 +110,7 @@ public class PiecesTest {
     @Test
     void 해당_경로에_기물이_존재하는지_확인한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         List<Position> route = List.of(
                 new Position(0, 4),
                 new Position(1, 4),
@@ -116,7 +124,7 @@ public class PiecesTest {
     @Test
     void 해당_경로에_기물이_존재하지_않는_경우() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         List<Position> route = List.of(
                 new Position(4, 0),
                 new Position(4, 1),
@@ -132,35 +140,35 @@ public class PiecesTest {
     @Test
     void 주어진_위치의_기물을_삭제한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
 
         // When
         pieces.removePieceAt(new Position(1, 4));
 
         // Then
         assertThat(pieces.getPieces()).containsExactlyInAnyOrder(
-                new Guard(new Position(0, 3)),
-                new Guard(new Position(0, 5)),
-                new Elephant(new Position(0, 2)),
-                new Elephant(new Position(0, 6)),
-                new Horse(new Position(0, 1)),
-                new Horse(new Position(0, 7)),
-                new Chariot(new Position(0, 0)),
-                new Chariot(new Position(0, 8)),
-                new Cannon(new Position(2, 1)),
-                new Cannon(new Position(2, 7)),
-                new Byeong(new Position(3, 0)),
-                new Byeong(new Position(3, 2)),
-                new Byeong(new Position(3, 4)),
-                new Byeong(new Position(3, 6)),
-                new Byeong(new Position(3, 8))
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 3))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 5))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 2))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 6))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 1))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 7))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 0))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 8))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 1))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 7))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 0))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 2))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 4))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 6))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 8)))
         );
     }
 
     @Test
     void 해당_경로_내에_있는_기물의_수를_계산한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
 
         // When
         int countOfPiecesAtRoute = pieces.countPiecesAtRoute(List.of(
@@ -179,7 +187,7 @@ public class PiecesTest {
     @Test
     void 해당_경로에_포가_있는지_검사한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         List<Position> routeIncludeCannon = List.of(
                 new Position(1, 1),
                 new Position(2, 1),
@@ -222,7 +230,7 @@ public class PiecesTest {
     @ParameterizedTest
     void 해당_기물_타입이_주어진_위치에_존재하는지_확인한다(int row, int column, PieceType pieceType, boolean expected) {
         // Given
-        Pieces redPieces = Pieces.initializerRedTeamPieces();
+        Pieces redPieces = Pieces.initializeRedTeamPieces();
         Position position = new Position(row, column);
 
         // When & Then

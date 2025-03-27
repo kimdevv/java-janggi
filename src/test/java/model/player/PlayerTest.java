@@ -1,13 +1,15 @@
 package model.player;
 
-import model.piece.Byeong;
-import model.piece.Cannon;
-import model.piece.Chariot;
-import model.piece.Elephant;
-import model.piece.General;
-import model.piece.Guard;
-import model.piece.Horse;
+import model.piece.Piece;
+import model.piece.PieceType;
 import model.piece.Pieces;
+import model.piece.moveRule.ByeongMoveRule;
+import model.piece.moveRule.CannonMoveRule;
+import model.piece.moveRule.ChariotMoveRule;
+import model.piece.moveRule.ElephantMoveRule;
+import model.piece.moveRule.GeneralMoveRule;
+import model.piece.moveRule.GuardMoveRule;
+import model.piece.moveRule.HorseMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,18 +25,18 @@ public class PlayerTest {
     @Test
     void 플레이어가_가진_기물에서_해당_위치에_기물이_있다면_찾는다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
 
         // When & Then
         assertThat(player.findPieceAt(new Position(1, 4)))
-                .isEqualTo(new General(new Position(1, 4)));
+                .isEqualTo(new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4))));
     }
 
     @Test
     void 플레이어가_가진_기물에서_기물이_존재하지_않는_위치로_기물을_찾으면_예외가_발생한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
 
         // When & Then
@@ -46,7 +48,7 @@ public class PlayerTest {
     @Test
     void 플레이어가_가진_기물에서_해당_경로에_기물이_존재하는지_확인한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         List<Position> route = List.of(
                 new Position(0, 4),
@@ -61,7 +63,7 @@ public class PlayerTest {
     @Test
     void 플레이어가_가진_기물에서_해당_경로에_기물이_존재하지_않는_경우() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         List<Position> route = List.of(
                 new Position(4, 0),
@@ -82,7 +84,7 @@ public class PlayerTest {
     @ParameterizedTest
     void 플레이어가_가진_기물에서_해당_위치에_궁이_존재하는지_확인한다(int row, int column, boolean expected) {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         Position position = new Position(row, column);
 
@@ -97,7 +99,7 @@ public class PlayerTest {
     @ParameterizedTest
     void 플레이어가_가진_기물에서_해당_위치에_기물이_존재하는지_확인한다(int row, int column, boolean expected) {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         Position position = new Position(row, column);
 
@@ -108,7 +110,7 @@ public class PlayerTest {
     @Test
     void 플레이어가_가진_기물에서_주어진_위치의_기물을_삭제한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
 
         // When
@@ -116,28 +118,28 @@ public class PlayerTest {
 
         // Then
         assertThat(player.getPieces().getPieces()).containsExactlyInAnyOrder(
-                new Guard(new Position(0, 3)),
-                new Guard(new Position(0, 5)),
-                new Elephant(new Position(0, 2)),
-                new Elephant(new Position(0, 6)),
-                new Horse(new Position(0, 1)),
-                new Horse(new Position(0, 7)),
-                new Chariot(new Position(0, 0)),
-                new Chariot(new Position(0, 8)),
-                new Cannon(new Position(2, 1)),
-                new Cannon(new Position(2, 7)),
-                new Byeong(new Position(3, 0)),
-                new Byeong(new Position(3, 2)),
-                new Byeong(new Position(3, 4)),
-                new Byeong(new Position(3, 6)),
-                new Byeong(new Position(3, 8))
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 3))),
+                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 5))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 2))),
+                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 6))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 1))),
+                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 7))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 0))),
+                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 8))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 1))),
+                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 7))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 0))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 2))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 4))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 6))),
+                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 8)))
         );
     }
 
     @Test
     void 플레이어가_가진_기물에서_해당_경로_내에_있는_기물의_수를_계산한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
 
         // When
@@ -157,7 +159,7 @@ public class PlayerTest {
     @Test
     void 플레이어가_가진_기물에서_해당_경로에_포가_있는지_검사한다() {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         List<Position> routeIncludeCannon = List.of(
                 new Position(1, 1),
@@ -184,7 +186,7 @@ public class PlayerTest {
     @ParameterizedTest
     void 플레이어가_가진_기물에서_해당_위치에_포가_있는지_검사한다(int row, int column, boolean expected) {
         // Given
-        Pieces pieces = Pieces.initializerRedTeamPieces();
+        Pieces pieces = Pieces.initializeRedTeamPieces();
         Player player = new Player(pieces, Team.RED);
         Position position = new Position(row, column);
 
