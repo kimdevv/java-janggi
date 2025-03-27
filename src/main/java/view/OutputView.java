@@ -8,6 +8,12 @@ import model.piece.position.Position;
 import java.util.Arrays;
 
 import static model.piece.position.Position.COLUMN_COUNT_OF_JANGGI;
+import static model.piece.position.Position.MAXIMUM_GREEN_PALACE_ROW;
+import static model.piece.position.Position.MAXIMUM_PALACE_COLUMN;
+import static model.piece.position.Position.MAXIMUM_RED_PALACE_ROW;
+import static model.piece.position.Position.MINIMUM_GREEN_PALACE_ROW;
+import static model.piece.position.Position.MINIMUM_PALACE_COLUMN;
+import static model.piece.position.Position.MINIMUM_RED_PALACE_ROW;
 import static model.piece.position.Position.ROW_COUNT_OF_JANGGI;
 
 public class OutputView {
@@ -33,7 +39,19 @@ public class OutputView {
         for (String[] piecePositionText : piecePositionTexts) {
             Arrays.fill(piecePositionText, EMPTY_POSITION_TEXT);
         }
+        paintPalace(piecePositionTexts);
         return piecePositionTexts;
+    }
+
+    private void paintPalace(final String[][] piecePositionTexts) {
+        for (int column=MINIMUM_PALACE_COLUMN; column<=MAXIMUM_PALACE_COLUMN; column++) {
+            for (int row=MINIMUM_RED_PALACE_ROW; row<=MAXIMUM_RED_PALACE_ROW; row++) {
+                piecePositionTexts[row][column] = "＋";
+            }
+            for (int row=MINIMUM_GREEN_PALACE_ROW; row<=MAXIMUM_GREEN_PALACE_ROW; row++) {
+                piecePositionTexts[row][column] = "＋";
+            }
+        }
     }
 
     private void placePieceTexts(final String[][] piecePositionTexts, final Pieces redPieces, final Pieces greenPieces) {
