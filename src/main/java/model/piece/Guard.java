@@ -26,13 +26,14 @@ public class Guard extends Piece {
     protected boolean canPieceMoveTo(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
-        return isUp(rowStep, columnStep)
+        return destination.isInPalace()
+                && (isUp(rowStep, columnStep)
                 || isLeft(rowStep, columnStep)
                 || isRight(rowStep, columnStep)
                 || isDown(rowStep, columnStep)
                 || isUpLeft(rowStep, columnStep)
                 || isUpRight(rowStep, columnStep)
                 || isDownLeft(rowStep, columnStep)
-                || isDownRight(rowStep, columnStep);
+                || isDownRight(rowStep, columnStep));
     }
 }

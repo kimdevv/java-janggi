@@ -6,6 +6,12 @@ public final class Position {
 
     public static final int ROW_COUNT_OF_JANGGI = 10;
     public static final int COLUMN_COUNT_OF_JANGGI = 9;
+    public static final int MINIMUM_PALACE_COLUMN = 3;
+    public static final int MAXIMUM_PALACE_COLUMN = 5;
+    public static final int MINIMUM_RED_PALACE_ROW = 0;
+    public static final int MAXIMUM_RED_PALACE_ROW = 2;
+    public static final int MINIMUM_GREEN_PALACE_ROW = 7;
+    public static final int MAXIMUM_GREEN_PALACE_ROW = 9;
     private final int row;
     private final int column;
 
@@ -51,6 +57,20 @@ public final class Position {
 
     public int calculateColumnDifference(final Position otherPosition) {
         return column - otherPosition.getColumn();
+    }
+
+    public boolean isInPalace() {
+        return isInRedPalace() || isInGreenPalace();
+    }
+
+    private boolean isInRedPalace() {
+        return (MINIMUM_RED_PALACE_ROW <= row && row <= MAXIMUM_RED_PALACE_ROW)
+                && (MINIMUM_PALACE_COLUMN <= column && column <= MAXIMUM_PALACE_COLUMN);
+    }
+
+    private boolean isInGreenPalace() {
+        return (MINIMUM_GREEN_PALACE_ROW <= row && row <= MAXIMUM_GREEN_PALACE_ROW)
+                && (MINIMUM_PALACE_COLUMN <= column && column <= MAXIMUM_PALACE_COLUMN);
     }
 
     public int getRow() {
