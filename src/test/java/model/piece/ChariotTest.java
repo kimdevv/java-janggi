@@ -13,7 +13,7 @@ public class ChariotTest {
 
     @BeforeEach
     void init() {
-        chariot = Piece.generateChariot(new Position(5, 5));
+        chariot = new Piece(PieceProfile.generateChariotProfile(), new Position(5, 5));
     }
 
     @Test

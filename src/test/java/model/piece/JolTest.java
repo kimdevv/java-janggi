@@ -13,7 +13,7 @@ public class JolTest {
 
     @BeforeEach
     void init() {
-        jol = Piece.generateJol(new Position(5, 5));
+        jol = new Piece(PieceProfile.generateJolProfile(), new Position(5, 5));
     }
 
     @Test
