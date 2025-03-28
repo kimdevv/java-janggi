@@ -14,11 +14,11 @@ public class Pieces {
     }
 
     public static Pieces initializeRedTeamPieces() {
-        return new Pieces(DefaultPiecesGenerator.generateRedTeamPieces());
+        return new Pieces(TeamPiecesGenerator.generateRedTeamPieces());
     }
 
     public static Pieces initializeGreenTeamPieces() {
-        return new Pieces(DefaultPiecesGenerator.generateGreenTeamPieces());
+        return new Pieces(TeamPiecesGenerator.generateGreenTeamPieces());
     }
 
     public Piece findPieceAt(final Position position) {

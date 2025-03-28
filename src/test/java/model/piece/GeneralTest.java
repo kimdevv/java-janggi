@@ -3,7 +3,6 @@ package model.piece;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import model.piece.moveRule.GeneralMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class GeneralTest {
 
     @BeforeEach
     void init() {
-        general = new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4)));
+        general = Piece.generateGeneral(new Position(1, 4));
     }
 
     @Test
@@ -72,7 +71,7 @@ public class GeneralTest {
     @Test
     void 궁_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
         // Given
-        Piece general = new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(2, 5)));
+        Piece general = Piece.generateGeneral(new Position(2, 5));
         Position invalidDestination = new Position(3, 5);
 
         // When & Then

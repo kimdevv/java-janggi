@@ -1,13 +1,5 @@
 package model.piece;
 
-import model.piece.moveRule.ByeongMoveRule;
-import model.piece.moveRule.CannonMoveRule;
-import model.piece.moveRule.ChariotMoveRule;
-import model.piece.moveRule.ElephantMoveRule;
-import model.piece.moveRule.GeneralMoveRule;
-import model.piece.moveRule.GuardMoveRule;
-import model.piece.moveRule.HorseMoveRule;
-import model.piece.moveRule.JolMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
+import static model.piece.position.DefaultPiecePositions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -27,22 +20,22 @@ public class PiecesTest {
 
         // When & Then
         assertThat(redPieces.getPieces()).containsExactlyInAnyOrder(
-                new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4))),
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 3))),
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 5))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 2))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 6))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 1))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 7))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 0))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 8))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 1))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 7))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 0))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 2))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 4))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 6))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 8)))
+                Piece.generateGeneral(GENERAL_RED.getPosition()),
+                Piece.generateGuard(GUARD_LEFT_RED.getPosition()),
+                Piece.generateGuard(GUARD_RIGHT_RED.getPosition()),
+                Piece.generateElephant(ELEPHANT_LEFT_RED.getPosition()),
+                Piece.generateElephant(ELEPHANT_RIGHT_RED.getPosition()),
+                Piece.generateHorse(HORSE_LEFT_RED.getPosition()),
+                Piece.generateHorse(HORSE_RIGHT_RED.getPosition()),
+                Piece.generateChariot(CHARIOT_LEFT_RED.getPosition()),
+                Piece.generateChariot(CHARIOT_RIGHT_RED.getPosition()),
+                Piece.generateCannon(CANNON_LEFT_RED.getPosition()),
+                Piece.generateCannon(CANNON_RIGHT_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FIRST_RED.getPosition()),
+                Piece.generateByeong(BYEONG_SECOND_RED.getPosition()),
+                Piece.generateByeong(BYEONG_THIRD_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FOURTH_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FIFTH_RED.getPosition())
         );
     }
 
@@ -53,22 +46,22 @@ public class PiecesTest {
 
         // When & Then
         assertThat(greenPieces.getPieces()).containsExactlyInAnyOrder(
-                new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(8, 4))),
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(9, 3))),
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(9, 5))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(9, 2))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(9, 6))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(9, 1))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(9, 7))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(9, 0))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(9, 8))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(7, 1))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(7, 7))),
-                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 0))),
-                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 2))),
-                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 4))),
-                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 6))),
-                new Piece(PieceType.JOL, new JolMoveRule(new Position(6, 8)))
+                Piece.generateGeneral(GENERAL_GREEN.getPosition()),
+                Piece.generateGuard(GUARD_LEFT_GREEN.getPosition()),
+                Piece.generateGuard(GUARD_RIGHT_GREEN.getPosition()),
+                Piece.generateElephant(ELEPHANT_LEFT_GREEN.getPosition()),
+                Piece.generateElephant(ELEPHANT_RIGHT_GREEN.getPosition()),
+                Piece.generateHorse(HORSE_LEFT_GREEN.getPosition()),
+                Piece.generateHorse(HORSE_RIGHT_GREEN.getPosition()),
+                Piece.generateChariot(CHARIOT_LEFT_GREEN.getPosition()),
+                Piece.generateChariot(CHARIOT_RIGHT_GREEN.getPosition()),
+                Piece.generateCannon(CANNON_LEFT_GREEN.getPosition()),
+                Piece.generateCannon(CANNON_RIGHT_GREEN.getPosition()),
+                Piece.generateJol(JOL_FIRST_GREEN.getPosition()),
+                Piece.generateJol(JOL_SECOND_GREEN.getPosition()),
+                Piece.generateJol(JOL_THIRD_GREEN.getPosition()),
+                Piece.generateJol(JOL_FOURTH_GREEN.getPosition()),
+                Piece.generateJol(JOL_FIFTH_GREEN.getPosition())
         );
     }
 
@@ -79,7 +72,7 @@ public class PiecesTest {
 
         // When & Then
         assertThat(pieces.findPieceAt(new Position(1, 4)))
-                .isEqualTo(new Piece(PieceType.GENERAL, new GeneralMoveRule(new Position(1, 4))));
+                .isEqualTo(Piece.generateGeneral(new Position(1, 4)));
     }
 
     @Test
@@ -147,21 +140,21 @@ public class PiecesTest {
 
         // Then
         assertThat(pieces.getPieces()).containsExactlyInAnyOrder(
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 3))),
-                new Piece(PieceType.GUARD, new GuardMoveRule(new Position(0, 5))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 2))),
-                new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(0, 6))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 1))),
-                new Piece(PieceType.HORSE, new HorseMoveRule(new Position(0, 7))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 0))),
-                new Piece(PieceType.CHARIOT, new ChariotMoveRule(new Position(0, 8))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 1))),
-                new Piece(PieceType.CANNON, new CannonMoveRule(new Position(2, 7))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 0))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 2))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 4))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 6))),
-                new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(3, 8)))
+                Piece.generateGuard(GUARD_LEFT_RED.getPosition()),
+                Piece.generateGuard(GUARD_RIGHT_RED.getPosition()),
+                Piece.generateElephant(ELEPHANT_LEFT_RED.getPosition()),
+                Piece.generateElephant(ELEPHANT_RIGHT_RED.getPosition()),
+                Piece.generateHorse(HORSE_LEFT_RED.getPosition()),
+                Piece.generateHorse(HORSE_RIGHT_RED.getPosition()),
+                Piece.generateChariot(CHARIOT_LEFT_RED.getPosition()),
+                Piece.generateChariot(CHARIOT_RIGHT_RED.getPosition()),
+                Piece.generateCannon(CANNON_LEFT_RED.getPosition()),
+                Piece.generateCannon(CANNON_RIGHT_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FIRST_RED.getPosition()),
+                Piece.generateByeong(BYEONG_SECOND_RED.getPosition()),
+                Piece.generateByeong(BYEONG_THIRD_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FOURTH_RED.getPosition()),
+                Piece.generateByeong(BYEONG_FIFTH_RED.getPosition())
         );
     }
 

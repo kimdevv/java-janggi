@@ -6,10 +6,6 @@ import java.util.List;
 
 public interface MoveRule {
 
-    List<Position> calculateRouteToDestination(final Position destination);
-
-    void changePosition(final Position position);
-
-    Position getCurrentPosition();
+    List<Position> calculateRouteToDestination(final Position startPosition, final Position destination);
 
 }

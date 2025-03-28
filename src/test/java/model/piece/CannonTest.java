@@ -1,6 +1,5 @@
 package model.piece;
 
-import model.piece.moveRule.CannonMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class CannonTest {
 
     @BeforeEach
     void init() {
-        cannon = new Piece(PieceType.CANNON, new CannonMoveRule(new Position(5, 5)));
+        cannon = Piece.generateCannon(new Position(5, 5));
     }
 
     @Test

@@ -3,7 +3,6 @@ package model.piece;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import model.piece.moveRule.ElephantMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class ElephantTest {
 
     @BeforeEach
     void init() {
-        elephant = new Piece(PieceType.ELEPHANT, new ElephantMoveRule(new Position(5, 5)));
+        elephant = Piece.generateElephant(new Position(5, 5));
     }
 
     @Test

@@ -9,24 +9,18 @@ import static model.piece.position.MovementChecker.*;
 
 public class JolMoveRule implements MoveRule {
 
-    private Position position;
-
-    public JolMoveRule(final Position position) {
-        this.position = position;
-    }
-
     @Override
-    public final List<Position> calculateRouteToDestination(final Position destination) {
-        if (canPieceMove(destination)) {
-            return findRouteToDestination(destination);
+    public final List<Position> calculateRouteToDestination(final Position startPosition, final Position destination) {
+        if (canPieceMove(startPosition, destination)) {
+            return findRouteToDestination(startPosition, destination);
         }
         throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
     }
 
-    private boolean canPieceMove(final Position destination) {
-        int rowStep = destination.calculateRowDifference(position);
-        int columnStep = destination.calculateColumnDifference(position);
-        if (position.isInPalace()) {
+    private boolean canPieceMove(final Position startPosition, final Position destination) {
+        int rowStep = destination.calculateRowDifference(startPosition);
+        int columnStep = destination.calculateColumnDifference(startPosition);
+        if (startPosition.isInPalace()) {
             return canPieceInsidePalace(rowStep, columnStep, destination.isInPalace());
         }
         return canPieceOutsidePalace(rowStep, columnStep);
@@ -44,32 +38,9 @@ public class JolMoveRule implements MoveRule {
                 || isRight(rowStep, columnStep);
     }
 
-    private List<Position> findRouteToDestination(final Position destination) {
-        int rowStep = destination.calculateRowDifference(position);
-        int columnStep = destination.calculateColumnDifference(position);
-        return List.of(position.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
-    }
-
-    @Override
-    public void changePosition(final Position position) {
-        this.position = position;
-    }
-
-    @Override
-    public Position getCurrentPosition() {
-        return position;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JolMoveRule that = (JolMoveRule) o;
-        return Objects.equals(position, that.position);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(position);
+    private List<Position> findRouteToDestination(final Position startPosition, final Position destination) {
+        int rowStep = destination.calculateRowDifference(startPosition);
+        int columnStep = destination.calculateColumnDifference(startPosition);
+        return List.of(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
     }
 }

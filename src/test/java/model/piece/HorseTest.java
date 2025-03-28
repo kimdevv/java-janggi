@@ -3,7 +3,6 @@ package model.piece;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import model.piece.moveRule.HorseMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class HorseTest {
 
     @BeforeEach
     void init() {
-        horse = new Piece(PieceType.HORSE, new HorseMoveRule(new Position(5, 5)));
+        horse = Piece.generateHorse(new Position(5, 5));
     }
 
     @Test

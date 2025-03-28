@@ -1,6 +1,5 @@
 package model.piece;
 
-import model.piece.moveRule.ByeongMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class ByeongTest {
 
     @BeforeEach
     void init() {
-        byeong = new Piece(PieceType.BYEONG, new ByeongMoveRule(new Position(5, 5)));
+        byeong = Piece.generateByeong(new Position(5, 5));
     }
 
     @Test

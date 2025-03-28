@@ -1,6 +1,5 @@
 package model.piece;
 
-import model.piece.moveRule.GuardMoveRule;
 import model.piece.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class GuardTest {
 
     @BeforeEach
     void init() {
-        guard = new Piece(PieceType.GUARD, new GuardMoveRule(new Position(1, 4)));
+        guard = Piece.generateGuard(new Position(1, 4));
     }
 
     @Test
@@ -72,7 +71,7 @@ public class GuardTest {
     @Test
     void 사_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
         // Given
-        Piece guard = new Piece(PieceType.GUARD, new GuardMoveRule(new Position(2, 5)));
+        Piece guard = Piece.generateGuard(new Position(2, 5));
         Position invalidDestination = new Position(3, 5);
 
         // When & Then
