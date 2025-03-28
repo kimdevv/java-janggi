@@ -49,6 +49,10 @@ public class Player {
         pieces.removePieceAt(position);
     }
 
+    public int calculatePoints() {
+        return pieces.calculatePoints();
+    }
+
     public Pieces getPieces() {
         return pieces;
     }

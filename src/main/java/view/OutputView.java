@@ -77,8 +77,9 @@ public class OutputView {
         System.out.print(LINE);
     }
 
-    public void outputWinner(final Player player) {
+    public void outputWinner(final Player player, final int greenPoints, final int redPoints) {
         System.out.println("상대 팀의 궁을 죽였습니다.");
         System.out.println(String.format("%s 팀이 승리하였습니다.", TeamText.textOf(player.getTeam())));
+        System.out.println(String.format("초 나라의 점수: %d" + LINE + "한 나라의 점수: %d", greenPoints, redPoints));
     }
 }

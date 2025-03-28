@@ -229,4 +229,13 @@ public class PiecesTest {
         // When & Then
         assertThat(redPieces.isPieceTypeExistAt(position, pieceType)).isEqualTo(expected);
     }
+
+    @Test
+    void 남아있는_기물들의_총_점수를_계산한다() {
+        // Given
+        Pieces redPieces = Pieces.initializeRedTeamPieces();
+
+        // When & Then
+        assertThat(redPieces.calculatePoints()).isEqualTo(172);
+    }
 }

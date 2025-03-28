@@ -187,4 +187,14 @@ public class PlayerTest {
         // When & Then
         assertThat(player.isCannonExistAt(position)).isEqualTo(expected);
     }
+
+    @Test
+    void 플레이어가_가진_남아있는_기물들의_총_점수를_계산한다() {
+        // Given
+        Pieces pieces = Pieces.initializeRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+
+        // When & Then
+        assertThat(player.calculatePoints()).isEqualTo(172);
+    }
 }

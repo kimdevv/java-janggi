@@ -22,7 +22,7 @@ public class JanggiConsoleManager {
         Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
         JanggiProcess janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
         progressTurnUntilEnd(janggiProcess, greenPlayer, redPlayer);
-        outputView.outputWinner(janggiProcess.getWinner());
+        outputView.outputWinner(janggiProcess.getWinner(), greenPlayer.calculatePoints(), redPlayer.calculatePoints());
     }
 
     private void progressTurnUntilEnd(final JanggiProcess janggiProcess, final Player greenPlayer, final Player redPlayer) {

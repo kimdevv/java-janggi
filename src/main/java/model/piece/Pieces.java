@@ -63,6 +63,12 @@ public class Pieces {
         }
     }
 
+    public int calculatePoints() {
+        return pieces.stream()
+                .mapToInt(Piece::getPoint)
+                .sum();
+    }
+
     public List<Piece> getPieces() {
         return pieces;
     }

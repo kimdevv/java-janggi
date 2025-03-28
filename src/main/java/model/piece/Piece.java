@@ -31,6 +31,10 @@ public class Piece {
         return pieceProfile.getPieceType();
     }
 
+    public int getPoint() {
+        return pieceProfile.getPieceType().getPoint();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
