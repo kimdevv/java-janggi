@@ -1,6 +1,6 @@
 package model.piece.moveRule;
 
-public class AbsolutevalueDecreaser {
+public class AbsoluteValueDecreaser {
 
     public static int decreaseOne(final int number) {
         if (number < 0) {

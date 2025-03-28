@@ -28,8 +28,8 @@ public class JolMoveRule implements MoveRule {
 
     private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
         return canPieceOutsidePalace(rowStep, columnStep)
-                || isUpLeft(rowStep, columnStep) && isDestinationInPalace
-                || isUpRight(rowStep, columnStep) && isDestinationInPalace;
+                || (isUpLeft(rowStep, columnStep) && isDestinationInPalace)
+                || (isUpRight(rowStep, columnStep) && isDestinationInPalace);
     }
 
     private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {

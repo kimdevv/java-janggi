@@ -27,8 +27,8 @@ public class ByeongMoveRule implements MoveRule {
 
     private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
         return canPieceOutsidePalace(rowStep, columnStep)
-                || isDownLeft(rowStep, columnStep) && isDestinationInPalace
-                || isDownRight(rowStep, columnStep) && isDestinationInPalace;
+                || (isDownLeft(rowStep, columnStep) && isDestinationInPalace)
+                || (isDownRight(rowStep, columnStep) && isDestinationInPalace);
     }
 
     private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {

@@ -28,10 +28,10 @@ public class ChariotMoveRule implements MoveRule {
 
     private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
         return canPieceOutsidePalace(rowStep, columnStep)
-                || isUpLeftStraight(rowStep, columnStep) && isDestinationInPalace
-                || isUpRightStraight(rowStep, columnStep) && isDestinationInPalace
-                || isDownLeftStraight(rowStep, columnStep) && isDestinationInPalace
-                || isDownRightStraight(rowStep, columnStep) && isDestinationInPalace;
+                || (isUpLeftStraight(rowStep, columnStep) && isDestinationInPalace)
+                || (isUpRightStraight(rowStep, columnStep) && isDestinationInPalace)
+                || (isDownLeftStraight(rowStep, columnStep) && isDestinationInPalace)
+                || (isDownRightStraight(rowStep, columnStep) && isDestinationInPalace);
     }
 
     private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {
@@ -47,8 +47,8 @@ public class ChariotMoveRule implements MoveRule {
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
             route.add(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
-            rowStep = AbsolutevalueDecreaser.decreaseOne(rowStep);
-            columnStep = AbsolutevalueDecreaser.decreaseOne(columnStep);
+            rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
+            columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
         }
         return route;
     }

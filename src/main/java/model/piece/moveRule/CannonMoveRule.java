@@ -28,17 +28,17 @@ public class CannonMoveRule implements MoveRule {
 
     private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
         return canPieceOutsidePalace(rowStep, columnStep)
-                || isUpLeftStraight(rowStep, columnStep) && !isUpLeft(rowStep, columnStep) && isDestinationInPalace
-                || isUpRightStraight(rowStep, columnStep) && !isUpRight(rowStep, columnStep) && isDestinationInPalace
-                || isDownLeftStraight(rowStep, columnStep) && !isDownLeft(rowStep, columnStep) && isDestinationInPalace
-                || isDownRightStraight(rowStep, columnStep) && !isDownRight(rowStep, columnStep) && isDestinationInPalace;
+                || (isUpLeftStraight(rowStep, columnStep) && !isUpLeft(rowStep, columnStep) && isDestinationInPalace)
+                || (isUpRightStraight(rowStep, columnStep) && !isUpRight(rowStep, columnStep) && isDestinationInPalace)
+                || (isDownLeftStraight(rowStep, columnStep) && !isDownLeft(rowStep, columnStep) && isDestinationInPalace)
+                || (isDownRightStraight(rowStep, columnStep) && !isDownRight(rowStep, columnStep) && isDestinationInPalace);
     }
 
     private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {
-        return isUpStraight(rowStep, columnStep) && !isUp(rowStep, columnStep)
-                || isLeftStraight(rowStep, columnStep) && !isLeft(rowStep, columnStep)
-                || isRightStraight(rowStep, columnStep) && !isRight(rowStep, columnStep)
-                || isDownStraight(rowStep, columnStep) && !isDown(rowStep, columnStep);
+        return (isUpStraight(rowStep, columnStep) && !isUp(rowStep, columnStep))
+                || (isLeftStraight(rowStep, columnStep) && !isLeft(rowStep, columnStep))
+                || (isRightStraight(rowStep, columnStep) && !isRight(rowStep, columnStep))
+                || (isDownStraight(rowStep, columnStep) && !isDown(rowStep, columnStep));
     }
 
     private List<Position> findRouteStepByStepToDestination(final Position startPosition, final Position destination) {
@@ -47,8 +47,8 @@ public class CannonMoveRule implements MoveRule {
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
             route.add(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
-            rowStep = AbsolutevalueDecreaser.decreaseOne(rowStep);
-            columnStep = AbsolutevalueDecreaser.decreaseOne(columnStep);
+            rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
+            columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
         }
         return route;
     }

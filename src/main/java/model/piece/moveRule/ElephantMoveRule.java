@@ -32,8 +32,8 @@ public class ElephantMoveRule implements MoveRule {
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
             route.add(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
-            rowStep = AbsolutevalueDecreaser.decreaseOne(rowStep);
-            columnStep = AbsolutevalueDecreaser.decreaseOne(columnStep);
+            rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
+            columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
         }
         return route;
     }
