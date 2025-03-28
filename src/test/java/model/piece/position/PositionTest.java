@@ -4,6 +4,7 @@ import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -111,5 +112,31 @@ class PositionTest {
 
         // When & Then
         assertThat(position1.calculateColumnDifference(position2)).isEqualTo(2);
+    }
+
+    @Test
+    void 해당_step만큼_움직일_수_있다면_움직인_Position을_반환한다() {
+        // Given
+        Position position = new Position(5, 5);
+
+        // When & Then
+        assertThat(position.changeRowAndColumnIfPositionInBoard(3, -3))
+                .isEqualTo(new Position(8, 2));
+    }
+
+    @CsvSource({
+            "5, 0",
+            "0, 4",
+            "5, 4"
+    })
+    @ParameterizedTest
+    void 해당_step만큼_움직일_수_없다면_예외를_발생시킨다(int rowStep, int columnStep) {
+        // Given
+        Position position = new Position(5, 5);
+
+        // When & Then
+        assertThatThrownBy(() -> position.changeRowAndColumnIfPositionInBoard(rowStep, columnStep))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("10x9 범위를 벗어났습니다.");
     }
 }
