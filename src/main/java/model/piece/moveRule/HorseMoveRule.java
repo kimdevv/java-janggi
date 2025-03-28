@@ -1,19 +1,28 @@
 package model.piece.moveRule;
 
+import model.piece.AbsolutevalueDecreaser;
 import model.piece.position.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static model.piece.position.MovementChecker.isDownDownDownLeftLeft;
+import static model.piece.position.MovementChecker.isDownDownDownRightRight;
 import static model.piece.position.MovementChecker.isDownDownLeft;
 import static model.piece.position.MovementChecker.isDownDownRight;
 import static model.piece.position.MovementChecker.isLeftLeftDown;
+import static model.piece.position.MovementChecker.isLeftLeftLeftDownDown;
+import static model.piece.position.MovementChecker.isLeftLeftLeftUpUp;
 import static model.piece.position.MovementChecker.isLeftLeftUp;
 import static model.piece.position.MovementChecker.isRightRightDown;
+import static model.piece.position.MovementChecker.isRightRightRightDownDown;
+import static model.piece.position.MovementChecker.isRightRightRightUpUp;
 import static model.piece.position.MovementChecker.isRightRightUp;
 import static model.piece.position.MovementChecker.isUpUpLeft;
 import static model.piece.position.MovementChecker.isUpUpRight;
+import static model.piece.position.MovementChecker.isUpUpUpLeftLeft;
+import static model.piece.position.MovementChecker.isUpUpUpRightRight;
 
 public class HorseMoveRule implements MoveRule {
 
@@ -25,14 +34,13 @@ public class HorseMoveRule implements MoveRule {
 
     @Override
     public final List<Position> calculateRouteToDestination(final Position destination) {
-        if (canPieceMoveTo(destination)) {
-            return findRouteToDestination(destination);
+        if (canPieceMove(destination)) {
+            return findRouteStepByStepToDestination(destination);
         }
         throw new IllegalArgumentException("현재 기물이 이동할 수 없는 위치입니다.");
     }
 
-    @Override
-    public boolean canPieceMoveTo(final Position destination) {
+    private boolean canPieceMove(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         return isUpUpLeft(rowStep, columnStep) || isUpUpRight(rowStep, columnStep)
@@ -41,38 +49,20 @@ public class HorseMoveRule implements MoveRule {
                 || isDownDownLeft(rowStep, columnStep) || isDownDownRight(rowStep, columnStep);
     }
 
-    @Override
-    public final List<Position> findRouteToDestination(final Position destination) {
+    private List<Position> findRouteStepByStepToDestination(final Position destination) {
         int rowStep = destination.calculateRowDifference(position);
         int columnStep = destination.calculateColumnDifference(position);
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
-            route.add(moveStepIfDestinationInBoard(rowStep, columnStep));
-            rowStep = decreaseOneAbsoluteValue(rowStep);
-            columnStep = decreaseOneAbsoluteValue(columnStep);
+            route.add(position.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
+            rowStep = AbsolutevalueDecreaser.decreaseOne(rowStep);
+            columnStep = AbsolutevalueDecreaser.decreaseOne(columnStep);
         }
         return route;
     }
 
-    private int decreaseOneAbsoluteValue(final int number) {
-        if (number < 0) {
-            return number + 1;
-        }
-        if (number > 0) {
-            return number - 1;
-        }
-        return number;
-    }
-
     private boolean isStepRemain(final int rowStep, final int columnStep) {
         return rowStep != 0 || columnStep != 0;
-    }
-
-    private Position moveStepIfDestinationInBoard(final int rowStep, final int columnStep) {
-        if (position.canChangeOfRowAndColumn(rowStep, columnStep)) {
-            return position.changeRowAndColumn(rowStep, columnStep);
-        }
-        throw new IllegalArgumentException("10x9 범위를 벗어났습니다.");
     }
 
     @Override
@@ -81,7 +71,7 @@ public class HorseMoveRule implements MoveRule {
     }
 
     @Override
-    public Position getPosition() {
+    public Position getCurrentPosition() {
         return position;
     }
 

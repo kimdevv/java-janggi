@@ -27,8 +27,19 @@ public final class Position {
         }
     }
 
+    public Position changeRowAndColumnIfPositionInBoard(final int rowStep, final int columnStep) {
+        if (canChangeOfRowAndColumn(rowStep, columnStep)) {
+            return changeRowAndColumn(rowStep, columnStep);
+        }
+        throw new IllegalArgumentException("10x9 범위를 벗어났습니다.");
+    }
+
     public Position changeRowAndColumn(final int rowStep, final int columnStep) {
         return new Position(this.row + rowStep, this.column + columnStep);
+    }
+
+    public int calculateRowDifference(final Position otherPosition) {
+        return row - otherPosition.getRow();
     }
 
     public Position changeRow(final int step) {
@@ -49,10 +60,6 @@ public final class Position {
 
     public boolean canChangeOfRowAndColumn(final int rowStep, final int columnStep) {
         return canChangeOfRow(rowStep) && canChangeOfColumn(columnStep);
-    }
-
-    public int calculateRowDifference(final Position otherPosition) {
-        return row - otherPosition.getRow();
     }
 
     public int calculateColumnDifference(final Position otherPosition) {

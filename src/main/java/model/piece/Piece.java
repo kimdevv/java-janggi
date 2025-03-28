@@ -3,7 +3,6 @@ package model.piece;
 import model.piece.moveRule.MoveRule;
 import model.piece.position.Position;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class Piece {
     }
 
     public Position getPosition() {
-        return moveRule.getPosition();
+        return moveRule.getCurrentPosition();
     }
 
     public PieceType getPieceType() {
