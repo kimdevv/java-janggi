@@ -6,7 +6,7 @@ import java.util.List;
 
 import static model.piece.position.MovementChecker.*;
 
-public class OnlyInPalaceMoveRule implements MoveRule {
+class OnlyInPalaceMoveRule implements MoveRule {
 
     @Override
     public final List<Position> calculateRouteToDestination(final Position startPosition, final Position destination) {

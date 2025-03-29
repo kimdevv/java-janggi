@@ -6,7 +6,7 @@ import java.util.List;
 
 import static model.piece.position.MovementChecker.*;
 
-public class ByeongMoveRule implements MoveRule {
+class ByeongMoveRule implements MoveRule {
 
     @Override
     public final List<Position> calculateRouteToDestination(final Position startPosition, final Position destination) {

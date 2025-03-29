@@ -2,6 +2,7 @@ package model;
 
 import model.piece.Piece;
 import model.piece.PieceProfile;
+import model.piece.PieceType;
 import model.piece.Pieces;
 import model.piece.position.Position;
 import model.player.Player;
@@ -46,7 +47,7 @@ public class JanggiProcessTest {
 
         // When & Then
         assertThat(janggiProcess.findCurrentTurnPlayerPieceAt(position))
-                .isEqualTo(new Piece(PieceProfile.generateGeneralProfile(), position));
+                .isEqualTo(new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), position));
     }
 
     @Test

@@ -2,6 +2,7 @@ package model.player;
 
 import model.piece.Piece;
 import model.piece.PieceProfile;
+import model.piece.PieceType;
 import model.piece.Pieces;
 import model.piece.position.Position;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class PlayerTest {
 
         // When & Then
         assertThat(player.findPieceAt(new Position(1, 4)))
-                .isEqualTo(new Piece(PieceProfile.generateGeneralProfile(), new Position(1, 4)));
+                .isEqualTo(new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), new Position(1, 4)));
     }
 
     @Test
@@ -112,21 +113,21 @@ public class PlayerTest {
 
         // Then
         assertThat(player.getPieces().getPieces()).containsExactlyInAnyOrder(
-                new Piece(PieceProfile.generateGuardProfile(), GUARD_LEFT_RED.getPosition()),
-                new Piece(PieceProfile.generateGuardProfile(), GUARD_RIGHT_RED.getPosition()),
-                new Piece(PieceProfile.generateElephantProfile(), ELEPHANT_LEFT_RED.getPosition()),
-                new Piece(PieceProfile.generateElephantProfile(), ELEPHANT_RIGHT_RED.getPosition()),
-                new Piece(PieceProfile.generateHorseProfile(), HORSE_LEFT_RED.getPosition()),
-                new Piece(PieceProfile.generateHorseProfile(), HORSE_RIGHT_RED.getPosition()),
-                new Piece(PieceProfile.generateChariotProfile(), CHARIOT_LEFT_RED.getPosition()),
-                new Piece(PieceProfile.generateChariotProfile(), CHARIOT_RIGHT_RED.getPosition()),
-                new Piece(PieceProfile.generateCannonProfile(), CANNON_LEFT_RED.getPosition()),
-                new Piece(PieceProfile.generateCannonProfile(), CANNON_RIGHT_RED.getPosition()),
-                new Piece(PieceProfile.generateByeongProfile(), BYEONG_FIRST_RED.getPosition()),
-                new Piece(PieceProfile.generateByeongProfile(), BYEONG_SECOND_RED.getPosition()),
-                new Piece(PieceProfile.generateByeongProfile(), BYEONG_THIRD_RED.getPosition()),
-                new Piece(PieceProfile.generateByeongProfile(), BYEONG_FOURTH_RED.getPosition()),
-                new Piece(PieceProfile.generateByeongProfile(), BYEONG_FIFTH_RED.getPosition())
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GUARD), GUARD_LEFT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GUARD), GUARD_RIGHT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.ELEPHANT), ELEPHANT_LEFT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.ELEPHANT), ELEPHANT_RIGHT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.HORSE), HORSE_LEFT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.HORSE), HORSE_RIGHT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CHARIOT), CHARIOT_LEFT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CHARIOT), CHARIOT_RIGHT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CANNON), CANNON_LEFT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CANNON), CANNON_RIGHT_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.BYEONG), BYEONG_FIRST_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.BYEONG), BYEONG_SECOND_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.BYEONG), BYEONG_THIRD_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.BYEONG), BYEONG_FOURTH_RED.getPosition()),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.BYEONG), BYEONG_FIFTH_RED.getPosition())
         );
     }
 

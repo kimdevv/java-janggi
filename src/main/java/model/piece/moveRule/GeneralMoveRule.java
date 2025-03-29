@@ -1,5 +1,5 @@
 package model.piece.moveRule;
 
-public class GeneralMoveRule extends OnlyInPalaceMoveRule {
+class GeneralMoveRule extends OnlyInPalaceMoveRule {
 
 }

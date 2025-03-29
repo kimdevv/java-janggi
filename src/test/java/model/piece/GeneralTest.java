@@ -13,7 +13,7 @@ public class GeneralTest {
 
     @BeforeEach
     void init() {
-        general = new Piece(PieceProfile.generateGeneralProfile(), new Position(1, 4));
+        general = new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), new Position(1, 4));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class GeneralTest {
     @Test
     void 궁_기물이_이동할_수_없는_위치로는_경로를_계산할_수_없다() {
         // Given
-        Piece general = new Piece(PieceProfile.generateGeneralProfile(), new Position(2, 5));
+        Piece general = new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), new Position(2, 5));
         Position invalidDestination = new Position(3, 5);
 
         // When & Then

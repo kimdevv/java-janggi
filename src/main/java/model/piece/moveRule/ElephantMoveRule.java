@@ -7,7 +7,7 @@ import java.util.List;
 
 import static model.piece.position.MovementChecker.*;
 
-public class ElephantMoveRule implements MoveRule {
+class ElephantMoveRule implements MoveRule {
 
     @Override
     public final List<Position> calculateRouteToDestination(final Position startPosition, final Position destination) {

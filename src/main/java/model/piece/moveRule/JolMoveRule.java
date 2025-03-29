@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import static model.piece.position.MovementChecker.*;
 
-public class JolMoveRule implements MoveRule {
+class JolMoveRule implements MoveRule {
 
     @Override
     public final List<Position> calculateRouteToDestination(final Position startPosition, final Position destination) {
