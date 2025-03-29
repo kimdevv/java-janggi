@@ -1,5 +1,7 @@
 package model.player;
 
+import model.piece.Pieces;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +30,21 @@ public class Players {
 
     public Player removeFirst() {
         return players.removeFirst();
+    }
+
+    public boolean isAllPlayersAlive() {
+        return players.stream()
+                .anyMatch(player -> !player.isAlive());
+    }
+
+    public Player getPlayerByTeam(final Team team) {
+        return players.stream()
+                .filter(player -> player.getTeam() == team)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 팀입니다."));
+    }
+
+    public int calculateTeamPoints(final Team team) {
+        return getPlayerByTeam(team).calculatePoints();
     }
 }

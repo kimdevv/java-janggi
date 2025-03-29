@@ -23,14 +23,14 @@ public class JanggiProcessTest {
     void initialize() {
         greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
         redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
+        janggiProcess = JanggiProcess.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
     }
 
     @Test
     void 두_플레이어가_모두_생존한_상태인지_확인한다() {
         // Given
         // When & Then
-        assertThat(janggiProcess.isTwoPlayersAlive()).isTrue();
+        assertThat(janggiProcess.canGameContinue()).isTrue();
     }
 
     @Test

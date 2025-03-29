@@ -12,22 +12,21 @@ import java.util.List;
 
 public class JanggiProcess {
 
-    public static final int COUNT_OF_JANGGI_PLAYER = 2;
     private final Players players;
     private Team currentTurn;
 
-    private JanggiProcess(final Players players) {
+    private JanggiProcess(final Players players, final Team firstTurnTeam) {
         this.players = players;
-        currentTurn = Team.GREEN;
+        this.currentTurn = firstTurnTeam;
     }
 
-    public static JanggiProcess initializeWithGreenAndRedPlayers(final Player greenPlayer, final Player redPlayer) {
+    public static JanggiProcess intializeJanggi(final Player greenPlayer, final Player redPlayer, final Team firstTurnTeam) {
         Players players = new Players(List.of(greenPlayer, redPlayer));
-        return new JanggiProcess(players);
+        return new JanggiProcess(players, firstTurnTeam);
     }
 
-    public boolean isTwoPlayersAlive() {
-        return players.getPlayerCount() == COUNT_OF_JANGGI_PLAYER;
+    public boolean canGameContinue() {
+        return !players.isAllPlayersAlive();
     }
 
     public Team getCurrentTurnPlayerTeam() {
@@ -114,20 +113,30 @@ public class JanggiProcess {
 
     private void removeOtherPlayerPieceAt(final Position position) {
         Player otherPlayer = getNotCurrentTurnPlayer();
-        makeOtherPlayerGameOverIfGeneralBeKilled(otherPlayer, position);
-        otherPlayer.removePieceAt(position);
+        if (otherPlayer.isPieceExistAt(position)) {
+            makeOtherPlayerGameOverIfGeneralBeKilled(otherPlayer, position);
+            otherPlayer.removePieceAt(position);
+        }
     }
 
     private void makeOtherPlayerGameOverIfGeneralBeKilled(final Player otherPlayer, final Position destination) {
         if (otherPlayer.isGeneralExistAt(destination)) {
-            players.remove(otherPlayer);
+            otherPlayer.makeDead();
         }
     }
 
     public Player getWinner() {
-        if (players.getPlayerCount() == COUNT_OF_JANGGI_PLAYER) {
+        if (canGameContinue()) {
             throw new IllegalArgumentException("아직 승자가 결정되지 않았습니다.");
         }
         return players.removeFirst();
+    }
+
+    public int calculateTeamPoints(final Team team) {
+        return players.calculateTeamPoints(team);
+    }
+
+    public Player getPlayerByTeam(final Team team) {
+        return players.getPlayerByTeam(team);
     }
 }

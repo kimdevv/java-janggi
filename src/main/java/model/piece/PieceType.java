@@ -18,11 +18,11 @@ public enum PieceType {
         this.point = point;
     }
 
-    public static PieceType findByOrdinal(final int ordinal) {
+    public static PieceType findByName(final String name) {
         return Arrays.stream(values())
-                .filter(pieceType -> pieceType.ordinal() == ordinal)
+                .filter(pieceType -> pieceType.name().equalsIgnoreCase(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("PieceType 번호가 잘못되었습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("PieceType 이름이 잘못되었습니다."));
     }
 
     public int getPoint() {

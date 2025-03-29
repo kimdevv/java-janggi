@@ -1,3 +1,6 @@
+import dao.GameDao;
+import dao.PieceDao;
+import model.Answer;
 import model.JanggiProcess;
 import model.piece.Piece;
 import model.piece.Pieces;
@@ -11,41 +14,71 @@ public class JanggiConsoleManager {
 
     private final InputView inputView;
     private final OutputView outputView;
+    private final PieceDao pieceDao;
+    private final GameDao gameDao;
 
     public JanggiConsoleManager(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.pieceDao = new PieceDao();
+        this.gameDao = new GameDao();
     }
 
     public void startJanggi() {
-        Player greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
-        Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        JanggiProcess janggiProcess = JanggiProcess.initializeWithGreenAndRedPlayers(greenPlayer, redPlayer);
-        progressTurnUntilEnd(janggiProcess, greenPlayer, redPlayer);
-        outputView.outputWinner(janggiProcess.getWinner(), greenPlayer.calculatePoints(), redPlayer.calculatePoints());
+        JanggiProcess janggiProcess = initializeJanggiProcess();
+        progressTurnUntilEnd(janggiProcess);
+        outputView.outputWinner(janggiProcess.getWinner(), janggiProcess.calculateTeamPoints(Team.GREEN), janggiProcess.calculateTeamPoints(Team.RED));
+        pieceDao.deleteAllPieces();
     }
 
-    private void progressTurnUntilEnd(final JanggiProcess janggiProcess, final Player greenPlayer, final Player redPlayer) {
-        while (janggiProcess.isTwoPlayersAlive()) {
-            outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
+    private JanggiProcess initializeJanggiProcess() {
+        if (gameDao.isExist()) {
+            Answer answer = inputView.inputContinuePreviousGame();
+            if (answer.isYes()) {
+                Team currentTurnTeam = gameDao.findPreviousGameTurn();
+                Pieces greenPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.GREEN));
+                Pieces redPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.RED));
+                Player greenPlayer = new Player(greenPieces, Team.GREEN);
+                Player redPlayer = new Player(redPieces, Team.RED);
+                return JanggiProcess.intializeJanggi(greenPlayer, redPlayer, currentTurnTeam);
+            }
+            gameDao.deleteAlLGames();
+            pieceDao.deleteAllPieces();
+        }
+        Pieces greenPieces = Pieces.initializeGreenTeamPieces();
+        Pieces redPieces = Pieces.initializeRedTeamPieces();
+        Player greenPlayer = new Player(greenPieces, Team.GREEN);
+        Player redPlayer = new Player(redPieces, Team.RED);
+        initializePiecesToDB(greenPieces, redPieces);
+        gameDao.addGame(Team.GREEN);
+        return JanggiProcess.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
+    }
+
+    public void initializePiecesToDB(final Pieces greenPieces, final Pieces redPieces) {
+        pieceDao.addPieces(greenPieces, Team.GREEN);
+        pieceDao.addPieces(redPieces, Team.RED);
+    }
+
+    private void progressTurnUntilEnd(final JanggiProcess janggiProcess) {
+        while (janggiProcess.canGameContinue()) {
+            outputView.outputCurrentJanggiBoard(janggiProcess.getPlayerByTeam(Team.RED).getPieces(), janggiProcess.getPlayerByTeam(Team.GREEN).getPieces());
             progressTurn(janggiProcess);
         }
-        outputView.outputCurrentJanggiBoard(redPlayer.getPieces(), greenPlayer.getPieces());
+        outputView.outputCurrentJanggiBoard(janggiProcess.getPlayerByTeam(Team.RED).getPieces(), janggiProcess.getPlayerByTeam(Team.GREEN).getPieces());
     }
 
     private void progressTurn(final JanggiProcess janggiProcess) {
         try {
-            Piece movePiece = findPieceToMove(janggiProcess);
+            Team currentTurnTeam = janggiProcess.getCurrentTurnPlayerTeam();
+            Position startPosition = inputView.inputCurrentTeamMovePiecePosition(currentTurnTeam);
+            Piece movePiece = janggiProcess.findCurrentTurnPlayerPieceAt(startPosition);
             Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
             janggiProcess.processCurrentTurnPieceMove(movePiece, destination);
+            pieceDao.deletePieceByPosition(destination);
+            pieceDao.updatePiecePosition(startPosition, destination);
+            gameDao.updateGameTurn(janggiProcess.getCurrentTurnPlayerTeam());
         } catch (IllegalArgumentException exception) {
             outputView.outputExceptionMessage(exception.getMessage());
         }
-    }
-
-    private Piece findPieceToMove(final JanggiProcess janggiProcess) {
-        Team currentTurnTeam = janggiProcess.getCurrentTurnPlayerTeam();
-        Position startPosition = inputView.inputCurrentTeamMovePiecePosition(currentTurnTeam);
-        return janggiProcess.findCurrentTurnPlayerPieceAt(startPosition);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Pieces {
 
-    public final List<Piece> pieces;
+    private final List<Piece> pieces;
 
     private Pieces(final List<Piece> pieces) {
         this.pieces = new ArrayList<>(pieces);
@@ -19,6 +19,10 @@ public class Pieces {
 
     public static Pieces initializeGreenTeamPieces() {
         return new Pieces(TeamPiecesGenerator.generateGreenTeamPieces());
+    }
+
+    public static Pieces continuePiecesFrom(final List<Piece> pieces) {
+        return new Pieces(pieces);
     }
 
     public Piece findPieceAt(final Position position) {
