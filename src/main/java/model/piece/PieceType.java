@@ -1,5 +1,7 @@
 package model.piece;
 
+import java.util.Arrays;
+
 public enum PieceType {
     GENERAL(100),
     GUARD(3),
@@ -14,6 +16,13 @@ public enum PieceType {
 
     PieceType(final int point) {
         this.point = point;
+    }
+
+    public static PieceType findByOrdinal(final int ordinal) {
+        return Arrays.stream(values())
+                .filter(pieceType -> pieceType.ordinal() == ordinal)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("PieceType 번호가 잘못되었습니다."));
     }
 
     public int getPoint() {
