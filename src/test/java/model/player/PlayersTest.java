@@ -9,19 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PlayersTest {
 
-    private Players players;
-
-    @Test
-    void 플레이어가_몇_명인지_계산한다() {
-        // Given
-        Player greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
-        Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        players = new Players(List.of(greenPlayer, redPlayer));
-
-        // When & Then
-        assertThat(players.getPlayerCount()).isEqualTo(2);
-    }
-
     @Test
     void 주어진_팀에_해당하는_플레이어를_찾는다() {
         // Given
@@ -30,7 +17,7 @@ public class PlayersTest {
         Players players = new Players(List.of(greenPlayer, redPlayer));
 
         // When & Then
-        assertThat(players.findPlayerInTeam(Team.GREEN)).isEqualTo(greenPlayer);
-        assertThat(players.findPlayerInTeam(Team.RED)).isEqualTo(redPlayer);
+        assertThat(players.getPlayerByTeam(Team.GREEN)).isEqualTo(greenPlayer);
+        assertThat(players.getPlayerByTeam(Team.RED)).isEqualTo(redPlayer);
     }
 }

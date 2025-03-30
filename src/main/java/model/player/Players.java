@@ -10,17 +10,6 @@ public class Players {
         this.players = players;
     }
 
-    public int getPlayerCount() {
-        return players.size();
-    }
-
-    public Player findPlayerInTeam(final Team team) {
-        return players.stream()
-                .filter(player -> player.getTeam() == team)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("사용자 목록이 잘못되었습니다."));
-    }
-
     public Player getPlayerByTeam(final Team team) {
         return players.stream()
                 .filter(player -> player.getTeam() == team)

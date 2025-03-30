@@ -31,7 +31,7 @@ class HorseMoveRule implements MoveRule {
         int columnStep = destination.calculateColumnDifference(startPosition);
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
-            route.add(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
+            route.add(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
             rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
             columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
         }

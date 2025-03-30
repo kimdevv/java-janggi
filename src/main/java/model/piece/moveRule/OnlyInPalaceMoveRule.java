@@ -33,6 +33,6 @@ class OnlyInPalaceMoveRule implements MoveRule {
     private List<Position> findRouteToDestination(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
-        return List.of(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
+        return List.of(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
     }
 }

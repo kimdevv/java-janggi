@@ -39,7 +39,7 @@ public class JanggiState {
     }
 
     private Player getCurrentTurnPlayer() {
-        return players.findPlayerInTeam(currentTurn);
+        return players.getPlayerByTeam(currentTurn);
     }
 
     public void movePiece(final Piece piece, final Position destination) {
@@ -51,7 +51,7 @@ public class JanggiState {
 
     private Player getNotCurrentTurnPlayer() {
         Team otherTeam = currentTurn.getOtherTeam();
-        return players.findPlayerInTeam(otherTeam);
+        return players.getPlayerByTeam(otherTeam);
     }
 
     private void validateDestination(final Piece piece, final Position destination) {

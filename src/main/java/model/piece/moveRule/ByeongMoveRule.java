@@ -19,19 +19,19 @@ class ByeongMoveRule implements MoveRule {
     private boolean canPieceMove(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
-        if (startPosition.isInPalace()) {
-            return canPieceInsidePalace(rowStep, columnStep, destination.isInPalace());
+        if (startPosition.isInPalace() && destination.isInPalace()) {
+            return canPieceMoveInsidePalace(rowStep, columnStep);
         }
-        return canPieceOutsidePalace(rowStep, columnStep);
+        return canPieceMoveOutsidePalace(rowStep, columnStep);
     }
 
-    private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
-        return canPieceOutsidePalace(rowStep, columnStep)
-                || (isDownLeft(rowStep, columnStep) && isDestinationInPalace)
-                || (isDownRight(rowStep, columnStep) && isDestinationInPalace);
+    private boolean canPieceMoveInsidePalace(final int rowStep, final int columnStep) {
+        return canPieceMoveOutsidePalace(rowStep, columnStep)
+                || (isDownLeft(rowStep, columnStep))
+                || (isDownRight(rowStep, columnStep));
     }
 
-    private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {
+    private boolean canPieceMoveOutsidePalace(final int rowStep, final int columnStep) {
         return isDown(rowStep, columnStep)
                 || isLeft(rowStep, columnStep)
                 || isRight(rowStep, columnStep);
@@ -40,6 +40,6 @@ class ByeongMoveRule implements MoveRule {
     private List<Position> findRouteToDestination(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
-        return List.of(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
+        return List.of(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
     }
 }

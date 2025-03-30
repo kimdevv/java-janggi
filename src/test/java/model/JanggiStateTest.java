@@ -68,10 +68,6 @@ public class JanggiStateTest {
         Position greenDestination = new Position(5, 0);
         janggiState.movePiece(greenPiece, greenDestination);
 
-        Piece redPiece = janggiState.findCurrentTurnPlayerPieceAt(new Position(3, 0));
-        Position redDestination = new Position(4, 0);
-        janggiState.movePiece(redPiece, redDestination);
-
         // Then
         assertThat(janggiState.findCurrentTurnPlayerPieceAt(new Position(5, 0)))
                 .isEqualTo(greenPiece);

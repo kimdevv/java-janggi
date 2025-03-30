@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Piece {
 
-    private PieceProfile pieceProfile;
+    private final PieceProfile pieceProfile;
     private Position position;
 
     public Piece(final PieceProfile pieceProfile, final Position position) {

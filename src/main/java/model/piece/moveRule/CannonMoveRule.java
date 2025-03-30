@@ -20,21 +20,21 @@ class CannonMoveRule implements MoveRule {
     private boolean canPieceMove(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
-        if (startPosition.isInPalace()) {
-            return canPieceInsidePalace(rowStep, columnStep, destination.isInPalace());
+        if (startPosition.isInPalace() && destination.isInPalace()) {
+            return canPieceMoveInsidePalace(rowStep, columnStep);
         }
-        return canPieceOutsidePalace(rowStep, columnStep);
+        return canPieceMoveOutsidePalace(rowStep, columnStep);
     }
 
-    private boolean canPieceInsidePalace(final int rowStep, final int columnStep, final boolean isDestinationInPalace) {
-        return canPieceOutsidePalace(rowStep, columnStep)
-                || (isUpLeftStraight(rowStep, columnStep) && !isUpLeft(rowStep, columnStep) && isDestinationInPalace)
-                || (isUpRightStraight(rowStep, columnStep) && !isUpRight(rowStep, columnStep) && isDestinationInPalace)
-                || (isDownLeftStraight(rowStep, columnStep) && !isDownLeft(rowStep, columnStep) && isDestinationInPalace)
-                || (isDownRightStraight(rowStep, columnStep) && !isDownRight(rowStep, columnStep) && isDestinationInPalace);
+    private boolean canPieceMoveInsidePalace(final int rowStep, final int columnStep) {
+        return canPieceMoveOutsidePalace(rowStep, columnStep)
+                || (isUpLeftStraight(rowStep, columnStep) && !isUpLeft(rowStep, columnStep))
+                || (isUpRightStraight(rowStep, columnStep) && !isUpRight(rowStep, columnStep))
+                || (isDownLeftStraight(rowStep, columnStep) && !isDownLeft(rowStep, columnStep))
+                || (isDownRightStraight(rowStep, columnStep) && !isDownRight(rowStep, columnStep));
     }
 
-    private boolean canPieceOutsidePalace(final int rowStep, final int columnStep) {
+    private boolean canPieceMoveOutsidePalace(final int rowStep, final int columnStep) {
         return (isUpStraight(rowStep, columnStep) && !isUp(rowStep, columnStep))
                 || (isLeftStraight(rowStep, columnStep) && !isLeft(rowStep, columnStep))
                 || (isRightStraight(rowStep, columnStep) && !isRight(rowStep, columnStep))
@@ -46,7 +46,7 @@ class CannonMoveRule implements MoveRule {
         int columnStep = destination.calculateColumnDifference(startPosition);
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
-            route.add(startPosition.changeRowAndColumnIfPositionInBoard(rowStep, columnStep));
+            route.add(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
             rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
             columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
         }
