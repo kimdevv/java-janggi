@@ -1,3 +1,4 @@
+import dao.DatabaseConnectionManager;
 import dao.GameDao;
 import dao.PieceDao;
 import model.Answer;
@@ -20,8 +21,10 @@ public class JanggiConsoleManager {
     public JanggiConsoleManager(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.pieceDao = new PieceDao();
-        this.gameDao = new GameDao();
+
+        DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
+        this.pieceDao = new PieceDao(databaseConnectionManager.getConnection());
+        this.gameDao = new GameDao(databaseConnectionManager.getConnection());
     }
 
     public void startJanggi() {

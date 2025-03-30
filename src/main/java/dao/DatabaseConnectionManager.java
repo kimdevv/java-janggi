@@ -2,10 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+public class DatabaseConnectionManager {
 
     private static final String SERVER = "localhost:3307";
     private static final String DATABASE = "janggi";
@@ -13,7 +12,7 @@ public class DatabaseConnection {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
-    private Connection getConnection() {
+    public Connection getConnection() {
         try {
             return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
         } catch (final SQLException exception) {
@@ -21,10 +20,6 @@ public class DatabaseConnection {
             exception.printStackTrace();
             return null;
         }
-    }
-
-    public PreparedStatement generatePreparedStatement(final String query) throws SQLException {
-        return getConnection().prepareStatement(query);
     }
 
 }
