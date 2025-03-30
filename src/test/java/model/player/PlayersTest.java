@@ -33,29 +33,4 @@ public class PlayersTest {
         assertThat(players.findPlayerInTeam(Team.GREEN)).isEqualTo(greenPlayer);
         assertThat(players.findPlayerInTeam(Team.RED)).isEqualTo(redPlayer);
     }
-
-    @Test
-    void 주어진_플레이어를_제거한다() {
-        // Given
-        Player greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
-        Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        players = new Players(List.of(greenPlayer, redPlayer));
-
-        // When
-        players.remove(greenPlayer);
-
-        // Then
-        assertThat(players.getPlayerCount()).isEqualTo(1);
-    }
-
-    @Test
-    void 첫_번째_플레이어를_제거하고_반환한다() {
-        // Given
-        Player greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
-        Player redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        players = new Players(List.of(greenPlayer, redPlayer));
-
-        // When & Then
-        assertThat(players.removeFirst()).isEqualTo(greenPlayer);
-    }
 }

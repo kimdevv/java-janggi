@@ -2,7 +2,7 @@ import dao.DatabaseConnectionManager;
 import dao.GameDao;
 import dao.PieceDao;
 import model.Answer;
-import model.JanggiProcess;
+import model.JanggiState;
 import model.piece.Piece;
 import model.piece.Pieces;
 import model.player.Player;
@@ -28,60 +28,81 @@ public class JanggiConsoleManager {
     }
 
     public void startJanggi() {
-        JanggiProcess janggiProcess = initializeJanggiProcess();
-        progressTurnUntilEnd(janggiProcess);
-        outputView.outputWinner(janggiProcess.getWinner(), janggiProcess.calculateTeamPoints(Team.GREEN), janggiProcess.calculateTeamPoints(Team.RED));
+        JanggiState janggiState = initializeJanggiState();
+        progressTurnUntilEnd(janggiState);
+        outputView.outputWinner(janggiState.getWinner(), janggiState.calculateTeamPoints(Team.GREEN), janggiState.calculateTeamPoints(Team.RED));
+        resetDatabase();
+    }
+
+    private JanggiState initializeJanggiState() {
+        if (gameDao.isExist()) {
+            return initializeWhenPreviousGameExist();
+        }
+        return initializeNewJanggiGame();
+    }
+    
+    private JanggiState initializeWhenPreviousGameExist() {
+        Answer answer = inputView.inputContinuePreviousGame();
+        if (answer.isYes()) {
+            return initializeFromPreviousJanggiGame();
+        }
+        resetDatabase();
+        return initializeNewJanggiGame();
+    }
+
+    private JanggiState initializeFromPreviousJanggiGame() {
+        Team currentTurnTeam = gameDao.findPreviousGameTurn();
+        Pieces greenPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.GREEN));
+        Pieces redPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.RED));
+        Player greenPlayer = new Player(greenPieces, Team.GREEN);
+        Player redPlayer = new Player(redPieces, Team.RED);
+        return JanggiState.intializeJanggi(greenPlayer, redPlayer, currentTurnTeam);
+    }
+
+    private void resetDatabase() {
+        gameDao.deleteAlLGames();
         pieceDao.deleteAllPieces();
     }
 
-    private JanggiProcess initializeJanggiProcess() {
-        if (gameDao.isExist()) {
-            Answer answer = inputView.inputContinuePreviousGame();
-            if (answer.isYes()) {
-                Team currentTurnTeam = gameDao.findPreviousGameTurn();
-                Pieces greenPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.GREEN));
-                Pieces redPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.RED));
-                Player greenPlayer = new Player(greenPieces, Team.GREEN);
-                Player redPlayer = new Player(redPieces, Team.RED);
-                return JanggiProcess.intializeJanggi(greenPlayer, redPlayer, currentTurnTeam);
-            }
-            gameDao.deleteAlLGames();
-            pieceDao.deleteAllPieces();
-        }
+    private JanggiState initializeNewJanggiGame() {
         Pieces greenPieces = Pieces.initializeGreenTeamPieces();
         Pieces redPieces = Pieces.initializeRedTeamPieces();
         Player greenPlayer = new Player(greenPieces, Team.GREEN);
         Player redPlayer = new Player(redPieces, Team.RED);
         initializePiecesToDB(greenPieces, redPieces);
-        gameDao.addGame(Team.GREEN);
-        return JanggiProcess.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
+        return JanggiState.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
     }
 
     public void initializePiecesToDB(final Pieces greenPieces, final Pieces redPieces) {
         pieceDao.addPieces(greenPieces, Team.GREEN);
         pieceDao.addPieces(redPieces, Team.RED);
+        gameDao.addGame(Team.GREEN);
     }
 
-    private void progressTurnUntilEnd(final JanggiProcess janggiProcess) {
-        while (janggiProcess.canGameContinue()) {
-            outputView.outputCurrentJanggiBoard(janggiProcess.getPlayerByTeam(Team.RED).getPieces(), janggiProcess.getPlayerByTeam(Team.GREEN).getPieces());
-            progressTurn(janggiProcess);
+    private void progressTurnUntilEnd(final JanggiState janggiState) {
+        while (janggiState.canGameContinue()) {
+            outputView.outputCurrentJanggiBoard(janggiState.getPlayerByTeam(Team.RED).getPieces(), janggiState.getPlayerByTeam(Team.GREEN).getPieces());
+            progressTurn(janggiState);
         }
-        outputView.outputCurrentJanggiBoard(janggiProcess.getPlayerByTeam(Team.RED).getPieces(), janggiProcess.getPlayerByTeam(Team.GREEN).getPieces());
+        outputView.outputCurrentJanggiBoard(janggiState.getPlayerByTeam(Team.RED).getPieces(), janggiState.getPlayerByTeam(Team.GREEN).getPieces());
     }
 
-    private void progressTurn(final JanggiProcess janggiProcess) {
+    private void progressTurn(final JanggiState janggiState) {
         try {
-            Team currentTurnTeam = janggiProcess.getCurrentTurnPlayerTeam();
-            Position startPosition = inputView.inputCurrentTeamMovePiecePosition(currentTurnTeam);
-            Piece movePiece = janggiProcess.findCurrentTurnPlayerPieceAt(startPosition);
+            Position startPosition = inputView.inputCurrentTeamMovePiecePosition(janggiState.getCurrentTurnTeam());
+            Piece movePiece = janggiState.findCurrentTurnPlayerPieceAt(startPosition);
             Position destination = inputView.inputDestinationToMove(movePiece.getPieceType());
-            janggiProcess.processCurrentTurnPieceMove(movePiece, destination);
-            pieceDao.deletePieceByPosition(destination);
-            pieceDao.updatePiecePosition(startPosition, destination);
-            gameDao.updateGameTurn(janggiProcess.getCurrentTurnPlayerTeam());
+            janggiState.movePiece(movePiece, destination);
+            janggiState.changeTurn();
+            updateTurnResultToDatabase(janggiState.getCurrentTurnTeam(), startPosition, destination);
         } catch (IllegalArgumentException exception) {
             outputView.outputExceptionMessage(exception.getMessage());
         }
+    }
+
+    private void updateTurnResultToDatabase(final Team nextTurn, final Position startPosition, final Position destination) {
+        pieceDao.deletePieceByPosition(destination);
+        pieceDao.updatePiecePosition(startPosition, destination);
+        gameDao.updateGameTurn(nextTurn);
     }
 }

@@ -10,26 +10,27 @@ import model.player.Team;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JanggiProcess {
+public class JanggiState {
 
+    public static final int COUNT_OF_JANGGI_PLAYER = 2;
     private final Players players;
     private Team currentTurn;
 
-    private JanggiProcess(final Players players, final Team firstTurnTeam) {
+    private JanggiState(final Players players, final Team firstTurnTeam) {
         this.players = players;
         this.currentTurn = firstTurnTeam;
     }
 
-    public static JanggiProcess intializeJanggi(final Player greenPlayer, final Player redPlayer, final Team firstTurnTeam) {
+    public static JanggiState intializeJanggi(final Player greenPlayer, final Player redPlayer, final Team firstTurnTeam) {
         Players players = new Players(List.of(greenPlayer, redPlayer));
-        return new JanggiProcess(players, firstTurnTeam);
+        return new JanggiState(players, firstTurnTeam);
     }
 
     public boolean canGameContinue() {
-        return !players.isAllPlayersAlive();
+        return players.getAlivePlayers().size() == COUNT_OF_JANGGI_PLAYER;
     }
 
-    public Team getCurrentTurnPlayerTeam() {
+    public Team getCurrentTurnTeam() {
         return currentTurn;
     }
 
@@ -41,12 +42,11 @@ public class JanggiProcess {
         return players.findPlayerInTeam(currentTurn);
     }
 
-    public void processCurrentTurnPieceMove(final Piece currentPlayerPiece, final Position destination) {
-        validateDestination(currentPlayerPiece, destination);
-        validateMiddleRoute(currentPlayerPiece, destination);
-        removeOtherPlayerPieceAt(destination);
-        currentPlayerPiece.changePosition(destination);
-        currentTurn = currentTurn.getOtherTeam();
+    public void movePiece(final Piece piece, final Position destination) {
+        validateDestination(piece, destination);
+        validateMiddleRoute(piece, destination);
+        removeOtherPlayerPieceIfExistAt(destination);
+        piece.changePosition(destination);
     }
 
     private Player getNotCurrentTurnPlayer() {
@@ -78,7 +78,7 @@ public class JanggiProcess {
     }
 
     private void validateMiddleRoute(final Piece piece, final Position destination) {
-        List<Position> routeToDestinationExcludeDestination = calculateRouteExcludeDestination(piece, destination);
+        List<Position> routeToDestinationExcludeDestination = excludeDestinationInRoute(piece, destination);
         if (piece.getPieceType() == PieceType.CANNON) {
             validateMiddleRouteOfCannon(routeToDestinationExcludeDestination);
             return;
@@ -105,13 +105,13 @@ public class JanggiProcess {
         }
     }
 
-    private List<Position> calculateRouteExcludeDestination(final Piece piece, final Position destination) {
+    private List<Position> excludeDestinationInRoute(final Piece piece, final Position destination) {
         List<Position> routeToDestination = new ArrayList<>(piece.calculateRouteToDestination(destination));
         routeToDestination.removeFirst();
         return routeToDestination;
     }
 
-    private void removeOtherPlayerPieceAt(final Position position) {
+    private void removeOtherPlayerPieceIfExistAt(final Position position) {
         Player otherPlayer = getNotCurrentTurnPlayer();
         if (otherPlayer.isPieceExistAt(position)) {
             makeOtherPlayerGameOverIfGeneralBeKilled(otherPlayer, position);
@@ -125,11 +125,16 @@ public class JanggiProcess {
         }
     }
 
+    public void changeTurn() {
+        currentTurn = currentTurn.getOtherTeam();
+    }
+
     public Player getWinner() {
-        if (canGameContinue()) {
+        List<Player> alivePlayers = players.getAlivePlayers();
+        if (alivePlayers.size() == COUNT_OF_JANGGI_PLAYER) {
             throw new IllegalArgumentException("아직 승자가 결정되지 않았습니다.");
         }
-        return players.removeFirst();
+        return alivePlayers.getFirst();
     }
 
     public int calculateTeamPoints(final Team team) {
