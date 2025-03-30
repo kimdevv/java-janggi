@@ -198,4 +198,17 @@ public class PlayerTest {
         // When & Then
         assertThat(player.calculatePoints()).isEqualTo(172);
     }
+
+    @Test
+    void 해당_플레이어를_죽은_상태로_만든다() {
+        // Given
+        Pieces pieces = Pieces.initializeRedTeamPieces();
+        Player player = new Player(pieces, Team.RED);
+
+        // When
+        player.makeDead();
+
+        // Then
+        assertThat(player.isAlive()).isFalse();
+    }
 }

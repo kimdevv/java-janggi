@@ -66,6 +66,26 @@ public class PiecesTest {
     }
 
     @Test
+    void 기존의_Piece들로_Pieces를_생성한다() {
+        // Given
+        List<Piece> pieces = List.of(
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), new Position(1, 4)),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GUARD), new Position(0, 3)),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CANNON), new Position(3, 3))
+        );
+
+        // When
+        Pieces result = Pieces.continuePiecesFrom(pieces);
+
+        // When & Then
+        assertThat(result.getPieces()).containsExactlyInAnyOrder(
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GENERAL), new Position(1, 4)),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.GUARD), new Position(0, 3)),
+                new Piece(PieceProfile.generateFromPieceType(PieceType.CANNON), new Position(3, 3))
+        );
+    }
+
+    @Test
     void 해당_위치에_기물이_있다면_찾는다() {
         // Given
         Pieces pieces = Pieces.initializeRedTeamPieces();

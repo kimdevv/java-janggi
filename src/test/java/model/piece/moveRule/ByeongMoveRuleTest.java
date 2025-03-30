@@ -52,4 +52,26 @@ public class ByeongMoveRuleTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("현재 기물이 이동할 수 없는 위치입니다.");
     }
+
+    @Test
+    void 궁성_내부에서는_왼쪽아래로_이동할_수_있다() {
+        // Given
+        Position startPosition = new Position(8, 4);
+        Position destination = new Position(9, 3);
+
+        // When & Then
+        assertThat(byeongMoveRule.calculateRouteToDestination(startPosition, destination))
+                .containsExactlyInAnyOrder(new Position(9, 3));
+    }
+
+    @Test
+    void 궁성_내부에서는_오른쪽아래로_이동할_수_있다() {
+        // Given
+        Position startPosition = new Position(8, 4);
+        Position destination = new Position(9, 5);
+
+        // When & Then
+        assertThat(byeongMoveRule.calculateRouteToDestination(startPosition, destination))
+                .containsExactlyInAnyOrder(new Position(9, 5));
+    }
 }

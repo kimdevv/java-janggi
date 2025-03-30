@@ -26,7 +26,7 @@ class PositionTest {
     }
 
     @Test
-    void 행과_열을_변경한다() {
+    void 행과_열을_이동시킨다() {
         // Given
         Position position = new Position(5, 5);
 
@@ -78,5 +78,28 @@ class PositionTest {
         assertThatThrownBy(() -> position.moveIfDestinationIsValid(rowStep, columnStep))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("10x9 범위를 벗어났습니다.");
+    }
+
+    @CsvSource({
+            "0, 3, true",
+            "0, 5, true",
+            "2, 3, true",
+            "2, 5, true",
+            "7, 3, true",
+            "7, 5, true",
+            "9, 3, true",
+            "9, 5, true",
+            "3, 5, false",
+            "6, 5, false",
+            "2, 2, false",
+            "2, 6, false"
+    })
+    @ParameterizedTest
+    void 주어진_Position이_궁성_내부인지_확인한다(int row, int column, boolean expected) {
+        // Given
+        Position position = new Position(row, column);
+
+        // When & Then
+        assertThat(position.isInPalace()).isEqualTo(expected);
     }
 }

@@ -52,4 +52,26 @@ public class JolMoveRuleTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("현재 기물이 이동할 수 없는 위치입니다.");
     }
+
+    @Test
+    void 궁성_내부에서는_왼쪽위로_이동할_수_있다() {
+        // Given
+        Position startPosition = new Position(8, 4);
+        Position destination = new Position(7, 3);
+
+        // When & Then
+        assertThat(jolMoveRule.calculateRouteToDestination(startPosition, destination))
+                .containsExactlyInAnyOrder(new Position(7, 3));
+    }
+
+    @Test
+    void 궁성_내부에서는_오른쪽위로_이동할_수_있다() {
+        // Given
+        Position startPosition = new Position(8, 4);
+        Position destination = new Position(7, 5);
+
+        // When & Then
+        assertThat(jolMoveRule.calculateRouteToDestination(startPosition, destination))
+                .containsExactlyInAnyOrder(new Position(7, 5));
+    }
 }
