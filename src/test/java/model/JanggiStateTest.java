@@ -88,12 +88,111 @@ public class JanggiStateTest {
     @Test
     void 이동_경로에_다른_기물이_있다면_이동할_수_없고_예외를_발생시킨다() {
         // Given
-        Piece greenPiece = janggiState.findCurrentTurnPlayerPieceAt(new Position(9, 0));
-        Position greenDestination = new Position(5, 0);
+        Piece piece = janggiState.findCurrentTurnPlayerPieceAt(new Position(9, 0));
+        Position destination = new Position(5, 0);
 
         // When & Then
-        assertThatThrownBy(() -> janggiState.movePiece(greenPiece, greenDestination))
+        assertThatThrownBy(() -> janggiState.movePiece(piece, destination))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없는 상태입니다.");
+    }
+
+    @Test
+    void 목적지에_같은_팀_기물이_있다면_움직일_수_없다() {
+        // Given
+        Piece greenChariot = janggiState.findCurrentTurnPlayerPieceAt(new Position(9, 0));
+        Position destination = new Position(9, 1);
+
+        // When & Then
+        assertThatThrownBy(() -> janggiState.movePiece(greenChariot, destination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("해당 위치로 움직일 수 없는 상태입니다.");
+    }
+
+    @Test
+    void 포는_무조건_기물을_하나_뛰어_넘어야_한다() {
+        // Given
+        janggiState.findCurrentTurnPlayerPieceAt(new Position(6, 0)).changePosition(new Position(6, 1));
+        Piece greenCannon = janggiState.findCurrentTurnPlayerPieceAt(new Position(7, 1));
+        Position destination = new Position(5, 1);
+
+        // When
+        janggiState.movePiece(greenCannon, destination);
+
+        // Then
+        assertThat(janggiState.findCurrentTurnPlayerPieceAt(new Position(5, 1)))
+                .isEqualTo(greenCannon);
+    }
+
+    @Test
+    void 포의_이동_경로에_기물이_없다면_움직일_수_없다() {
+        // Given
+        Piece greenCannon = janggiState.findCurrentTurnPlayerPieceAt(new Position(7, 1));
+        Position destination = new Position(5, 1);
+
+        // When & Then
+        assertThatThrownBy(() -> janggiState.movePiece(greenCannon, destination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("해당 위치로 움직일 수 없는 상태입니다.");
+    }
+
+    @Test
+    void 포는_두_개_이상의_기물은_뛰어넘을_수_없다() {
+        // Given
+        janggiState.findCurrentTurnPlayerPieceAt(new Position(6, 0)).changePosition(new Position(6, 1));
+        janggiState.findCurrentTurnPlayerPieceAt(new Position(6, 2)).changePosition(new Position(5, 1));
+        Piece greenCannon = janggiState.findCurrentTurnPlayerPieceAt(new Position(7, 1));
+        Position destination = new Position(4, 1);
+
+        // When & Then
+        assertThatThrownBy(() -> janggiState.movePiece(greenCannon, destination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("해당 위치로 움직일 수 없는 상태입니다.");
+    }
+
+    @Test
+    void 포는_상대팀_포를_죽일_수_없다() {
+        // Given
+        janggiState.findCurrentTurnPlayerPieceAt(new Position(6, 0)).changePosition(new Position(6, 1));
+        Piece greenCannon = janggiState.findCurrentTurnPlayerPieceAt(new Position(7, 1));
+        Position destination = new Position(2, 1);
+
+        // When & Then
+        assertThatThrownBy(() -> janggiState.movePiece(greenCannon, destination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("해당 위치로 움직일 수 없는 상태입니다.");
+    }
+
+    @Test
+    void 상대_팀의_궁을_죽이면_승리한다() {
+        // Given
+        Piece greenCannon = janggiState.findCurrentTurnPlayerPieceAt(new Position(7, 1));
+        greenCannon.changePosition(new Position(4, 4));
+        Position destination = new Position(1, 4);
+
+        // When
+        janggiState.movePiece(greenCannon, destination);
+
+        // Then
+        assertThat(janggiState.getWinner().getTeam()).isEqualTo(Team.GREEN);
+    }
+
+    @Test
+    void 두_플레이어가_모두_살아있다면_승자를_결정할_수_없다() {
+        // Given
+        // When
+        // Then
+        assertThatThrownBy(() -> janggiState.getWinner())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("아직 승자가 결정되지 않았습니다.");
+    }
+
+    @Test
+    void 턴을_바꾼다() {
+        // Given
+        // When
+        janggiState.changeTurn();
+        // Then
+        assertThat(janggiState.getCurrentTurnTeam()).isEqualTo(Team.RED);
     }
 }
