@@ -52,7 +52,7 @@ public class GameDao {
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             final ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Team.findByName(resultSet.getString("turn"));
+                return Team.valueOf(resultSet.getString("turn"));
             }
             throw new SQLException();
         } catch (SQLException exception) {

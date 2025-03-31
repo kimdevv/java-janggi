@@ -80,7 +80,7 @@ public class PieceDao {
     private List<Piece> generateTeamPieces(ResultSet resultSet) throws SQLException {
         List<Piece> teamPieces = new ArrayList<>();
         while (resultSet.next()) {
-            PieceType pieceType = PieceType.findByName(resultSet.getString("type"));
+            PieceType pieceType = PieceType.valueOf(resultSet.getString("type"));
             Piece piece = new Piece(PieceProfile.generateFromPieceType(pieceType), new Position(resultSet.getInt("rowPosition"), resultSet.getInt("columnPosition")));
             teamPieces.add(piece);
         }

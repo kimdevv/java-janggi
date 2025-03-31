@@ -1,7 +1,5 @@
 package model.piece;
 
-import java.util.Arrays;
-
 public enum PieceType {
     GENERAL(100),
     GUARD(3),
@@ -17,14 +15,6 @@ public enum PieceType {
     PieceType(final int point) {
         this.point = point;
     }
-
-    public static PieceType findByName(final String name) {
-        return Arrays.stream(values())
-                .filter(pieceType -> pieceType.name().equalsIgnoreCase(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("PieceType 이름이 잘못되었습니다."));
-    }
-
     public int getPoint() {
         return point;
     }

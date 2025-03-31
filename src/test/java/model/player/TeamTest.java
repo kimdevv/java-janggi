@@ -16,15 +16,4 @@ public class TeamTest {
         assertThat(green.getOtherTeam()).isEqualTo(Team.RED);
         assertThat(red.getOtherTeam()).isEqualTo(Team.GREEN);
     }
-
-    @Test
-    void 팀의_이름으로_Team_값을_가져온다() {
-        // Given
-        String greenName = "GREEN";
-        String redName = "RED";
-
-        // When & Then
-        assertThat(Team.findByName(greenName)).isEqualTo(Team.GREEN);
-        assertThat(Team.findByName(redName)).isEqualTo(Team.RED);
-    }
 }
