@@ -27,7 +27,7 @@ public class JanggiConsoleManager {
         this.gameDao = new GameDao(databaseConnectionManager.getConnection());
     }
 
-    public void startJanggi() {
+    public void playJanggi() {
         JanggiState janggiState = initializeJanggiState();
         progressTurnUntilEnd(janggiState);
         outputView.outputWinner(janggiState.getWinner(), janggiState.calculateTeamPoints(Team.GREEN), janggiState.calculateTeamPoints(Team.RED));
@@ -56,7 +56,7 @@ public class JanggiConsoleManager {
         Pieces redPieces = Pieces.continuePiecesFrom(pieceDao.findPieceByTeam(Team.RED));
         Player greenPlayer = new Player(greenPieces, Team.GREEN);
         Player redPlayer = new Player(redPieces, Team.RED);
-        return JanggiState.intializeJanggi(greenPlayer, redPlayer, currentTurnTeam);
+        return JanggiState.initializeJanggi(greenPlayer, redPlayer, currentTurnTeam);
     }
 
     private void resetDatabase() {
@@ -70,7 +70,7 @@ public class JanggiConsoleManager {
         Player greenPlayer = new Player(greenPieces, Team.GREEN);
         Player redPlayer = new Player(redPieces, Team.RED);
         initializePiecesToDB(greenPieces, redPieces);
-        return JanggiState.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
+        return JanggiState.initializeJanggi(greenPlayer, redPlayer, Team.GREEN);
     }
 
     public void initializePiecesToDB(final Pieces greenPieces, final Pieces redPieces) {

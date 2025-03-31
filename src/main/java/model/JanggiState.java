@@ -21,7 +21,7 @@ public class JanggiState {
         this.currentTurn = firstTurnTeam;
     }
 
-    public static JanggiState intializeJanggi(final Player greenPlayer, final Player redPlayer, final Team firstTurnTeam) {
+    public static JanggiState initializeJanggi(final Player greenPlayer, final Player redPlayer, final Team firstTurnTeam) {
         Players players = new Players(List.of(greenPlayer, redPlayer));
         return new JanggiState(players, firstTurnTeam);
     }

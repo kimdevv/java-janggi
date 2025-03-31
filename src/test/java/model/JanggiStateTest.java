@@ -23,7 +23,7 @@ public class JanggiStateTest {
     void initialize() {
         greenPlayer = new Player(Pieces.initializeGreenTeamPieces(), Team.GREEN);
         redPlayer = new Player(Pieces.initializeRedTeamPieces(), Team.RED);
-        janggiState = JanggiState.intializeJanggi(greenPlayer, redPlayer, Team.GREEN);
+        janggiState = JanggiState.initializeJanggi(greenPlayer, redPlayer, Team.GREEN);
     }
 
     @Test
