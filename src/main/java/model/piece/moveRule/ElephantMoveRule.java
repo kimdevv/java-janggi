@@ -2,7 +2,14 @@ package model.piece.moveRule;
 
 import model.piece.position.Position;
 
-import static model.piece.position.MovementChecker.*;
+import static model.piece.position.MovementChecker.isDownDownDownLeftLeft;
+import static model.piece.position.MovementChecker.isDownDownDownRightRight;
+import static model.piece.position.MovementChecker.isLeftLeftLeftDownDown;
+import static model.piece.position.MovementChecker.isLeftLeftLeftUpUp;
+import static model.piece.position.MovementChecker.isRightRightRightDownDown;
+import static model.piece.position.MovementChecker.isRightRightRightUpUp;
+import static model.piece.position.MovementChecker.isUpUpUpLeftLeft;
+import static model.piece.position.MovementChecker.isUpUpUpRightRight;
 
 class ElephantMoveRule extends MultiStepMoveRule {
 

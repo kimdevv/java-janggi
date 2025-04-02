@@ -2,7 +2,11 @@ package model.piece.moveRule;
 
 import model.piece.position.Position;
 
-import static model.piece.position.MovementChecker.*;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isRight;
+import static model.piece.position.MovementChecker.isUp;
+import static model.piece.position.MovementChecker.isUpLeft;
+import static model.piece.position.MovementChecker.isUpRight;
 
 class JolMoveRule extends OneStepMoveRule {
 

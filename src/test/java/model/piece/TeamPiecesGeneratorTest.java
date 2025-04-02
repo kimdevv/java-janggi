@@ -2,7 +2,39 @@ package model.piece;
 
 import org.junit.jupiter.api.Test;
 
-import static model.piece.position.DefaultPiecePositions.*;
+
+import static model.piece.position.DefaultPiecePositions.BYEONG_FIFTH_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_FIRST_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_FOURTH_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_SECOND_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_THIRD_RED;
+import static model.piece.position.DefaultPiecePositions.CANNON_LEFT_GREEN;
+import static model.piece.position.DefaultPiecePositions.CANNON_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.CANNON_RIGHT_GREEN;
+import static model.piece.position.DefaultPiecePositions.CANNON_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_LEFT_GREEN;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_RIGHT_GREEN;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_LEFT_GREEN;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_RIGHT_GREEN;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.GENERAL_GREEN;
+import static model.piece.position.DefaultPiecePositions.GENERAL_RED;
+import static model.piece.position.DefaultPiecePositions.GUARD_LEFT_GREEN;
+import static model.piece.position.DefaultPiecePositions.GUARD_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.GUARD_RIGHT_GREEN;
+import static model.piece.position.DefaultPiecePositions.GUARD_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.HORSE_LEFT_GREEN;
+import static model.piece.position.DefaultPiecePositions.HORSE_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.HORSE_RIGHT_GREEN;
+import static model.piece.position.DefaultPiecePositions.HORSE_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.JOL_FIFTH_GREEN;
+import static model.piece.position.DefaultPiecePositions.JOL_FIRST_GREEN;
+import static model.piece.position.DefaultPiecePositions.JOL_FOURTH_GREEN;
+import static model.piece.position.DefaultPiecePositions.JOL_SECOND_GREEN;
+import static model.piece.position.DefaultPiecePositions.JOL_THIRD_GREEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TeamPiecesGeneratorTest {

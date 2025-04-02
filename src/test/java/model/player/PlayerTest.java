@@ -11,7 +11,22 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
-import static model.piece.position.DefaultPiecePositions.*;
+
+import static model.piece.position.DefaultPiecePositions.BYEONG_FIFTH_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_FIRST_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_FOURTH_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_SECOND_RED;
+import static model.piece.position.DefaultPiecePositions.BYEONG_THIRD_RED;
+import static model.piece.position.DefaultPiecePositions.CANNON_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.CANNON_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.CHARIOT_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.ELEPHANT_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.GUARD_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.GUARD_RIGHT_RED;
+import static model.piece.position.DefaultPiecePositions.HORSE_LEFT_RED;
+import static model.piece.position.DefaultPiecePositions.HORSE_RIGHT_RED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

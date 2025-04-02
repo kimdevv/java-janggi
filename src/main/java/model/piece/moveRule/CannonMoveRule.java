@@ -2,7 +2,22 @@ package model.piece.moveRule;
 
 import model.piece.position.Position;
 
-import static model.piece.position.MovementChecker.*;
+import static model.piece.position.MovementChecker.isDown;
+import static model.piece.position.MovementChecker.isDownLeft;
+import static model.piece.position.MovementChecker.isDownLeftStraight;
+import static model.piece.position.MovementChecker.isDownRight;
+import static model.piece.position.MovementChecker.isDownRightStraight;
+import static model.piece.position.MovementChecker.isDownStraight;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isLeftStraight;
+import static model.piece.position.MovementChecker.isRight;
+import static model.piece.position.MovementChecker.isRightStraight;
+import static model.piece.position.MovementChecker.isUp;
+import static model.piece.position.MovementChecker.isUpLeft;
+import static model.piece.position.MovementChecker.isUpLeftStraight;
+import static model.piece.position.MovementChecker.isUpRight;
+import static model.piece.position.MovementChecker.isUpRightStraight;
+import static model.piece.position.MovementChecker.isUpStraight;
 
 class CannonMoveRule extends MultiStepMoveRule {
 

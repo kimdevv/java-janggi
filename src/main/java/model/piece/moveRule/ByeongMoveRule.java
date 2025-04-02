@@ -2,7 +2,11 @@ package model.piece.moveRule;
 
 import model.piece.position.Position;
 
-import static model.piece.position.MovementChecker.*;
+import static model.piece.position.MovementChecker.isDown;
+import static model.piece.position.MovementChecker.isDownLeft;
+import static model.piece.position.MovementChecker.isDownRight;
+import static model.piece.position.MovementChecker.isLeft;
+import static model.piece.position.MovementChecker.isRight;
 
 class ByeongMoveRule extends OneStepMoveRule {
 
