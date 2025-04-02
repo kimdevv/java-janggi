@@ -62,7 +62,6 @@ public class GameDao {
         }
     }
 
-
     public boolean isExist() {
         final String query = "SELECT COUNT(*) FROM game";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {

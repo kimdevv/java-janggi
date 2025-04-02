@@ -23,14 +23,24 @@ public abstract class MultiStepMoveRule implements MoveRule {
         List<Position> route = new ArrayList<>();
         while (isStepRemain(rowStep, columnStep)) {
             route.add(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
-            rowStep = AbsoluteValueDecreaser.decreaseOne(rowStep);
-            columnStep = AbsoluteValueDecreaser.decreaseOne(columnStep);
+            rowStep = decreaseAbsoluteValue(rowStep);
+            columnStep = decreaseAbsoluteValue(columnStep);
         }
         return route;
     }
 
     private boolean isStepRemain(final int rowStep, final int columnStep) {
         return rowStep != 0 || columnStep != 0;
+    }
+
+    private int decreaseAbsoluteValue(final int number) {
+        if (number < 0) {
+            return number + 1;
+        }
+        if (number > 0) {
+            return number - 1;
+        }
+        return number;
     }
 
 }
