@@ -25,6 +25,10 @@ public class PieceProfile {
         return moveRule.calculateRouteToDestination(startPosition, destination);
     }
 
+    public boolean isPieceTypeOf(final PieceType pieceType) {
+        return this.pieceType == pieceType;
+    }
+
     PieceType getPieceType() {
         return pieceType;
     }

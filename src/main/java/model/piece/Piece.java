@@ -27,6 +27,10 @@ public class Piece {
         return position;
     }
 
+    public boolean isPieceTypeOf(final PieceType pieceType) {
+        return pieceProfile.isPieceTypeOf(pieceType);
+    }
+
     public PieceType getPieceType() {
         return pieceProfile.getPieceType();
     }

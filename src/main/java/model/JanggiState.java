@@ -55,7 +55,7 @@ public class JanggiState {
     }
 
     private void validateDestination(final Piece piece, final Position destination) {
-        if (piece.getPieceType() == PieceType.CANNON) {
+        if (piece.isPieceTypeOf(PieceType.CANNON)) {
             validateDestinationOfCannon(destination);
             return;
         }
@@ -79,7 +79,7 @@ public class JanggiState {
 
     private void validateMiddleRoute(final Piece piece, final Position destination) {
         List<Position> routeToDestinationExcludeDestination = excludeDestinationInRoute(piece, destination);
-        if (piece.getPieceType() == PieceType.CANNON) {
+        if (piece.isPieceTypeOf(PieceType.CANNON)) {
             validateMiddleRouteOfCannon(routeToDestinationExcludeDestination);
             return;
         }
@@ -131,7 +131,7 @@ public class JanggiState {
 
     public Player getWinner() {
         List<Player> alivePlayers = players.getAlivePlayers();
-        if (alivePlayers.size() == COUNT_OF_JANGGI_PLAYER) {
+        if (canGameContinue()) {
             throw new IllegalArgumentException("아직 승자가 결정되지 않았습니다.");
         }
         return alivePlayers.getFirst();

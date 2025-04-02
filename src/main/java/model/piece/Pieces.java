@@ -39,7 +39,7 @@ public class Pieces {
 
     public boolean isPieceTypeExistAt(final Position position, final PieceType pieceType) {
         if (isPieceExistAt(position)) {
-            return findPieceAt(position).getPieceType() == pieceType;
+            return findPieceAt(position).isPieceTypeOf(pieceType);
         }
         return false;
     }
@@ -57,7 +57,7 @@ public class Pieces {
 
     public boolean isCannonExistAtRoute(final List<Position> route) {
         return pieces.stream()
-                .anyMatch(piece -> piece.getPieceType() == PieceType.CANNON && route.contains(piece.getPosition()));
+                .anyMatch(piece -> piece.isPieceTypeOf(PieceType.CANNON) && route.contains(piece.getPosition()));
     }
 
     public void removePieceAt(final Position position) {
