@@ -1,16 +1,18 @@
 package dao;
 
+import util.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnectionManager {
 
-    private static final String SERVER = "localhost:3307";
-    private static final String DATABASE = "janggi";
-    private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    private static final String SERVER = ConfigLoader.getProperty("database.server");
+    private static final String DATABASE = ConfigLoader.getProperty("database.database");
+    private static final String OPTION = ConfigLoader.getProperty("database.option");
+    private static final String USERNAME = ConfigLoader.getProperty("database.username");
+    private static final String PASSWORD = ConfigLoader.getProperty("database.password");
 
     public Connection getConnection() {
         try {
