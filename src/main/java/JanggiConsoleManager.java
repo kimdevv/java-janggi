@@ -60,7 +60,7 @@ public class JanggiConsoleManager {
     }
 
     private void resetDatabase() {
-        gameDao.deleteAlLGames();
+        gameDao.deleteGame();
         pieceDao.deleteAllPieces();
     }
 

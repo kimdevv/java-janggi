@@ -37,7 +37,7 @@ public class GameDao {
         }
     }
 
-    public void deleteAlLGames() {
+    public void deleteGame() {
         final String query = "DELETE FROM game";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
