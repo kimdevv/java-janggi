@@ -7,7 +7,7 @@ import static model.piece.position.MovementChecker.*;
 class HorseMoveRule extends MultiStepMoveRule {
 
     @Override
-    protected boolean canPieceMove(final Position startPosition, final Position destination) {
+    protected boolean isAvailableMoveOfPiece(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
         return isUpUpLeft(rowStep, columnStep) || isUpUpRight(rowStep, columnStep)

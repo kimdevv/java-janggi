@@ -7,7 +7,7 @@ import static model.piece.position.MovementChecker.*;
 class ElephantMoveRule extends MultiStepMoveRule {
 
     @Override
-    protected boolean canPieceMove(final Position startPosition, final Position destination) {
+    protected boolean isAvailableMoveOfPiece(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
         return isUpUpUpLeftLeft(rowStep, columnStep) || isUpUpUpRightRight(rowStep, columnStep)

@@ -30,7 +30,7 @@ public class JanggiStateTest {
     void 두_플레이어가_모두_생존한_상태인지_확인한다() {
         // Given
         // When & Then
-        assertThat(janggiState.canGameContinue()).isTrue();
+        assertThat(janggiState.isAllPlayersAlive()).isTrue();
     }
 
     @Test

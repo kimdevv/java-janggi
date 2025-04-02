@@ -6,24 +6,24 @@ import static model.piece.position.MovementChecker.*;
 class ChariotMoveRule extends MultiStepMoveRule {
 
     @Override
-    protected boolean canPieceMove(final Position startPosition, final Position destination) {
+    protected boolean isAvailableMoveOfPiece(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
         if (startPosition.isInPalace() && destination.isInPalace()) {
-            return canPieceMoveInsidePalace(rowStep, columnStep);
+            return isAvailableMoveOfPieceInsidePalace(rowStep, columnStep);
         }
-        return canPieceMoveOutsidePalace(rowStep, columnStep);
+        return isAvailableMoveOfPieceOutsidePalace(rowStep, columnStep);
     }
 
-    private boolean canPieceMoveInsidePalace(final int rowStep, final int columnStep) {
-        return canPieceMoveOutsidePalace(rowStep, columnStep)
+    private boolean isAvailableMoveOfPieceInsidePalace(final int rowStep, final int columnStep) {
+        return isAvailableMoveOfPieceOutsidePalace(rowStep, columnStep)
                 || isUpLeftStraight(rowStep, columnStep)
                 || isUpRightStraight(rowStep, columnStep)
                 || isDownLeftStraight(rowStep, columnStep)
                 || isDownRightStraight(rowStep, columnStep);
     }
 
-    private boolean canPieceMoveOutsidePalace(final int rowStep, final int columnStep) {
+    private boolean isAvailableMoveOfPieceOutsidePalace(final int rowStep, final int columnStep) {
         return isUpStraight(rowStep, columnStep)
                 || isLeftStraight(rowStep, columnStep)
                 || isRightStraight(rowStep, columnStep)

@@ -7,22 +7,22 @@ import static model.piece.position.MovementChecker.*;
 class ByeongMoveRule extends OneStepMoveRule {
 
     @Override
-    protected boolean canPieceMove(final Position startPosition, final Position destination) {
+    protected boolean isAvailableMoveOfPiece(final Position startPosition, final Position destination) {
         int rowStep = destination.calculateRowDifference(startPosition);
         int columnStep = destination.calculateColumnDifference(startPosition);
         if (startPosition.isInPalace() && destination.isInPalace()) {
-            return canPieceMoveInsidePalace(rowStep, columnStep);
+            return isAvailableMoveOfPieceInsidePalace(rowStep, columnStep);
         }
-        return canPieceMoveOutsidePalace(rowStep, columnStep);
+        return isAvailableMoveOfPieceOutsidePalace(rowStep, columnStep);
     }
 
-    private boolean canPieceMoveInsidePalace(final int rowStep, final int columnStep) {
-        return canPieceMoveOutsidePalace(rowStep, columnStep)
+    private boolean isAvailableMoveOfPieceInsidePalace(final int rowStep, final int columnStep) {
+        return isAvailableMoveOfPieceOutsidePalace(rowStep, columnStep)
                 || (isDownLeft(rowStep, columnStep))
                 || (isDownRight(rowStep, columnStep));
     }
 
-    private boolean canPieceMoveOutsidePalace(final int rowStep, final int columnStep) {
+    private boolean isAvailableMoveOfPieceOutsidePalace(final int rowStep, final int columnStep) {
         return isDown(rowStep, columnStep)
                 || isLeft(rowStep, columnStep)
                 || isRight(rowStep, columnStep);

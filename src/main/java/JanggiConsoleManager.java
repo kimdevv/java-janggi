@@ -80,7 +80,7 @@ public class JanggiConsoleManager {
     }
 
     private void progressTurnUntilEnd(final JanggiState janggiState) {
-        while (janggiState.canGameContinue()) {
+        while (janggiState.isAllPlayersAlive()) {
             outputView.outputCurrentJanggiBoard(janggiState.getPlayerByTeam(Team.RED).getPieces(), janggiState.getPlayerByTeam(Team.GREEN).getPieces());
             progressTurn(janggiState);
         }

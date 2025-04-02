@@ -26,7 +26,7 @@ public class JanggiState {
         return new JanggiState(players, firstTurnTeam);
     }
 
-    public boolean canGameContinue() {
+    public boolean isAllPlayersAlive() {
         return players.getAlivePlayers().size() == COUNT_OF_JANGGI_PLAYER;
     }
 
@@ -131,7 +131,7 @@ public class JanggiState {
 
     public Player getWinner() {
         List<Player> alivePlayers = players.getAlivePlayers();
-        if (canGameContinue()) {
+        if (isAllPlayersAlive()) {
             throw new IllegalArgumentException("아직 승자가 결정되지 않았습니다.");
         }
         return alivePlayers.getFirst();
