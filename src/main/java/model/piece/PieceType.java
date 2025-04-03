@@ -15,6 +15,7 @@ public enum PieceType {
     PieceType(final int point) {
         this.point = point;
     }
+
     public int getPoint() {
         return point;
     }

@@ -31,5 +31,4 @@ class JolMoveRule extends OneStepMoveRule {
                 || isLeft(rowStep, columnStep)
                 || isRight(rowStep, columnStep);
     }
-
 }

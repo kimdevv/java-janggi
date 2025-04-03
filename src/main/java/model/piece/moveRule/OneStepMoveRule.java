@@ -21,5 +21,4 @@ public abstract class OneStepMoveRule implements MoveRule {
         int columnStep = destination.calculateColumnDifference(startPosition);
         return List.of(startPosition.moveIfDestinationIsValid(rowStep, columnStep));
     }
-
 }

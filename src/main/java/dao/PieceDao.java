@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PieceDao {
@@ -53,7 +52,7 @@ public class PieceDao {
     }
 
     public void deletePieceByPosition(final Position position) {
-        final String query ="DELETE FROM piece WHERE rowPosition = ? AND columnPosition = ?";
+        final String query = "DELETE FROM piece WHERE rowPosition = ? AND columnPosition = ?";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, position.getRow());
             preparedStatement.setInt(2, position.getColumn());
@@ -74,7 +73,7 @@ public class PieceDao {
 
     public List<Piece> findPieceByTeam(final Team team) {
         final String query = "SELECT * FROM piece WHERE team = ?";
-        try (final  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, team.name());
             final ResultSet resultSet = preparedStatement.executeQuery();
             return generateTeamPieces(resultSet);

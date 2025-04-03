@@ -42,5 +42,4 @@ public abstract class MultiStepMoveRule implements MoveRule {
         }
         return number;
     }
-
 }

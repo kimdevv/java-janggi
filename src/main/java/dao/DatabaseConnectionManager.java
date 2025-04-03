@@ -21,5 +21,4 @@ public class DatabaseConnectionManager {
             throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
-
 }

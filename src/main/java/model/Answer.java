@@ -3,6 +3,7 @@ package model;
 import java.util.Arrays;
 
 public enum Answer {
+
     YES("y"),
     NO("n");
 

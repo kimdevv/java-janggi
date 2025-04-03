@@ -22,5 +22,4 @@ class ElephantMoveRule extends MultiStepMoveRule {
                 || isRightRightRightUpUp(rowStep, columnStep) || isRightRightRightDownDown(rowStep, columnStep)
                 || isDownDownDownLeftLeft(rowStep, columnStep) || isDownDownDownRightRight(rowStep, columnStep);
     }
-
 }

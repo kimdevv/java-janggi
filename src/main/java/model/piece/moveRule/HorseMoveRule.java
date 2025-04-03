@@ -22,5 +22,4 @@ class HorseMoveRule extends MultiStepMoveRule {
                 || isRightRightUp(rowStep, columnStep) || isRightRightDown(rowStep, columnStep)
                 || isDownDownLeft(rowStep, columnStep) || isDownDownRight(rowStep, columnStep);
     }
-
 }

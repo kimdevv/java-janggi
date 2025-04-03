@@ -37,5 +37,4 @@ class ChariotMoveRule extends MultiStepMoveRule {
                 || isRightStraight(rowStep, columnStep)
                 || isDownStraight(rowStep, columnStep);
     }
-
 }

@@ -45,5 +45,4 @@ class CannonMoveRule extends MultiStepMoveRule {
                 || (isRightStraight(rowStep, columnStep) && !isRight(rowStep, columnStep))
                 || (isDownStraight(rowStep, columnStep) && !isDown(rowStep, columnStep));
     }
-
 }

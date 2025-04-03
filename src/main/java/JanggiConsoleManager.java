@@ -40,7 +40,7 @@ public class JanggiConsoleManager {
         }
         return initializeNewJanggiGame();
     }
-    
+
     private JanggiProcess initializeWhenPreviousGameExist() {
         Answer answer = inputView.inputContinuePreviousGame();
         if (answer.isYes()) {

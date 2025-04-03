@@ -44,11 +44,11 @@ public class OutputView {
     }
 
     private void paintPalace(final String[][] piecePositionTexts) {
-        for (int column=MINIMUM_PALACE_COLUMN; column<=MAXIMUM_PALACE_COLUMN; column++) {
-            for (int row=MINIMUM_RED_PALACE_ROW; row<=MAXIMUM_RED_PALACE_ROW; row++) {
+        for (int column = MINIMUM_PALACE_COLUMN; column <= MAXIMUM_PALACE_COLUMN; column++) {
+            for (int row = MINIMUM_RED_PALACE_ROW; row <= MAXIMUM_RED_PALACE_ROW; row++) {
                 piecePositionTexts[row][column] = "＋";
             }
-            for (int row=MINIMUM_GREEN_PALACE_ROW; row<=MAXIMUM_GREEN_PALACE_ROW; row++) {
+            for (int row = MINIMUM_GREEN_PALACE_ROW; row <= MAXIMUM_GREEN_PALACE_ROW; row++) {
                 piecePositionTexts[row][column] = "＋";
             }
         }

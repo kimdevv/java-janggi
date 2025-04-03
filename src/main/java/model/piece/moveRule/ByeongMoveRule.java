@@ -31,5 +31,4 @@ class ByeongMoveRule extends OneStepMoveRule {
                 || isLeft(rowStep, columnStep)
                 || isRight(rowStep, columnStep);
     }
-
 }

@@ -27,5 +27,4 @@ class OnlyInPalaceMoveRule extends OneStepMoveRule {
                 || isDownLeft(rowStep, columnStep)
                 || isDownRight(rowStep, columnStep));
     }
-
 }

@@ -8,6 +8,7 @@ public class ConfigLoader {
 
     private static final Properties properties = new Properties();
     private static final String CONFIGURATION_FILE_PATH = "application.properties";
+
     static {
         try {
             properties.load(new FileReader(CONFIGURATION_FILE_PATH));
