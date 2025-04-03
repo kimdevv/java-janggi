@@ -37,8 +37,19 @@ public class PieceDao {
     }
 
     public void addPieces(final Pieces pieces, final Team team) {
-        for (Piece piece : pieces.getPieces()) {
-            addPiece(piece, team);
+        final String query = "INSERT INTO piece(type, team, rowPosition, columnPosition) VALUES (?, ?, ?, ?)";
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            for (Piece piece : pieces.getPieces()) {
+                preparedStatement.setString(1, piece.getPieceType().name());
+                preparedStatement.setString(2, team.name());
+                preparedStatement.setInt(3, piece.getPosition().getRow());
+                preparedStatement.setInt(4, piece.getPosition().getColumn());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        } catch (final SQLException exception) {
+            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
+            exception.printStackTrace();
         }
     }
 
