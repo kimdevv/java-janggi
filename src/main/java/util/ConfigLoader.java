@@ -12,7 +12,7 @@ public class ConfigLoader {
         try {
             properties.load(new FileReader(CONFIGURATION_FILE_PATH));
         } catch (IOException exception) {
-            System.out.println("설정 파일 로딩에 실패하였습니다."); // TODO 예외 던지도록 수정하기
+            throw new RuntimeException("설정 파일 로딩에 실패하였습니다.");
         }
     }
 

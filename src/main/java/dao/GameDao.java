@@ -21,8 +21,7 @@ public class GameDao {
             preparedStatement.setString(1, currentTurnTeam.name());
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -32,8 +31,7 @@ public class GameDao {
             preparedStatement.setString(1, newTurnTeam.name());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -42,8 +40,7 @@ public class GameDao {
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -56,9 +53,7 @@ public class GameDao {
             }
             throw new SQLException();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
-            return null;
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -71,9 +66,7 @@ public class GameDao {
             }
             return false;
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
-            return false;
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 }

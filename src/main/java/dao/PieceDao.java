@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PieceDao {
@@ -31,8 +32,7 @@ public class PieceDao {
             preparedStatement.setInt(4, piece.getPosition().getColumn());
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -48,8 +48,7 @@ public class PieceDao {
             }
             preparedStatement.executeBatch();
         } catch (final SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -60,8 +59,7 @@ public class PieceDao {
             preparedStatement.setInt(2, position.getColumn());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -70,8 +68,7 @@ public class PieceDao {
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -82,9 +79,7 @@ public class PieceDao {
             final ResultSet resultSet = preparedStatement.executeQuery();
             return generateTeamPieces(resultSet);
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
-            return null;
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 
@@ -107,8 +102,7 @@ public class PieceDao {
             preparedStatement.setInt(4, originalPosition.getColumn());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
-            exception.printStackTrace();
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
         }
     }
 }

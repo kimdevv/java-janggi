@@ -95,7 +95,7 @@ public class JanggiConsoleManager {
             janggiProcess.movePiece(startPosition, destination);
             janggiProcess.changeTurn();
             updateTurnResultToDatabase(janggiProcess.getCurrentTurnTeam(), startPosition, destination);
-        } catch (IllegalArgumentException exception) {
+        } catch (RuntimeException exception) {
             outputView.outputExceptionMessage(exception.getMessage());
         }
     }
