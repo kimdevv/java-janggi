@@ -28,13 +28,13 @@ public class JanggiConsoleManager {
     }
 
     public void playJanggi() {
-        JanggiProcess janggiProcess = initializeJanggiState();
+        JanggiProcess janggiProcess = initializeJanggiProcess();
         progressTurnUntilEnd(janggiProcess);
         outputView.outputWinner(janggiProcess.getWinner(), janggiProcess.calculateTeamPoints(Team.GREEN), janggiProcess.calculateTeamPoints(Team.RED));
         resetDatabase();
     }
 
-    private JanggiProcess initializeJanggiState() {
+    private JanggiProcess initializeJanggiProcess() {
         if (gameDao.isExist()) {
             return initializeWhenPreviousGameExist();
         }
