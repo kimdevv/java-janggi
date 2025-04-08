@@ -11,8 +11,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import util.ConfigLoader;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -26,18 +28,21 @@ public class PieceDaoTest {
 
     @BeforeAll
     static void setUp() {
-        DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
-        connection = databaseConnectionManager.getConnection();
+        String SERVER = ConfigLoader.getProperty("database.server");
+        String DATABASE = ConfigLoader.getProperty("database.database");
+        String OPTION = ConfigLoader.getProperty("database.option");
+        String USERNAME = ConfigLoader.getProperty("database.username");
+        String PASSWORD = ConfigLoader.getProperty("database.password");
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
+        } catch (final SQLException exception) {
+            throw new RuntimeException("DB 연결 도중 오류가 발생하였습니다. 해당 게임이 갑작스럽게 종료될 경우, 추후 이어서 진행할 수 없습니다.");
+        }
     }
 
     @BeforeEach
     void initialize() {
         pieceDao = new PieceDao(connection);
-        pieceDao.deleteAllPieces();
-    }
-
-    @AfterEach
-    void deletePieces() {
         pieceDao.deleteAllPieces();
     }
 
